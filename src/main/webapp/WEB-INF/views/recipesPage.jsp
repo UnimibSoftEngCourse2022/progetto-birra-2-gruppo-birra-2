@@ -8,5 +8,9 @@
 </head>
 <body>
 
+	<form action="Addrecipes" method="GET">
+ 		<input type="submit" value="Aggiungi Ricetta"/>
+ 	</form>
+
 </body>
 </html>
