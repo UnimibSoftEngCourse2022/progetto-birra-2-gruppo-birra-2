@@ -20,10 +20,22 @@ public class RicettaDAOImpl implements RicettaDAO {
 	}
 
 	@Override
-	public void save(Ricetta r) {
+	public int save(Ricetta r) {
 		String sql = "INSERT INTO progetto_brewday.recipes (nome, procedimento, descrizione, autore)"
 				+ " VALUES (?, ?, ?, ?)";
 		jdbcTemplate.update(sql, r.getNome(), r.getProcedimento(), r.getDescrizione(), r.getAutore());
+		sql = "Select max(ID) as ID from recipes where autore=\"" + r.getAutore() + "\"";
+		return jdbcTemplate.query(sql, new ResultSetExtractor<Integer>() {
+
+			@Override
+			public Integer extractData(ResultSet rs) throws SQLException,
+					DataAccessException {
+				if (rs.next()) {
+					return rs.getInt("ID");
+				}
+				return 0;
+			}
+		});
 	}
 
 	@Override

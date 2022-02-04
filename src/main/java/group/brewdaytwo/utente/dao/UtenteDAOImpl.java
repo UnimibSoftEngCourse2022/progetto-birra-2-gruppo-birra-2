@@ -23,14 +23,14 @@ public class UtenteDAOImpl implements UtenteDAO {
 	public void save(Utente u) {
 		String sql = "INSERT INTO progetto_brewday.users (nickname, email, password)"
 					+ " VALUES (?, ?, ?)";
-		jdbcTemplate.update(sql, u.getNickname(), u.getEmail(),u.getPassword());
+		jdbcTemplate.update(sql, u.getNickname(), u.getEmail().toLowerCase(),u.getPassword());
 	}
 	
 	@Override
 	public void update(Utente u) {
 		String sql = "UPDATE progetto_brewday.users SET email=?, password=?, "
 					+ "WHERE nickname=?";
-		jdbcTemplate.update(sql, u.getEmail(), u.getPassword(), u.getNickname());
+		jdbcTemplate.update(sql, u.getEmail().toLowerCase(), u.getPassword(), u.getNickname());
 
 	}
 

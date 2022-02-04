@@ -4,7 +4,7 @@ import group.brewdaytwo.ricetta.model.Ricetta;
 
 public interface RicettaDAO {
 	
-	public void save(Ricetta ricetta);
+	public int save(Ricetta ricetta);
 	
 	public void update(Ricetta ricetta);
 	

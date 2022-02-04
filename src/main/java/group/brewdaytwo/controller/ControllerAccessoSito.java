@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.servlet.http.HttpSession;
+
 import group.brewdaytwo.utente.dao.UtenteDAO;
 import group.brewdaytwo.utente.model.Utente;
 
@@ -79,7 +81,7 @@ public class ControllerAccessoSito {
 	}
 	
 	@PostMapping(value = "/login")
-	public ModelAndView checkUtente(@RequestBody String request) {
+	public ModelAndView checkUtente(HttpSession session,@RequestBody String request) {
 		
 		request=request.replace("%40", "@");
 		
@@ -91,7 +93,12 @@ public class ControllerAccessoSito {
 		if(Objects.isNull(utenteDAO.check(nick,pwd)))
 			return new ModelAndView("loginFailedPage");
 		else
-			return new ModelAndView("redirect:/homePage");
+		{
+			ModelAndView model = new ModelAndView("redirect:/homePage");
+			session.setAttribute("autore", nick);
+			return model;
+		}
+		
 	}
 	
 	

@@ -2,6 +2,10 @@ package group.brewdaytwo.config;
 
 import javax.sql.DataSource;
 
+import group.brewdaytwo.attrezzo.dao.AttrezzoDAO;
+import group.brewdaytwo.attrezzo.dao.AttrezzoDAOImpl;
+import group.brewdaytwo.ingrediente.dao.IngredienteDAO;
+import group.brewdaytwo.ingrediente.dao.IngredienteDAOImpl;
 import group.brewdaytwo.ricetta.dao.RicettaDAO;
 import group.brewdaytwo.ricetta.dao.RicettaDAOImpl;
 import group.brewdaytwo.utente.dao.UtenteDAO;
@@ -40,7 +44,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/progetto_brewday");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/progetto_brewday?useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("admin");
 		
@@ -55,6 +59,16 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public RicettaDAO getRicettaDAO() {
 		return new RicettaDAOImpl(getDataSource());
+	}
+	
+	@Bean
+	public IngredienteDAO getIngredienteDAO() {
+		return new IngredienteDAOImpl(getDataSource());
+	}
+	
+	@Bean
+	public AttrezzoDAO getAttrezzoDAO() {
+		return new AttrezzoDAOImpl(getDataSource());
 	}
 
 }
