@@ -28,10 +28,21 @@
 			
 			<input type="hidden" id="ricetta" name="ricetta" value="${ricettaID}"/>
 			
-			<input type="submit" id="Invia" value="Invia"/>
+			<input type="submit" id="Invia" value="Invia" onclick="check_elem()"/>
 	</form>
 
 	<script>
+	
+	function check_elem()
+	{
+		var div = document.getElementById("container");
+		var nmElem = div.children.length;
+		if(nmElem == 0)
+			document.getElementById("Invia").disabled = true;
+		else
+			document.getElementById("Invia").disabled = false;
+	}
+	
 	function add_comp() 
 	{
 		var div = document.getElementById("container");
@@ -161,6 +172,7 @@
 			    							        elems[i].appendChild(option);
 		    									}
 		    										parent.parentNode.removeChild(parent);
+		    										check_elem();
 										};
 		    
 		    cont.appendChild(labels).appendChild(select);
@@ -171,7 +183,8 @@
 			
 		    cont.appendChild(labelq).appendChild(qa);
 		    
-		    document.getElementById("container").appendChild(cont);}}
+		    document.getElementById("container").appendChild(cont);
+		    check_elem();}}
 	}
 	
 	</script>

@@ -11,18 +11,28 @@
 	
 	<button id="add" onclick="add_equip()">Aggiungi nuovo attrezzo</button>
 	<br>
-	<br>
-	<br>
 	<form action="addrecequips" method="POST">
 			
 			<div id="container"></div>
 			
 			<input type="hidden" id="ricetta" name="ricetta" value="${ricettaID}"/>
 			
-			<input type="submit" id="Invia" value="Invia"/>
+			<input type="submit" id="Invia" value="Invia" onclick="check_elem()"/>
 	</form>
-
+	
 	<script>
+	
+	function check_elem()
+	{
+		var div = document.getElementById("container");
+		var nmElem = div.children.length;
+		if(nmElem == 0)
+			document.getElementById("Invia").disabled = true;
+		else
+			document.getElementById("Invia").disabled = false;
+	}
+	
+	
 	function add_equip() 
 	{
 		var div = document.getElementById("container");
@@ -41,8 +51,9 @@
 		var nmEqp = div.children.length;
 		var equipments = new Array();
 		<c:forEach var="equip" items="${listAttrezzi}">
-			if(!(document.querySelector('[id^=${equip.nome}]') !== null))        
-				components.push('${equip.nome}');
+			var valore = ${equip.ID};
+			if(!(document.querySelector('[id^=' + CSS.escape(valore) + ']') !== null))    
+				equipments.push(new Array('${equip.ID}','${equip.nome}'));
 		</c:forEach>
 		
 		if(equipments.length > 0)
@@ -53,7 +64,7 @@
 			var select = document.createElement("select");
 		    select.name = "eqp" + nmEqp;
 		    select.onchange=function() {	var v = this.value;
-		    								var el = document.querySelector('[id^='+v+']');
+		    								var el = document.querySelector('[id^=' + CSS.escape(v) +']');
 		    								if(el !== null)	
 		    									{	var pel = el.parentNode.parentNode;
 		    										pel.parentNode.removeChild(pel);
@@ -72,8 +83,8 @@
 		    for (const val of equipments)
 		    {
 		        var option = document.createElement("option");
-		        option.value = val;
-		        option.text = val.charAt(0).toUpperCase() + val.slice(1);
+		        option.value = val[0];
+		        option.text = val[1].charAt(0).toUpperCase() + val[1].slice(1);
 		        select.appendChild(option);
 		    }
 		 
@@ -99,15 +110,17 @@
 		    remove.onclick= function() {	var parent = this.parentNode;
 		    								var sel = parent.firstElementChild.lastElementChild;
 		    								var valsel = sel.value;
-		    								var elems = document.querySelectorAll('[id^="eqp"]');
+		    								var textsel = sel.options[sel.selectedIndex].text;
+		    								var elems = document.querySelectorAll('[name^="eqp"]');
 		    								for(var i=0; i < elems.length; i++)
 		    									{
 			    									var option = document.createElement("option");
 			    							        option.value = valsel;
-			    							        option.text = valsel.charAt(0).toUpperCase() + valsel.slice(1);
+			    							        option.text = textsel.charAt(0).toUpperCase() + textsel.slice(1);
 			    							        elems[i].appendChild(option);
 		    									}
 		    										parent.parentNode.removeChild(parent);
+		    										check_elem();
 										};
 		    
 		    cont.appendChild(labels).appendChild(select);
@@ -118,7 +131,9 @@
 			
 		    cont.appendChild(labelq).appendChild(qa);
 		    
-		    document.getElementById("container").appendChild(cont);}}
+		    document.getElementById("container").appendChild(cont);
+		    
+		    check_elem();}}
 	}
 	
 	</script>

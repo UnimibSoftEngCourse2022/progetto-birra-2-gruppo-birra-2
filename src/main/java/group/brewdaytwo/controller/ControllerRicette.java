@@ -87,7 +87,7 @@ public class ControllerRicette {
 		      else
 		    	AttrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
-		ModelAndView model = new ModelAndView("redirect:/recipesPage");
+		ModelAndView model = new ModelAndView("redirect:/recipes");
 		return model;
 	}
 

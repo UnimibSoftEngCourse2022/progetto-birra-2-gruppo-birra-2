@@ -67,7 +67,7 @@ public class ControllerAccessoSito {
 	}
 	
 	@PostMapping(value = "/signin")
-	public ModelAndView saveUtente(@ModelAttribute Utente u) {
+	public ModelAndView saveUtente(HttpSession session,@ModelAttribute Utente u) {
 		try{
 			utenteDAO.save(u);
 		}catch(DataAccessException ex)
@@ -77,6 +77,7 @@ public class ControllerAccessoSito {
 			else
 				return new ModelAndView("signinFailedEmailPage");
 		}
+		session.setAttribute("autore", u.getNickname());
 		return new ModelAndView("redirect:/homePage");
 	}
 	
