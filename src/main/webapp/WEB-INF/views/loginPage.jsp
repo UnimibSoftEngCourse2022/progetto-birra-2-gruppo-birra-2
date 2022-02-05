@@ -63,5 +63,10 @@
 	 		  }
 	 		}
 	 	</script>
+	 	
+	 	<script type="text/javascript">
+	 	if( ${alertFlag} == true )
+ 			alert("Account Inesistente. Premere Ok per riprovare");
+ 		</script>
 	</body>
 </html>

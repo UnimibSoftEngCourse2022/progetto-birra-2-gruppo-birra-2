@@ -64,5 +64,12 @@
 	 		}
 	 	</script>
 	 	
+	 	<script type="text/javascript">
+	 	if( ${alertFlagNick} == true )
+	 		alert("Nickname già in uso. Premere Ok per riprovare");
+	 	else if( ${alertFlagEmail} == true )
+ 			alert("Email già in uso. Premere Ok per riprovare");
+ 		</script>
+	 	
 	</body>
 </html>

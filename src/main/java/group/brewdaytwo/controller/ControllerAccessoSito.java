@@ -51,12 +51,15 @@ public class ControllerAccessoSito {
 	@GetMapping(value="/signin")
 	public ModelAndView loadSigninPage(ModelAndView model) throws IOException{
 		model.setViewName("signinPage");
+		model.addObject("alertFlagNick", false);
+		model.addObject("alertFlagEmail", false);
 		return model;
 	}
 	
 	@GetMapping(value="/login")
 	public ModelAndView loadLoginPage(ModelAndView model) throws IOException{
 		model.setViewName("loginPage");
+		model.addObject("alertFlag", false);
 		return model;
 	}
 	
@@ -73,9 +76,19 @@ public class ControllerAccessoSito {
 		}catch(DataAccessException ex)
 		{
 			if(ex.toString().contains("users.PRIMARY"))
-				return new ModelAndView("signinFailedNickPage");
+			{
+				ModelAndView model = new ModelAndView("signinPage");
+				model.addObject("alertFlagNick", true);
+				model.addObject("alertFlagEmail", false);
+				return model;
+			}
 			else
-				return new ModelAndView("signinFailedEmailPage");
+			{
+				ModelAndView model = new ModelAndView("signinPage");
+				model.addObject("alertFlagNick", false);
+				model.addObject("alertFlagEmail", true);
+				return model;
+			}
 		}
 		session.setAttribute("autore", u.getNickname());
 		return new ModelAndView("redirect:/homePage");
@@ -92,7 +105,12 @@ public class ControllerAccessoSito {
 		String pwd = body.get("password");
 		
 		if(Objects.isNull(utenteDAO.check(nick,pwd)))
-			return new ModelAndView("loginFailedPage");
+		{
+			ModelAndView model = new ModelAndView("loginPage");
+			model.addObject("alertFlag", true);
+			return model;
+		}
+			
 		else
 		{
 			ModelAndView model = new ModelAndView("redirect:/homePage");
