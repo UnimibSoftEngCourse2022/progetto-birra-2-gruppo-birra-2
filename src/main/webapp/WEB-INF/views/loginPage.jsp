@@ -13,21 +13,20 @@
 
         <!-- External Files -->
         <spring:url value="/resources/assets/eye.disable.png" var="disabledPNG" />
-		    <spring:url value="/resources/assets/eye.able.png" var="ablePNG" />
-		    <spring:url value="/resources/assets/logo.png" var="logoPNG" />
-
+        <spring:url value="/resources/assets/eye.able.png" var="ablePNG" />
+        <spring:url value="/resources/assets/logo.png" var="logoPNG" />
 
         <spring:url value="/resources/functions.js" var="functionsJS" />
-		    <spring:url value="/resources/style.css" var="styleCSS" />
-		    <spring:url value="/resources/login/header.js" var="headerJS" />
-		    <spring:url value="/resources/login/header.css" var="headerCSS" />
-		    <spring:url value="/resources/login/login.css" var="loginCSS" />
+        <spring:url value="/resources/style.css" var="styleCSS" />
+        <spring:url value="/resources/login/header.js" var="headerJS" />
+        <spring:url value="/resources/login/header.css" var="headerCSS" />
+        <spring:url value="/resources/login/login.css" var="loginCSS" />
 
-		    <script src="${functionsJS}"></script>
-		    <link href="${styleCSS}" rel="stylesheet" />
-    	  <script src="${headerJS}"></script>
-    	  <link href="${headerCSS}" rel="stylesheet" />
-    	  <link href="${loginCSS}" rel="stylesheet" />
+        <script src="${functionsJS}"></script>
+        <link href="${styleCSS}" rel="stylesheet" />
+        <script src="${headerJS}"></script>
+        <link href="${headerCSS}" rel="stylesheet" />
+        <link href="${loginCSS}" rel="stylesheet" />
 
     </head>
     <body>
@@ -49,26 +48,32 @@
                     <div class="Button">
                         <input class="SigninLogin" type="submit" id="Accedi" value="Accedi in BrewDay!"/>
                     </div>
+
+                    <div id="loginError"></div>
+
                 </form>
             </div>
-            <script>
-	            function showPwdFunction(ablePNG, disabledPNG) {
-	                var passwordInput = document.getElementById("password");
-	                var eyeIcon = document.getElementById("eyeIcon")
-
-	                if (passwordInput.type === "password") {
-	                    passwordInput.type = "text";
-	                    eyeIcon.src = "${ablePNG}";
-	                } else {
-	                    passwordInput.type = "password";
-	                    eyeIcon.src = "${disabledPNG}";
-	                }
-	            }
-            </script>
 
             <script type="text/javascript">
-        	 	if( ${alertFlag} == true )
-         			alert("Account Inesistente. Premere Ok per riprovare");
+
+                function showPwdFunction() {
+                    var passwordInput = document.getElementById("password");
+                    var eyeIcon = document.getElementById("eyeIcon")
+
+                    if (passwordInput.type === "password") {
+                        passwordInput.type = "text";
+                        eyeIcon.src = "${ablePNG}";
+                    } else {
+                        passwordInput.type = "password";
+                        eyeIcon.src = "${disabledPNG}";
+                    }
+                }
+        	 	
+                if (${alertFlag} == true) {
+                    var error = document.getElementById('loginError');
+                    error.innerText = "Forse hai sbagliato qualcosa";
+                }
+         			
          	</script>
     </body>
 </html>
