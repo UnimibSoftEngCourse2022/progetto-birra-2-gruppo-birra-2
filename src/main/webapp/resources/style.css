@@ -1,1 +1,16 @@
-@charset "ISO-8859-1";
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+h2, h3, h4, h5, h6, p, a, li, form, input, label {
+    font-family: 'Inter', sans-serif;
+}
+
+h1 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
