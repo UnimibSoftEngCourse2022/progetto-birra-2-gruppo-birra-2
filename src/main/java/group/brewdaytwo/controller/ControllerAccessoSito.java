@@ -103,7 +103,6 @@ public class ControllerAccessoSito {
 		
 		String nick = body.get("nickname");
 		String pwd = body.get("password");
-		
 		if(Objects.isNull(utenteDAO.check(nick,pwd)))
 		{
 			ModelAndView model = new ModelAndView("loginPage");
@@ -119,7 +118,4 @@ public class ControllerAccessoSito {
 		}
 		
 	}
-	
-	
-
 }

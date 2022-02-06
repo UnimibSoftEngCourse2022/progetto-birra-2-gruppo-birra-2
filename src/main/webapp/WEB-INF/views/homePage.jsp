@@ -11,6 +11,9 @@
 	<form action="recipes" method="GET">
  		<input type="submit" value="Gestisci Ricette"/>
  	</form>
-
+	
+	<form action="logout" method="GET">
+ 		<input type="submit" value="Log out"/>
+ 	</form>
 </body>
 </html>
