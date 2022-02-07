@@ -41,5 +41,11 @@ private JdbcTemplate jdbcTemplate;
 		jdbcTemplate.update(sql, r, id,q);
 
 	}
+	
+	@Override
+	public void deleteRecTool(String r) {
+		String sql = "DELETE FROM progetto_brewday.recipes_equipments WHERE ricetta = ?";
+		jdbcTemplate.update(sql, r);
+	}
 
 }

@@ -12,11 +12,11 @@
 		
 		<br>
 		
-		<form:form action="Addrecipes" method="POST" modelAttribute="r">
+		<form:form action="modifyInfoRecipe" method="POST" modelAttribute="r">
 		
-			<input type="hidden" id="iD" name="iD" value="0"/>
+			<input type="hidden" id="iD" name="iD" value="${ricettaID}"/>
 			
-			<input type="text" id="nome" name="nome" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
+			<input type="text" id="nome" name="nome" value="${r.nome}" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
 				placeholder="Come si chiama la ricetta?" required 
 	  			oninvalid="this.setCustomValidity('Nome non consentito')"
 	  			oninput="this.setCustomValidity('')"/>
@@ -24,7 +24,7 @@
 			<br>
 			<br>
 			
-			<input type="text" id="descrizione" name="descrizione" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{1,}$"
+			<input type="text" id="descrizione" name="descrizione" value="${r.descrizione}" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{1,}$"
 				placeholder="Descrizione personale della ricetta" required 
 	  			oninvalid="this.setCustomValidity('Caratteri non consentiti')"
 	  			oninput="this.setCustomValidity('')"/>
@@ -32,7 +32,7 @@
 	  		<br>
 			<br>
 			
-			<input type="text" id="procedimento" name="procedimento" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{1,}$"
+			<input type="text" id="procedimento" name="procedimento" value="${r.procedimento}" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{1,}$"
 				placeholder="Spiega qui i passaggi per crearla" required 
 	  			oninvalid="this.setCustomValidity('Caratteri non consentiti')"
 	  			oninput="this.setCustomValidity('')"/>

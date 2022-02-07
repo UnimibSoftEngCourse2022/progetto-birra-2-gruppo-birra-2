@@ -10,4 +10,5 @@ public interface AttrezzoDAO {
 	
 	public void saveRecEquipment(String r, String id, int q);
 	
+	public void deleteRecTool(String r);
 }

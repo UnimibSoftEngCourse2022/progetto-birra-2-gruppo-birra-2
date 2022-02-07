@@ -89,12 +89,12 @@ public class RicettaDAOImpl implements RicettaDAO {
 	
 	@Override
 	public List<String> getComponents(int ricettaID) {
-		String sql = "SELECT ingrediente,quantita FROM components where ricetta = \"" + ricettaID + "\"";
+		String sql = "SELECT ingrediente,quantita,tipo FROM components join ingredients on ingrediente=nome where ricetta = \"" + ricettaID + "\"";
 		List<String> components = jdbcTemplate.query(sql, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String c = rs.getString("ingrediente") + " - " + rs.getDouble("quantita");
+				String c = rs.getString("ingrediente") + " - " + rs.getDouble("quantita") + " - " + rs.getString("tipo");
 				return c;
 			}
 		});
@@ -104,12 +104,12 @@ public class RicettaDAOImpl implements RicettaDAO {
 	
 	@Override
 	public List<String> getTools(int ricettaID) {
-		String sql = "SELECT tools.nome,quantita FROM recipes_equipments join tools on strumento=tools.ID where ricetta = \"" + ricettaID + "\"";
+		String sql = "SELECT tools.ID,tools.nome,quantita FROM recipes_equipments join tools on strumento=tools.ID where ricetta = \"" + ricettaID + "\"";
 		List<String> tools = jdbcTemplate.query(sql, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String t = rs.getString("nome") + " - " + rs.getInt("quantita");
+				String t = rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita");
 				return t;
 			}
 		});

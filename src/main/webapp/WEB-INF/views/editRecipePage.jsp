@@ -29,5 +29,14 @@
 				<c:forEach var="tool" items="${listRecTools}" varStatus="status">
 	        		<p>${tool}<p>
 				</c:forEach>
+<br>
+<br>				
+<input type="button" onclick="location.href='modifyRecipe?id=${Ricetta.ID}';" value="Modifica Ricetta" />
+&nbsp;&nbsp;&nbsp;
+<input type="button" onclick="location.href='deleteRecipe?id=${Ricetta.ID}';" value="Elimina Ricetta" />
+&nbsp;&nbsp;&nbsp;
+<form action="recipes" method="GET">
+    <input type="submit" value="Torna indietro" />
+</form>
 </body>
 </html>
