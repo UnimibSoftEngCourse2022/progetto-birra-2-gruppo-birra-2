@@ -26,7 +26,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages="group.brewdaytwo")
 @EnableWebMvc
 public class MvcConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Bean
 	public ViewResolver getViewResolver(){
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -34,7 +34,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		resolver.setSuffix(".jsp");
 		return resolver;
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
@@ -47,25 +47,25 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		dataSource.setUrl("jdbc:mysql://localhost:3306/progetto_brewday?useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("admin");
-		
+
 		return dataSource;
 	}
-	
+
 	@Bean
 	public UtenteDAO getUtenteDAO() {
 		return new UtenteDAOImpl(getDataSource());
 	}
-	
+
 	@Bean
 	public RicettaDAO getRicettaDAO() {
 		return new RicettaDAOImpl(getDataSource());
 	}
-	
+
 	@Bean
 	public IngredienteDAO getIngredienteDAO() {
 		return new IngredienteDAOImpl(getDataSource());
 	}
-	
+
 	@Bean
 	public AttrezzoDAO getAttrezzoDAO() {
 		return new AttrezzoDAOImpl(getDataSource());

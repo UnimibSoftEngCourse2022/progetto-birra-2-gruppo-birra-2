@@ -1,0 +1,58 @@
+body div.ContainerForm {
+    height: 400px;
+    margin: calc(50vh - 140px - 200px) auto;
+}
+
+#passwordError {
+    margin-top: 287px;
+}
+
+#emailError {
+    position: absolute;
+    font-size: 12px;
+    font-weight: 400;
+    color: #FF3B30;
+    font-family: 'Inter', sans-serif;
+    margin-top: 192px;
+}
+
+#eyeIcon {
+    margin-top: 254px;
+}
+
+#accessError {
+    margin-top: 414px;
+}
+
+@media screen and (min-height: 628px) and (max-width: 500px) {
+    body div.ContainerForm {
+        margin: calc(50vh - 70px - 200px) auto;
+    }
+}
+
+@media screen and (max-height: 670px) and (min-width: 501px) {
+    body div.ContainerForm {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #eyeIcon {
+        margin-top: 199px;
+    }
+
+    #nicknameError {
+    	font-size: 11px;
+    	margin-top: 75px;
+    }
+    
+    #emailError {
+        font-size: 11px;
+    	margin-top: 150px;
+    }
+
+	#passwordError {
+		font-size: 11px;
+	    margin-top: 225px;
+	}
+}

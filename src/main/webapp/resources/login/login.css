@@ -94,7 +94,7 @@ input.SigninLogin {
     margin-top: 192px;
 }
 
-#loginError {
+#accessError {
     position: absolute;
     color: #FF3B30;
     text-align: center;
@@ -166,7 +166,7 @@ input.SigninLogin {
     #nicknameError {
     	font-size: 11px;
     	margin-top: 75px;
-}
+    }
 
 	#passwordError {
 		font-size: 11px;

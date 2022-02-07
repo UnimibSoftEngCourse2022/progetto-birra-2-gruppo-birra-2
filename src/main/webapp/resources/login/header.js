@@ -14,8 +14,8 @@ class Header extends HTMLElement {
                         <li class="BrewDay">BrewDay!</li>
                       </ul>
                     </div>
-                    <form class="Button" action="signin" method="GET">
- 	                    <input type="submit" value="Registrati"/>
+                    <form class="Button" action="${this.getAttribute('submitTo')}" method="GET">
+ 	                    <input type="submit" value="${this.getAttribute('value')}"/>
  	                  </form>
                 </ul>
             </nav>
