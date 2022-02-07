@@ -3,6 +3,7 @@ package group.brewdaytwo.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,30 @@ public class ControllerRicette {
 	@GetMapping(value="/Addrecipes")
 	public ModelAndView loadRecipesPage(ModelAndView model) throws IOException{
 		model.setViewName("recipesAddPage");
+		return model;
+	}
+	
+	@GetMapping(value="/editRecipe")
+	public ModelAndView editRecipe(HttpServletRequest request) throws IOException{
+		int recipeID = Integer.parseInt(request.getParameter("id"));
+		Ricetta r = RicettaDAO.get(recipeID);
+		List<String> listRecComponents = RicettaDAO.getComponents(recipeID);
+		List<String> listRecTools = RicettaDAO.getTools(recipeID);
+		ModelAndView model = new ModelAndView("editRecipePage");
+		model.addObject("Ricetta", r);
+		model.addObject("listRecComponents", listRecComponents);
+		model.addObject("listRecTools", listRecTools);
+		return model;
+	}
+	
+	@PostMapping(value="/showrecipes")
+	public ModelAndView showRecipes(@RequestBody String request) throws IOException{
+		ModelAndView model = new ModelAndView("recipesPage");
+		String[] values = request.split("&");
+		String nome = values[0].split("=")[1];
+		String autore = values[1].split("=")[1];
+		List<Ricetta> listRicette = RicettaDAO.list(nome,autore);
+		model.addObject("listRicette", listRicette);
 		return model;
 	}
 	
