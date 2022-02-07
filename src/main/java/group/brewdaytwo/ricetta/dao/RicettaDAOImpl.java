@@ -2,12 +2,14 @@ package group.brewdaytwo.ricetta.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 
 import group.brewdaytwo.ricetta.model.Ricetta;
 
@@ -68,6 +70,51 @@ public class RicettaDAOImpl implements RicettaDAO {
 			}
 			
 		});
+	}
+	
+	@Override
+	public List<Ricetta> list(String nome,String autore) {
+		String sql = "SELECT * FROM recipes where nome LIKE \"%"+nome+"%\" AND autore = \"" + autore + "\"";
+		List<Ricetta> listRicette = jdbcTemplate.query(sql, new RowMapper<Ricetta>() {
+
+			@Override
+			public Ricetta mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Ricetta ricetta = new Ricetta(rs.getInt("ID"), rs.getString("nome"), null, rs.getString("descrizione"),autore);
+				return ricetta;
+			}
+		});
+		
+		return listRicette;
+	}
+	
+	@Override
+	public List<String> getComponents(int ricettaID) {
+		String sql = "SELECT ingrediente,quantita FROM components where ricetta = \"" + ricettaID + "\"";
+		List<String> components = jdbcTemplate.query(sql, new RowMapper<String>() {
+
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String c = rs.getString("ingrediente") + " - " + rs.getDouble("quantita");
+				return c;
+			}
+		});
+		
+		return components;
+	}
+	
+	@Override
+	public List<String> getTools(int ricettaID) {
+		String sql = "SELECT tools.nome,quantita FROM recipes_equipments join tools on strumento=tools.ID where ricetta = \"" + ricettaID + "\"";
+		List<String> tools = jdbcTemplate.query(sql, new RowMapper<String>() {
+
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String t = rs.getString("nome") + " - " + rs.getInt("quantita");
+				return t;
+			}
+		});
+		
+		return tools;
 	}
 
 }
