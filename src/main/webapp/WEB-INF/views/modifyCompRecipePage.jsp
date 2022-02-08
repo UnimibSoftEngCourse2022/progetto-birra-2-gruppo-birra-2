@@ -15,7 +15,7 @@
 	  <option value="Acqua">Acqua</option>
 	  <option value="Malto">Malto</option>
 	  <option value="Zucchero">Zucchero</option>
-	  <option value="Additivi">Additivi</option>
+	  <option value="Additivo">Additivo</option>
 	  <option value="Luppolo">Luppolo</option>
 	  <option value="Lievito">Lievito</option>
 	</select>
@@ -30,6 +30,9 @@
 			
 			<input type="submit" id="Invia" value="Invia" onclick="check_elem()"/>
 	</form>
+
+ 	<label id="prova"></label>
+
 
 	<script>
 	
@@ -55,7 +58,7 @@
 		    		components.push('${ingredient.nome}');                              
 			</c:forEach>
 			break;
-		case "Additivi":
+		case "Additivo":
 			<c:forEach var="ingredient" items="${listAdditivo}">
 				if(!(document.querySelector('[id^=${ingredient.nome}]') !== null))
 		    		components.push('${ingredient.nome}');                              
@@ -91,6 +94,7 @@
 	{
 		var div = document.getElementById("container");
 		var divchild = div.lastElementChild;
+		
 		var flag = true;
 		if(divchild !== null)
 			{	
@@ -102,7 +106,6 @@
 			}
 		if (flag) {
 		
-		var nmIng = div.children.length;
 		var type = document.getElementById("types").value;
 		var components = load_ing(type);
 		
@@ -167,7 +170,7 @@
 		    remove.innerHTML = "-";
 		    remove.id="button" + nmIng;
 		    remove.onclick= function() {	var parent = this.parentNode;
-		    								var sel = parent.firstElementChild.lastElementChild;
+		    								var sel = parent.firstElementChild.lastElementChild; //
 		    								var valsel = sel.value;
 		    								var seltype = sel.name.substring(sel.name.indexOf("!") + 1);
 		    								var elems = document.querySelectorAll('[name$='+seltype+']');
@@ -191,24 +194,29 @@
 		    cont.appendChild(labelq).appendChild(qa);
 		    
 		    document.getElementById("container").appendChild(cont);
-		    check_elem();}}
+		    check_elem();
+		    nmIng++;
+			
+			}}
 	}
 	
 	</script>
  	
  	<script>
+ 	var nmIng = 0;
  	var div = document.getElementById("container");
  	var existingComponents = new Array();
  	<c:forEach var="excomp" items="${listRecComponents}">
- 		var text = ${excomp};
+ 		var text = '${excomp}';
  		existingComponents.push(text.split(" - "));
 	</c:forEach>
+	
 	for(var i = 0; i < existingComponents.length; i++)
 		{
 			var cont = document.createElement("div");
 			cont.id="div" + i;
 			
-			var tipo = existingComponents[i][2];
+			var tipo = existingComponents[i][2].charAt(0).toUpperCase() + existingComponents[i][2].slice(1);
 			
 			var labels = document.createElement("label");
 		    labels.innerHTML = "Scegli l'ingrediente presente: ";
@@ -230,6 +238,9 @@
 	        option.selected = true;
 	        select.appendChild(option);
 		    
+	        select.id = select.value+select.name;
+	        
+	        
 			var comps = load_ing(tipo);
 			
 			for(const el of comps)
@@ -294,7 +305,10 @@
 		    cont.appendChild(labelq).appendChild(qa);
 		    
 		    document.getElementById("container").appendChild(cont);
-		    check_elem();}
+		    check_elem();
+		    nmIng++;
+			}
+	
  	</script>
 
 	</body>

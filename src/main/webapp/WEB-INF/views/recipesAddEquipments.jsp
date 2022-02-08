@@ -22,6 +22,8 @@
 	
 	<script>
 	
+	var nmEqp = 0;
+	
 	function check_elem()
 	{
 		var div = document.getElementById("container");
@@ -48,7 +50,6 @@
 			}
 		if (flag) {
 		
-		var nmEqp = div.children.length;
 		var equipments = new Array();
 		<c:forEach var="equip" items="${listAttrezzi}">
 			var valore = ${equip.ID};
@@ -133,7 +134,9 @@
 		    
 		    document.getElementById("container").appendChild(cont);
 		    
-		    check_elem();}}
+		    check_elem();
+		    nmEqp++;
+			}}
 	}
 	
 	</script>

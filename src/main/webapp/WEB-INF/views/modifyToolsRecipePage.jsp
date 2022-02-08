@@ -48,7 +48,6 @@
 			}
 		if (flag) {
 		
-		var nmEqp = div.children.length;
 		var equipments = new Array();
 		<c:forEach var="equip" items="${listAttrezzi}">
 			var valore = ${equip.ID};
@@ -133,17 +132,19 @@
 		    
 		    document.getElementById("container").appendChild(cont);
 		    
-		    check_elem();}}
+		    check_elem();
+		    nmEqp++;}}
 	}
 	
 	</script>
  
 	 <script>
+	 	var nmEqp = 0;
 	 	var div = document.getElementById("container");
 	 	var existingTools = new Array();
 	 	<c:forEach var="extool" items="${listRecTools}">
-		 	var text = ${extool};
-	 		existingComponents.push(text.split(" - "));
+		 	var text = '${extool}';
+	 		existingTools.push(text.split(" - "));
 		</c:forEach>
 		for(var i = 0; i < existingTools.length; i++)
 			{
@@ -170,6 +171,8 @@
 		        option.selected = true;
 		        select.appendChild(option);
 		        
+		        select.id = select.value+select.name;
+		        
 		        var tol = new Array();
 		        
 		        <c:forEach var="equip" items="${listAttrezzi}">
@@ -181,10 +184,10 @@
 				for(const val of tol)
 				{
 					if(val[0] != existingTools[i][0])
-					 var option = document.createElement("option");
+					 {var option = document.createElement("option");
 				        option.value = val[0];
 				        option.text = val[1].charAt(0).toUpperCase() + val[1].slice(1);
-				        select.appendChild(option);
+				        select.appendChild(option);}
 				}
 				
 				var qa = document.createElement("input");
@@ -230,7 +233,8 @@
 			    
 			    document.getElementById("container").appendChild(cont);
 			    
-			    check_elem();}
+			    check_elem();
+			    nmEqp++;}
 	 	</script>
 
 	</body>

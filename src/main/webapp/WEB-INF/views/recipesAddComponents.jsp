@@ -15,7 +15,7 @@
 	  <option value="Acqua">Acqua</option>
 	  <option value="Malto">Malto</option>
 	  <option value="Zucchero">Zucchero</option>
-	  <option value="Additivi">Additivi</option>
+	  <option value="Additivo">Additivo</option>
 	  <option value="Luppolo">Luppolo</option>
 	  <option value="Lievito">Lievito</option>
 	</select>
@@ -32,6 +32,8 @@
 	</form>
 
 	<script>
+	
+	var nmIng = 0;
 	
 	function check_elem()
 	{
@@ -58,7 +60,6 @@
 			}
 		if (flag) {
 		
-		var nmIng = div.children.length;
 		var type = document.getElementById("types").value;
 		var components = new Array();
 		
@@ -80,7 +81,7 @@
 		    		components.push('${ingredient.nome}');                              
 			</c:forEach>
 			break;
-		case "Additivi":
+		case "Additivo":
 			<c:forEach var="ingredient" items="${listAdditivo}">
 				if(!(document.querySelector('[id^=${ingredient.nome}]') !== null))
 		    		components.push('${ingredient.nome}');                              
@@ -184,7 +185,8 @@
 		    cont.appendChild(labelq).appendChild(qa);
 		    
 		    document.getElementById("container").appendChild(cont);
-		    check_elem();}}
+		    check_elem();
+		    nmIng++;}}
 	}
 	
 	</script>

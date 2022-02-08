@@ -46,7 +46,7 @@
 			
 	 	</form:form>
 	 	
-	 	<form action="/recipes" method="GET">
+	 	<form action="recipes" method="GET">
 	 		<input type="submit" value="Torna indietro"/>
 	 	</form>
 	 	
