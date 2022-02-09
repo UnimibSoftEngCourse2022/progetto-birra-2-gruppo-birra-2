@@ -24,18 +24,12 @@
 			<br>
 			<br>
 			
-			<input type="text" id="descrizione" name="descrizione" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{1,}$"
-				placeholder="Descrizione personale della ricetta" required 
-	  			oninvalid="this.setCustomValidity('Caratteri non consentiti')"
-	  			oninput="this.setCustomValidity('')"/>
+			<textarea id="descrizione" name="descrizione"></textarea>
 	  			
 	  		<br>
 			<br>
 			
-			<input type="text" id="procedimento" name="procedimento" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{1,}$"
-				placeholder="Spiega qui i passaggi per crearla" required 
-	  			oninvalid="this.setCustomValidity('Caratteri non consentiti')"
-	  			oninput="this.setCustomValidity('')"/>
+			<textarea id="procedimento" name="procedimento"></textarea>
 	  			
 	  		<input type="hidden" id="autore" name="autore" value="${autore}"/>
 			

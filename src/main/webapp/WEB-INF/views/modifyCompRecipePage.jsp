@@ -31,8 +31,6 @@
 			<input type="submit" id="Invia" value="Invia" onclick="check_elem()"/>
 	</form>
 
- 	<label id="prova"></label>
-
 
 	<script>
 	
