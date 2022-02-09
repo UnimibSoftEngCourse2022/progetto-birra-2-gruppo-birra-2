@@ -40,4 +40,9 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 					+ " VALUES (?, ?, ?)";
 		jdbcTemplate.update(sql, r, i,q);
 	}
+	@Override
+	public void deleteComponent(String r) {
+		String sql = "DELETE FROM progetto_brewday.components WHERE ricetta = ?";
+		jdbcTemplate.update(sql, r);
+	}
 }

@@ -8,5 +8,7 @@ public interface IngredienteDAO {
 	public List<Ingrediente> list(String tipo);
 	
 	public void saveComponent(String r, String i, double q);
+	
+	public void deleteComponent(String r);
 
 }

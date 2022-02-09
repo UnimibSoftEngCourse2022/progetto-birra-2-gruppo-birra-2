@@ -52,6 +52,90 @@ public class ControllerRicette {
 		return model;
 	}
 	
+	@GetMapping(value="/deleteRecipe")
+	public ModelAndView deleteRecipe(HttpServletRequest request) throws IOException{
+		int recipeID = Integer.parseInt(request.getParameter("id"));
+		RicettaDAO.delete(recipeID);
+		ModelAndView model = new ModelAndView("recipesPage");
+		return model;
+	}
+	
+	@GetMapping(value="/modifyRecipe")
+	public ModelAndView modifyRecipe(HttpSession session,HttpServletRequest request) throws IOException{
+		int recipeID = Integer.parseInt(request.getParameter("id"));
+		session.setAttribute("ricettaID", recipeID);
+		Ricetta r = RicettaDAO.get(recipeID);
+		ModelAndView model = new ModelAndView("modifyInfoRecipePage");
+		model.addObject("Ricetta", r);
+		return model;
+	}
+	
+	@PostMapping(value="/modifyInfoRecipe")
+	public ModelAndView modifyInfoRecipe(@ModelAttribute Ricetta r) {
+		RicettaDAO.update(r);
+		
+		List<Ingrediente> listMalto = IngredienteDAO.list("Malto");
+		List<Ingrediente> listZucchero = IngredienteDAO.list("Zucchero");
+		List<Ingrediente> listLuppolo = IngredienteDAO.list("Luppolo");
+		List<Ingrediente> listLievito = IngredienteDAO.list("Lievito");
+		List<Ingrediente> listAdditivo = IngredienteDAO.list("Additivo");
+		
+		List<String> listRecComponents = RicettaDAO.getComponents(r.getID());
+		
+		ModelAndView model = new ModelAndView("modifyCompRecipePage");
+		
+		model.addObject("listMalto", listMalto);
+		model.addObject("listZucchero", listZucchero);
+		model.addObject("listLuppolo", listLuppolo);
+		model.addObject("listLievito", listLievito);
+		model.addObject("listAdditivo", listAdditivo);
+		
+		model.addObject("listRecComponents", listRecComponents);
+		
+		return model;
+	}
+	
+	@PostMapping(value="/modifyCompRecipe")
+	public ModelAndView modifyCompRecipe(@RequestBody String request) {
+		String[] values = request.split("&");
+		String ricetta = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
+		String comp="";
+		IngredienteDAO.deleteComponent(ricetta);
+		for (int i = 0; i < values.length-1; ++i)
+		  {
+		      if(values[i].contains("comp"))
+		        comp = values[i].substring(values[i].lastIndexOf("=") + 1);
+		      else
+		    	  IngredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		  }
+		ModelAndView model = new ModelAndView("modifyToolsRecipePage");
+		
+		List<Attrezzo> listAttrezzi = AttrezzoDAO.list();
+		List<String> listRecTools = RicettaDAO.getTools(Integer.parseInt(ricetta));
+		
+		model.addObject("listRecTools", listRecTools);
+		model.addObject("listAttrezzi", listAttrezzi);
+		
+		return model;
+	}
+	
+	@PostMapping(value="/modifyToolsRecipe")
+	public ModelAndView modifyToolsRecipe(@RequestBody String request) {
+		String[] values = request.split("&");
+		String ricetta = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
+		String eqp="";
+		AttrezzoDAO.deleteRecTool(ricetta);
+		for (int i = 0; i < values.length-1; ++i)
+		  {
+		      if(values[i].contains("eqp"))
+		        eqp = values[i].substring(values[i].lastIndexOf("=") + 1);
+		      else
+		    	AttrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		  }
+		ModelAndView model = new ModelAndView("redirect:/recipes");
+		return model;
+	}
+	
 	@PostMapping(value="/showrecipes")
 	public ModelAndView showRecipes(@RequestBody String request) throws IOException{
 		ModelAndView model = new ModelAndView("recipesPage");

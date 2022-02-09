@@ -12,9 +12,13 @@
 	<form action="Addrecipes" method="GET">
  		<input type="submit" value="Aggiungi Ricetta"/>
  	</form>
+ 	
+ 	<form action="homePage" method="GET">
+	 		<input type="submit" value="Torna indietro"/>
+	 	</form>
 
 	<form action="showrecipes" method="POST">
-		<input type="text" id="nome" name="nome" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
+		<input type="text" id="ricerca" name="ricerca" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
 				placeholder="Come si chiama la ricetta?" required 
 	  			oninvalid="this.setCustomValidity('Nome non valido')"
 	  			oninput="this.setCustomValidity('')"/>
@@ -23,8 +27,11 @@
 	  	
  		<input type="submit" value="Cerca Ricetta"/>
  	</form>
+ 	
  	<br>
  	<br>
+ 	
+ 	
 	<div id="lista"></div>
 	
 	<script>

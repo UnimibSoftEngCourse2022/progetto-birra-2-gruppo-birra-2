@@ -12,24 +12,24 @@
 		
 		<br>
 		
-		<form:form action="Addrecipes" method="POST" modelAttribute="r">
+		<form:form action="modifyInfoRecipe" method="POST" modelAttribute="r">
 		
-			<input type="hidden" id="iD" name="iD" value="0"/>
+			<input type="hidden" id="iD" name="iD" value="${ricettaID}"/>
 			
-			<input type="text" id="nome" name="nome" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
+			<input type="text" id="nome" name="nome" value="${Ricetta.nome}" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
 				placeholder="Come si chiama la ricetta?" required 
 	  			oninvalid="this.setCustomValidity('Nome non consentito')"
 	  			oninput="this.setCustomValidity('')"/>
 			
 			<br>
 			<br>
-			
-			<textarea id="descrizione" name="descrizione"></textarea>
+	  		
+	  		<textarea id="descrizione" name="descrizione">${Ricetta.descrizione}</textarea>
 	  			
 	  		<br>
 			<br>
 			
-			<textarea id="procedimento" name="procedimento"></textarea>
+			<textarea id="procedimento" name="procedimento">${Ricetta.procedimento}</textarea>
 	  			
 	  		<input type="hidden" id="autore" name="autore" value="${autore}"/>
 			
