@@ -33,6 +33,36 @@ public class ControllerRicette {
 	@Autowired
 	private AttrezzoDAO AttrezzoDAO;
 	
+	public String decodeRicerca(String input) 
+	{
+		input = input.replace("%27", "'");
+		input = input.replace("%21", "!");
+		input = input.replace("%3F", "?");
+		input = input.replace("%28", "(");
+		input = input.replace("%29", ")");
+		input = input.replace("%C3%83%C2%AC", "ì");
+		input = input.replace("%C3%83%C2%A8", "è");
+		input = input.replace("%C3%83%C2%A9", "é");
+		input = input.replace("%C3%83%C2%B9", "ù");
+		input = input.replace("%C3%83%C2%A0", "à");
+		input = input.replace("%C3%83%C2%B2", "ò");
+		input = input.replace("%3A", ":");
+		input = input.replace("%2C", ",");
+		input = input.replace("%3B", ";");
+		return input;
+	}
+	
+	public String decodeInserimento(String input) 
+	{
+		input = input.replace("Ã¬", "ì");
+		input = input.replace("Ã¨", "è");
+		input = input.replace("Ã©", "é");
+		input = input.replace("Ã¹", "ù");
+		input = input.replace("Ã ", "à");
+		input = input.replace("Ã²", "ò");
+		return input;
+	}
+
 	@GetMapping(value="/Addrecipes")
 	public ModelAndView loadRecipesPage(ModelAndView model) throws IOException{
 		model.setViewName("recipesAddPage");
@@ -72,6 +102,11 @@ public class ControllerRicette {
 	
 	@PostMapping(value="/modifyInfoRecipe")
 	public ModelAndView modifyInfoRecipe(@ModelAttribute Ricetta r) {
+		
+		r.setNome(decodeInserimento(r.getNome()));
+		r.setProcedimento(decodeInserimento(r.getProcedimento()));
+		r.setDescrizione(decodeInserimento(r.getDescrizione()));
+		
 		RicettaDAO.update(r);
 		
 		List<Ingrediente> listMalto = IngredienteDAO.list("Malto");
@@ -139,8 +174,9 @@ public class ControllerRicette {
 	@PostMapping(value="/showrecipes")
 	public ModelAndView showRecipes(@RequestBody String request) throws IOException{
 		ModelAndView model = new ModelAndView("recipesPage");
+		request = decodeRicerca(request);
 		String[] values = request.split("&");
-		String nome = values[0].split("=")[1];
+		String nome = values[0].split("=")[1].replace("%26","&");
 		String autore = values[1].split("=")[1];
 		List<Ricetta> listRicette = RicettaDAO.list(nome,autore);
 		model.addObject("listRicette", listRicette);
@@ -149,7 +185,13 @@ public class ControllerRicette {
 	
 	@PostMapping(value="/Addrecipes")
 	public ModelAndView saveRicetta(HttpSession session,@ModelAttribute Ricetta r) {
+		
+		r.setNome(decodeInserimento(r.getNome()));
+		r.setProcedimento(decodeInserimento(r.getProcedimento()));
+		r.setDescrizione(decodeInserimento(r.getDescrizione()));
+		
 		int ricettaID = RicettaDAO.save(r);
+		
 		List<Ingrediente> listMalto = IngredienteDAO.list("Malto");
 		List<Ingrediente> listZucchero = IngredienteDAO.list("Zucchero");
 		List<Ingrediente> listLuppolo = IngredienteDAO.list("Luppolo");

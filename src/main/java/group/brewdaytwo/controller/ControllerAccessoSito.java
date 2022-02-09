@@ -1,8 +1,6 @@
 package group.brewdaytwo.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
@@ -21,26 +19,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControllerAccessoSito {
-	
-	public Map<String, String> parseBody(String str) {
-		Map<String, String> body = new HashMap<>();
-		  String[] values = str.split("&");
-		  for (int i = 0; i < values.length; ++i)
-		  {
-			  String[] coppia = values[i].split("=");
-			    if (coppia.length != 2) {
-			    	continue;
-			    }
-			    else
-			    {
-			      body.put(coppia[0], coppia[1]);
-			    }
-		  }
-		  return body;
-	}
-	
+
 	@Autowired
 	private UtenteDAO utenteDAO;
+	
+	public String decode(String input) 
+		{
+			input = input.replace("%27", "'");
+			input = input.replace("%21", "!");
+			input = input.replace("%23", "#");
+			input = input.replace("%5E", "^");
+			input = input.replace("%7E", "~");
+			input = input.replace("%24", "$");
+			input = input.replace("%25", "%");
+			input = input.replace("%2B", "+");
+			input = input.replace("%2F", "/");
+			input = input.replace("%3F", "?");
+			input = input.replace("%60", "`");
+			input = input.replace("%7D", "}");
+			input = input.replace("%7B", "{");
+			input = input.replace("%7C", "|");
+			return input;
+		}
 	
 	@GetMapping(value="/")
 	public ModelAndView loadFirstPage(ModelAndView model) throws IOException{
@@ -96,13 +96,11 @@ public class ControllerAccessoSito {
 	
 	@PostMapping(value = "/login")
 	public ModelAndView checkUtente(HttpSession session,@RequestBody String request) {
+		request = decode(request);
+		String values[] = request.split("&");
 		
-		request=request.replace("%40", "@");
-		
-		Map<String, String> body = parseBody(request);
-		
-		String nick = body.get("nickname");
-		String pwd = body.get("password");
+		String nick = values[0].split("=")[1];
+		String pwd = values[1].split("=")[1].replace("%26", "&").replace("%3D", "=");
 		if(Objects.isNull(utenteDAO.check(nick,pwd)))
 		{
 			ModelAndView model = new ModelAndView("loginPage");

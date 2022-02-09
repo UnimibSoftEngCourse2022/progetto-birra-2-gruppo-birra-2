@@ -31,17 +31,17 @@
  	<br>
  	<br>
  	
- 	
 	<div id="lista"></div>
 	
 	<script>
 		var div = document.getElementById("lista");
 		var ricette = new Array();
 		<c:forEach var="recipes" items="${listRicette}">
-			ricette.push(new Array('${recipes.ID}','${recipes.nome}','${recipes.descrizione}'));                              
+			ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));                              
 		</c:forEach>
 		for (const val of ricette)
 		   {
+				
 				var cont = document.createElement("div");
 				cont.innerHTML += "<h2>"+val[1]+"</h2><p>"+val[2]+"</p>";
 				cont.onclick = function() {location.href='editRecipe?id='+val[0]+'';};
