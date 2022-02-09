@@ -47,5 +47,34 @@ private JdbcTemplate jdbcTemplate;
 		String sql = "DELETE FROM progetto_brewday.recipes_equipments WHERE ricetta = ?";
 		jdbcTemplate.update(sql, r);
 	}
+	
+	@Override
+	public List<String> getUserTools(String utente)
+	{
+		String sql = "SELECT tools.ID,tools.nome,quantita FROM brewers_equipments join tools on strumento=tools.ID where birraio = \"" + utente + "\"";
+		List<String> tools = jdbcTemplate.query(sql, new RowMapper<String>() {
+
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String t = rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita");
+				return t;
+			}
+		});
+		
+		return tools;
+	}
+	
+	@Override
+	public void saveUserTool(String u, String id, int q) {
+		String sql = "INSERT INTO progetto_brewday.brewers_equipments (birraio, strumento, quantita)"
+				+ " VALUES (?, ?, ?)";
+		jdbcTemplate.update(sql, u, id,q);
+		}
+	
+	@Override
+	public void deleteUserTool(String u){
+		String sql = "DELETE FROM progetto_brewday.brewers_equipments WHERE birraio = ?";
+		jdbcTemplate.update(sql, u);
+	}
 
 }

@@ -10,5 +10,11 @@ public interface IngredienteDAO {
 	public void saveComponent(String r, String i, double q);
 	
 	public void deleteComponent(String r);
+	
+	public List<String> getUserIngredients(String utente);
+	
+	public void saveUserIng(String u, String i, double q);
+	
+	public void deleteUserIng(String u);
 
 }

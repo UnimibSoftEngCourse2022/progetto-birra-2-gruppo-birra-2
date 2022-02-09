@@ -11,6 +11,11 @@
 	<form action="recipes" method="GET">
  		<input type="submit" value="Gestisci Ricette"/>
  	</form>
+ 	
+ 	<input type="button" onclick="location.href='editUserIng?nick=${autore}';" value="Gestisci Ingredienti" />
+&nbsp;&nbsp;&nbsp;
+<input type="button" onclick="location.href='editUserEquip?nick=${autore}';" value="Gestisci Attrezzatura" />
+&nbsp;&nbsp;&nbsp;
 	
 	<form action="logout" method="GET">
  		<input type="submit" value="Log out"/>

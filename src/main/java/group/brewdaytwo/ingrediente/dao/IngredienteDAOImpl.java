@@ -45,4 +45,38 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 		String sql = "DELETE FROM progetto_brewday.components WHERE ricetta = ?";
 		jdbcTemplate.update(sql, r);
 	}
+	
+	@Override
+	public List<String> getUserIngredients(String utente)
+		{	String sql = "SELECT ingrediente,quantita,tipo FROM warehouses join ingredients on ingrediente=nome where birraio = \"" + utente + "\"";
+			List<String> ingredients = jdbcTemplate.query(sql, new RowMapper<String>() {
+	
+				@Override
+				public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+					String i = rs.getString("ingrediente") + " - " + rs.getDouble("quantita") + " - " + rs.getString("tipo");
+					return i;
+				}
+			});
+		
+			return ingredients;
+		}
+	
+	@Override
+	public void saveUserIng(String u, String i, double q)
+		{
+		String sql = "INSERT INTO progetto_brewday.warehouses (birraio, ingrediente, quantita)"
+				+ " VALUES (?, ?, ?)";
+		jdbcTemplate.update(sql, u, i,q);
+		}
+	
+	@Override
+	public void deleteUserIng(String u){
+		String sql = "DELETE FROM progetto_brewday.warehouses WHERE birraio = ?";
+		jdbcTemplate.update(sql, u);
+	}
+	
+	
+	
+	
+	
 }
