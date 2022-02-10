@@ -1,53 +1,58 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>BrewDay!</title>
-</head>
-<body>
+    <head>
+        <title>BrewDay!</title>
+        <meta charset="UTF-8">
 
-	<form action="Addrecipes" method="GET">
- 		<input type="submit" value="Aggiungi Ricetta"/>
- 	</form>
- 	
- 	<form action="homePage" method="GET">
-	 		<input type="submit" value="Torna indietro"/>
-	 	</form>
+        <!-- Custom Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-	<form action="showrecipes" method="POST">
-		<input type="text" id="ricerca" name="ricerca" value="" pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
-				placeholder="Come si chiama la ricetta?" required 
-	  			oninvalid="this.setCustomValidity('Nome non valido')"
-	  			oninput="this.setCustomValidity('')"/>
-	  	<input type="hidden" id="autore" name="autore" value="${autore}"/>
-	  		&nbsp;&nbsp;
-	  	
- 		<input type="submit" value="Cerca Ricetta"/>
- 	</form>
- 	
- 	<br>
- 	<br>
- 	
-	<div id="lista"></div>
-	
-	<script>
-		var div = document.getElementById("lista");
-		var ricette = new Array();
-		<c:forEach var="recipes" items="${listRicette}">
-			ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));                              
-		</c:forEach>
-		for (const val of ricette)
-		   {
-				
-				var cont = document.createElement("div");
-				cont.innerHTML += "<h2>"+val[1]+"</h2><p>"+val[2]+"</p>";
-				cont.onclick = function() {location.href='editRecipe?id='+val[0]+'';};
-				div.appendChild(cont);
-		   }
-	</script>
+        <!-- External Files -->
+        <spring:url value="/resources/assets/+.png" var="plusPNG" />
+        <spring:url value="/resources/assets/lente.png" var="lentePNG" />
+        <spring:url value="/resources/assets/logo.png" var="logoPNG" />
 
-</body>
+        <spring:url value="/resources/style.css" var="styleCSS" />
+        <spring:url value="/resources/components/header.js" var="headercomponentsJS" />
+        <spring:url value="/resources/login/header.css" var="headerloginCSS" />
+        <spring:url value="/resources/components/header.css" var="headercomponentsCSS" />
+        <spring:url value="/resources/recipes/recipes.css" var="recipesCSS" />
+
+        <link href="${styleCSS}" rel="stylesheet" />
+        <script src="${headercomponentsJS}"></script>
+        <link href="${headerloginCSS}" rel="stylesheet" />
+        <link href="${headercomponentsCSS}" rel="stylesheet" />
+        <link href="${recipesCSS}" rel="stylesheet" />
+
+    </head>
+    <body>
+        <header-sito author="${autore}" logo="${logoPNG}" plus="${plusPNG}"
+        search="showrecipes" add="Addrecipes" lente="${lentePNG}"></header-sito>
+
+         <div id="lista"></div>
+
+         <script>
+
+            var div = document.getElementById("lista");
+            var ricette = new Array();
+            <c:forEach var="recipes" items="${listRicette}">
+                ricette.push(new Array('${recipes.ID}','${recipes.nome}','${recipes.descrizione}'));
+            </c:forEach>
+            for (const val of ricette) {
+                var cont = document.createElement("div");
+                cont.innerHTML += "<h2>"+val[1]+"</h2><p>"+val[2]+"</p>";
+                cont.onclick = function() {location.href='editRecipe?id='+val[0]+'';};
+                div.appendChild(cont);
+            }
+
+        </script>
+    </body>
 </html>

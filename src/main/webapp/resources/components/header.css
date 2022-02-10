@@ -1,0 +1,176 @@
+#PlusIcon {
+    height: 18.5px;
+    width: 18.5px;
+    padding: 12.75px;
+    background: #FFCC00;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background 250ms ease-in-out,
+    transform 150ms ease;
+    margin: 0%;
+}
+
+#PlusIcon:hover {
+    background: black;
+}
+
+.AddSearch {
+    width: 342px;
+    height: 44px;
+}
+
+form.ricerca {
+    width: 286px;
+    height: 44px;
+    margin-top: -4px;
+}
+
+#ricerca {
+    width: 222px;
+    height: 40px;
+    background: #F0F0F1;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
+    color: #8E8E93;
+    appearance: none;
+    border: none;
+    outline: none;
+    border-radius: 11px;
+    border: solid 2px #F0F0F1;
+    padding-right: 18px;
+    padding-left: 42px;
+    transition: border 250ms ease-in-out,
+    transform 150ms ease;
+}
+
+#ricerca:focus, #ricerca:hover {
+    border-color: black;
+    color: black;
+}
+
+#LenteIcon {
+    position: absolute;
+    height: 16.76px;
+    width: 16.92px;
+    margin-top: -30px;
+    margin-left: 8px;
+}
+
+::placeholder {
+    color: #8E8E93;
+}
+
+.Pagine {
+    position: absolute;
+    width: calc(30%);
+    left: calc(50% - 15%);
+}
+
+.Pagine input {
+    color: #8E8E93;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out,
+    transform 150ms ease;
+    border: none;
+}
+
+.Pagine input:hover {
+    color: black;
+    transition: color 250ms ease-in-out,
+    transform 150ms ease;
+}
+
+@media screen and (max-width: 1680px) {
+    .Pagine {
+        width: 505px;
+        left: calc(50% - 252px);
+    }
+}
+
+@media screen and (max-width: 1472px) {
+    .Pagine {
+        position: static;
+        width: 464px;
+        left: 0;
+    }
+}
+
+@media screen and (max-width: 1220px) {
+    .Pagine {
+        position: absolute;
+        margin-top: 80px;
+        width: 505px;
+        left: calc(50% - 252px);
+    }
+
+    .site nav {
+        height: 180px;
+    }
+
+    .site .Container {
+        margin-top: -40px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .LogoHeader {
+        visibility: hidden;
+    }
+
+    .AddSearch {
+        position: absolute;
+        right: calc(50% - 171px);
+    }
+
+    .Pagine ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 200px;
+        margin-top: 150px;
+    }
+
+    .site nav {
+        height: 340px;
+    }
+
+    .site .Container {
+        margin-top: -200px;
+    }
+}
+
+@media screen and (max-width: 374px) {
+    .AddSearch {
+        width: 300px;
+        height: 40px;
+        right: calc(50% - 150px);
+    }
+
+    form.ricerca {
+        width: 248px;
+        height: 40px;
+    }
+
+    #ricerca {
+        width: 188px;
+        height: 36px;
+    }
+
+    #PlusIcon {
+        height: 16.5px;
+        width: 16.5px;
+        padding: 11.75px;
+    }
+
+    #LenteIcon {
+        margin-top: -28px;
+    }
+}
