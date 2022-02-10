@@ -114,12 +114,21 @@
 		    								var textsel = sel.options[sel.selectedIndex].text;
 		    								var elems = document.querySelectorAll('[name^="eqp"]');
 		    								for(var i=0; i < elems.length; i++)
-		    									{
-			    									var option = document.createElement("option");
-			    							        option.value = valsel;
-			    							        option.text = textsel.charAt(0).toUpperCase() + textsel.slice(1);
-			    							        elems[i].appendChild(option);
-		    									}
+		    								{
+	    										var flagval = true;
+	    										for (var j=0; j < elems[i].options.length && flagval; j++) {
+	    									    	if(elems[i].options[j].value == valsel)
+	    									    		flagval = false;
+	    									   		}
+	    										if(flagval)
+	    											{
+		    											var option = document.createElement("option");
+				    							        option.value = valsel;
+				    							        option.text = textsel.charAt(0).toUpperCase() + textsel.slice(1);
+				    							        elems[i].appendChild(option);
+	    											}
+		    									
+	    									}
 		    										parent.parentNode.removeChild(parent);
 		    										check_elem();
 										};
