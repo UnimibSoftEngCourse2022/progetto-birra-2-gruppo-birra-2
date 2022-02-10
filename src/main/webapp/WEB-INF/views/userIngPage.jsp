@@ -28,7 +28,7 @@
 			
 			<input type="hidden" id="autore" name="autore" value="${autore}"/>
 			
-			<input type="submit" id="Invia" value="Invia" onclick="check_elem()"/>
+			<input type="submit" id="Invia" value="Invia"/>
 	</form>
 
 
@@ -76,16 +76,6 @@
 		}
 		
 		return components;
-	}
-	
-	function check_elem()
-	{
-		var div = document.getElementById("container");
-		var nmElem = div.children.length;
-		if(nmElem == 0)
-			document.getElementById("Invia").disabled = true;
-		else
-			document.getElementById("Invia").disabled = false;
 	}
 	
 	function add_comp() 
@@ -140,15 +130,11 @@
 		    }
 		 
 		    var labels = document.createElement("label");
-		    labels.innerHTML = "Scegli l'ingrediente presente: ";
+		    labels.innerHTML = "Scegli l'ingrediente presente nel magazzino: ";
 		    
 		    var qa = document.createElement("input");
 		    qa.name="quantita"+ nmIng;
 		    qa.id="quantita"+ nmIng;
-		    
-		    if(type == "Acqua")
-		    	qa.setAttribute("max", "100");
-		    
 		    qa.setAttribute("min", "0.01");
 		    qa.setAttribute("type", "number");
 		    qa.setAttribute("step", ".01");
@@ -157,9 +143,9 @@
 		    var labelq = document.createElement("label");
 		   
 		    if(type == "Acqua")
-		    	labelq.innerHTML = "Indica in percentuale la quantità di acqua presente: ";
+		    	labelq.innerHTML = "Indica in litri (l) la quantità di acqua presente: ";
 		    else
-		    	labelq.innerHTML = "Indica la quantità assoluta (g/l) dell'ingrediente presente: ";
+		    	labelq.innerHTML = "Indica in grammi (g) la quantità dell'ingrediente presente: ";
 		    labelq.htmlFor = "qa" + nmIng;
 		    
 		    var br = document.createElement("br");
@@ -168,19 +154,26 @@
 		    remove.innerHTML = "-";
 		    remove.id="button" + nmIng;
 		    remove.onclick= function() {	var parent = this.parentNode;
-		    								var sel = parent.firstElementChild.lastElementChild; //
+		    								var sel = parent.firstElementChild.lastElementChild; 
 		    								var valsel = sel.value;
 		    								var seltype = sel.name.substring(sel.name.indexOf("!") + 1);
 		    								var elems = document.querySelectorAll('[name$='+seltype+']');
 		    								for(var i=0; i < elems.length; i++)
 		    									{
-			    									var option = document.createElement("option");
-			    							        option.value = valsel;
-			    							        option.text = valsel.charAt(0).toUpperCase() + valsel.slice(1);
-			    							        elems[i].appendChild(option);
-		    									}
+		    										var flagval = true;
+		    										for (var j=0; j < elems[i].options.length && flagval; j++) {
+		    									    	if(elems[i].options[j].value == valsel)
+		    									    		flagval = false;
+		    									   		}
+		    										if(flagval)
+		    											{
+			    											var option = document.createElement("option");
+					    							        option.value = valsel;
+					    							        option.text = valsel.charAt(0).toUpperCase() + valsel.slice(1);
+					    							        elems[i].appendChild(option);
+				    							        }
+			    									}
 		    										parent.parentNode.removeChild(parent);
-		    										check_elem();
 										};
 		    
 		    cont.appendChild(labels).appendChild(select);
@@ -192,7 +185,6 @@
 		    cont.appendChild(labelq).appendChild(qa);
 		    
 		    document.getElementById("container").appendChild(cont);
-		    check_elem();
 		    nmIng++;
 			
 			}}
@@ -217,7 +209,7 @@
 			var tipo = existingComponents[i][2].charAt(0).toUpperCase() + existingComponents[i][2].slice(1);
 			
 			var labels = document.createElement("label");
-		    labels.innerHTML = "Scegli l'ingrediente presente: ";
+		    labels.innerHTML = "Scegli l'ingrediente presente nel magazzino: ";
 			
 			var select = document.createElement("select");
 		    select.name = "comp" + i + "!" + tipo;
@@ -255,18 +247,14 @@
 			var labelq = document.createElement("label");
 			   
 		    if(tipo == "Acqua")
-		    	labelq.innerHTML = "Indica in percentuale la quantità di acqua presente: ";
+		    	labelq.innerHTML = "Indica in litri (l) la quantità di acqua presente: ";
 		    else
-		    	labelq.innerHTML = "Indica la quantità assoluta (g/l) dell'ingrediente presente: ";
+		    	labelq.innerHTML = "Indica in grammi (g) la quantità dell'ingrediente presente: ";
 		    labelq.htmlFor = "qa" + i;
 			
 			var qa = document.createElement("input");
 		    qa.name="quantita"+ i;
 		    qa.id="quantita"+ i;
-		    
-		    if(tipo == "Acqua")
-		    	qa.setAttribute("max", "100");
-		    
 		    qa.value = Number(existingComponents[i][1]);
 		    qa.setAttribute("min", "0.01");
 		    qa.setAttribute("type", "number");
@@ -285,13 +273,19 @@
 		    								var elems = document.querySelectorAll('[name$='+seltype+']');
 		    								for(var i=0; i < elems.length; i++)
 		    									{
+			    									var flagval = true;
+		    										for (var j=0; j < elems[i].options.length && flagval; j++) {
+		    									    	if(elems[i].options[j].value == valsel)
+		    									    		flagval = false;
+		    									   		}
+		    										if(flagval)
+		    										{
 			    									var option = document.createElement("option");
 			    							        option.value = valsel;
 			    							        option.text = valsel.charAt(0).toUpperCase() + valsel.slice(1);
-			    							        elems[i].appendChild(option);
+			    							        elems[i].appendChild(option);}
 		    									}
 		    										parent.parentNode.removeChild(parent);
-		    										check_elem();
 										};
 		    
 		    cont.appendChild(labels).appendChild(select);
@@ -303,7 +297,6 @@
 		    cont.appendChild(labelq).appendChild(qa);
 		    
 		    document.getElementById("container").appendChild(cont);
-		    check_elem();
 		    nmIng++;
 			}
 	

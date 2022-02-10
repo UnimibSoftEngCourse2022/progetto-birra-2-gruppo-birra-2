@@ -11,27 +11,16 @@
 	
 	<button id="add" onclick="add_equip()">Aggiungi nuovo attrezzo</button>
 	<br>
-	<form action="editUserEquip" method="POST">
+	<form action="editUserTools" method="POST">
 			
 			<div id="container"></div>
 			
 			<input type="hidden" id="autore" name="autore" value="${autore}"/>
 			
-			<input type="submit" id="Invia" value="Invia" onclick="check_elem()"/>
+			<input type="submit" id="Invia" value="Invia"/>
 	</form>
 	
 	<script>
-	
-	function check_elem()
-	{
-		var div = document.getElementById("container");
-		var nmElem = div.children.length;
-		if(nmElem == 0)
-			document.getElementById("Invia").disabled = true;
-		else
-			document.getElementById("Invia").disabled = false;
-	}
-	
 	
 	function add_equip() 
 	{
@@ -88,7 +77,7 @@
 		    }
 		 
 		    var labels = document.createElement("label");
-		    labels.innerHTML = "Scegli l'attrezzo presente: ";
+		    labels.innerHTML = "Scegli l'attrezzo: ";
 		    
 		    var qa = document.createElement("input");
 		    qa.name="quantita"+ nmEqp;
@@ -98,7 +87,7 @@
 		    qa.required = true;
 		    
 		    var labelq = document.createElement("label");
-		    labelq.innerHTML = "Indica il numero di attrezzi di questo tipo che sono necessari: ";
+		    labelq.innerHTML = "Indica il numero di attrezzi di questo tipo che hai a disposizione: ";
 		    labelq.htmlFor = "qa" + nmEqp;
 		    
 		    var br = document.createElement("br");
@@ -113,13 +102,21 @@
 		    								var elems = document.querySelectorAll('[name^="eqp"]');
 		    								for(var i=0; i < elems.length; i++)
 		    									{
-			    									var option = document.createElement("option");
-			    							        option.value = valsel;
-			    							        option.text = textsel.charAt(0).toUpperCase() + textsel.slice(1);
-			    							        elems[i].appendChild(option);
+		    										var flagval = true;
+		    										for (var j=0; j < elems[i].options.length && flagval; j++) {
+		    									    	if(elems[i].options[j].value == valsel)
+		    									    		flagval = false;
+		    									   		}
+		    										if(flagval)
+		    											{
+			    											var option = document.createElement("option");
+					    							        option.value = valsel;
+					    							        option.text = textsel.charAt(0).toUpperCase() + textsel.slice(1);
+					    							        elems[i].appendChild(option);
+		    											}
+			    									
 		    									}
 		    										parent.parentNode.removeChild(parent);
-		    										check_elem();
 										};
 		    
 		    cont.appendChild(labels).appendChild(select);
@@ -131,8 +128,6 @@
 		    cont.appendChild(labelq).appendChild(qa);
 		    
 		    document.getElementById("container").appendChild(cont);
-		    
-		    check_elem();
 		    nmEqp++;}}
 	}
 	
@@ -152,7 +147,7 @@
 				cont.id="div" + i;
 				
 				 var labels = document.createElement("label");
-				    labels.innerHTML = "Scegli l'attrezzo presente: ";
+				    labels.innerHTML = "Scegli l'attrezzo: ";
 				
 				var select = document.createElement("select");
 			    select.name = "eqp" + i;
@@ -199,7 +194,7 @@
 			    qa.value = Number(existingTools[i][2]);
 			    
 			    var labelq = document.createElement("label");
-			    labelq.innerHTML = "Indica il numero di attrezzi di questo tipo che sono necessari: ";
+			    labelq.innerHTML = "Indica il numero di attrezzi di questo tipo che hai a disposizione: ";
 			    labelq.htmlFor = "qa" + i;
 			    
 			    var br = document.createElement("br");
@@ -213,14 +208,22 @@
 			    								var textsel = sel.options[sel.selectedIndex].text;
 			    								var elems = document.querySelectorAll('[name^="eqp"]');
 			    								for(var i=0; i < elems.length; i++)
-			    									{
-				    									var option = document.createElement("option");
-				    							        option.value = valsel;
-				    							        option.text = textsel.charAt(0).toUpperCase() + textsel.slice(1);
-				    							        elems[i].appendChild(option);
-			    									}
+			    								{
+		    										var flagval = true;
+		    										for (var j=0; j < elems[i].options.length && flagval; j++) {
+		    									    	if(elems[i].options[j].value == valsel)
+		    									    		flagval = false;
+		    									   		}
+		    										if(flagval)
+		    											{
+			    											var option = document.createElement("option");
+					    							        option.value = valsel;
+					    							        option.text = textsel.charAt(0).toUpperCase() + textsel.slice(1);
+					    							        elems[i].appendChild(option);
+		    											}
+			    									
+		    									}
 			    										parent.parentNode.removeChild(parent);
-			    										check_elem();
 											};
 			    
 			    cont.appendChild(labels).appendChild(select);
@@ -232,8 +235,6 @@
 			    cont.appendChild(labelq).appendChild(qa);
 			    
 			    document.getElementById("container").appendChild(cont);
-			    
-			    check_elem();
 			    nmEqp++;}
 	 	</script>
 
