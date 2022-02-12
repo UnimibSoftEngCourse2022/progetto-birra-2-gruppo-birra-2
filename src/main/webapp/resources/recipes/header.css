@@ -86,6 +86,10 @@ form.ricerca {
     color: black;
 }
 
+#ingredienti, #attrezzatura {
+    margin-top: 19.5px;
+}
+
 @media screen and (max-width: 1680px) {
     .Pagine {
         width: 505px;

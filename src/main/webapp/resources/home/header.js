@@ -33,13 +33,13 @@ class Header extends HTMLElement {
                                 </form>
                             </li>
                             <li>
-                                    <input id="ingredienti" type="submit" value="Ingredienti"
-                                    onclick="${this.getAttribute('ingredients')}"/>
-                                    &nbsp;&nbsp;&nbsp;
+                                <input id="ingredienti" type="submit" value="Ingredienti"
+                                onclick="${this.getAttribute('ingredients')}"/>
+                                &nbsp;&nbsp;&nbsp;
                             <li>
-                                    <input id="attrezzatura" type="submit" value="Attrezzatura"
-                                    onclick="${this.getAttribute('tools')}"/>
-                                    &nbsp;&nbsp;&nbsp;
+                                <input id="attrezzatura" type="submit" value="Attrezzatura"
+                                onclick="${this.getAttribute('tools')}"/>
+                                &nbsp;&nbsp;&nbsp;
                             </li>
                         </ul>
                       </div>

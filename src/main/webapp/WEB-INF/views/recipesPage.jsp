@@ -35,7 +35,9 @@
     </head>
     <body>
         <header-sito author="${autore}" logo="${logoPNG}" plus="${plusPNG}"
-        search="showrecipes" add="Addrecipes" lente="${lentePNG}"></header-sito>
+        search="showrecipes" add="Addrecipes" lente="${lentePNG}"
+        ingredients="location.href='editUserIng?nick=${autore}';" 
+		tools="location.href='editUserEquip?nick=${autore}';"></header-sito>
 
          <div id="lista"></div>
 
