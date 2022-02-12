@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Accedi</title>
+        <title>BrewDay!</title>
         <meta charset="UTF-8"/>
 
         <!-- Custom Fonts -->
@@ -19,6 +19,7 @@
         <spring:url value="/resources/assets/eye.disable.png" var="disabledPNG" />
         <spring:url value="/resources/assets/eye.able.png" var="ablePNG" />
         <spring:url value="/resources/assets/logo.png" var="logoPNG" />
+        <link href="${logoPNG}" rel="icon" />
 
         <spring:url value="/resources/style.css" var="styleCSS" />
         <spring:url value="/resources/login/header.js" var="headerJS" />

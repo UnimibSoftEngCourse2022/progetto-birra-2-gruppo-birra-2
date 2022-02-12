@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title>Home</title>
+		<title>BrewDay!</title>
 		
 		<!-- Custom Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,9 +16,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
         <!-- External Files -->
-        <spring:url value="/resources/assets/+.png" var="plusPNG" />
-        <spring:url value="/resources/assets/lente.png" var="lentePNG" />
+        <spring:url value="/resources/assets/eye.disable.png" var="disabledPNG" />
+        <spring:url value="/resources/assets/eye.able.png" var="ablePNG" />
         <spring:url value="/resources/assets/logo.png" var="logoPNG" />
+        <link href="${logoPNG}" rel="icon" />
 
         <spring:url value="/resources/style.css" var="styleCSS" />
         <spring:url value="/resources/home/header.js" var="headerhomeJS" />

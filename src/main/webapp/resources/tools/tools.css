@@ -1,0 +1,11 @@
+#attrezzatura {
+    color: black;
+}
+
+#ricette {
+    color: #8E8E93;
+}
+
+#ricette:hover {
+    color: black;
+}
