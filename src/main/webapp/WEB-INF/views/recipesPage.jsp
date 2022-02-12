@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>BrewDay!</title>
+        <title>Ricette</title>
         <meta charset="UTF-8">
 
         <!-- Custom Fonts -->
@@ -21,15 +21,15 @@
         <spring:url value="/resources/assets/logo.png" var="logoPNG" />
 
         <spring:url value="/resources/style.css" var="styleCSS" />
-        <spring:url value="/resources/components/header.js" var="headercomponentsJS" />
+        <spring:url value="/resources/recipes/header.js" var="headerrecipesJS" />
         <spring:url value="/resources/login/header.css" var="headerloginCSS" />
-        <spring:url value="/resources/components/header.css" var="headercomponentsCSS" />
+        <spring:url value="/resources/recipes/header.css" var="headerrecipesCSS" />
         <spring:url value="/resources/recipes/recipes.css" var="recipesCSS" />
 
         <link href="${styleCSS}" rel="stylesheet" />
-        <script src="${headercomponentsJS}"></script>
+        <script src="${headerrecipesJS}"></script>
         <link href="${headerloginCSS}" rel="stylesheet" />
-        <link href="${headercomponentsCSS}" rel="stylesheet" />
+        <link href="${headerrecipesCSS}" rel="stylesheet" />
         <link href="${recipesCSS}" rel="stylesheet" />
 
     </head>
