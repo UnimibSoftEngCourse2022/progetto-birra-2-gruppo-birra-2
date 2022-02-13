@@ -47,7 +47,7 @@
             var div = document.getElementById("lista");
             var ricette = new Array();
             <c:forEach var="recipes" items="${listRicette}">
-                ricette.push(new Array('${recipes.ID}','${recipes.nome}','${recipes.descrizione}'));
+                ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));
             </c:forEach>
             for (const val of ricette) {
                 var cont = document.createElement("div");
