@@ -1,32 +1,55 @@
 .Card {
-    height: 188px;
+    height: 195px;
     width: 542px;
     border-radius: 30px;
     background: white;
-    border: solid 1px #F0F0F1;
+    border: solid 2px #F0F0F1;
     box-shadow: rgba(149, 157, 165, 0.05) 0px 4px 12px;
-    transition: box-shadow 250ms ease-in-out, 
+    transition: border 250ms ease-in-out, 
+    transform 150ms ease;
+    transition: background 250ms ease-in-out, 
     transform 150ms ease;
     cursor: pointer;
   }
   
   .Card:hover {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    background: #F0F0F1;
+    border-color: #E2E2E4;
+  }
+
+  .HStack {
+    display: flex;
+    flex-direction: row;
+    height: 195px;
+    align-content: center;
+    justify-content: space-between;
+    margin-inline: 55px;
   }
   
-  p {
-    height: 74px;
+  .Card p {
+    max-height: 75px;
     width: inherit;
+    margin-top: 11px;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+  }
+
+  .Card h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    max-width: 310px;
   }
   
   .Text {
-    height: 109;
     width: 310px;
-    margin-left: 147px;
-    align-items: center;
-    margin-top: 39.5px;
+    margin: auto 0;
   }
-  
-  p {
-    margin-top: 11px;
+
+  .HStack img {
+    height: 87px;
+    width: 87px;
+    margin: auto 0;
   }

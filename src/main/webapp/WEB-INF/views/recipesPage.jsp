@@ -19,6 +19,7 @@
         <spring:url value="/resources/assets/+.png" var="plusPNG" />
         <spring:url value="/resources/assets/lente.png" var="lentePNG" />
         <spring:url value="/resources/assets/logo.png" var="logoPNG" />
+        <spring:url value="/resources/assets/honey.png" var="honeyPNG" />
         <link href="${logoPNG}" rel="icon" />
 
         <spring:url value="/resources/style.css" var="styleCSS" />
@@ -58,6 +59,7 @@
             for (const val of ricette) {
                 lista.innerHTML += `
                     <recipe-card 
+                        image="${honeyPNG}"
                         title="`+val[1]+`" 
                         description="`+val[2]+`" 
                         elementClicked="`+val[0]+`">
