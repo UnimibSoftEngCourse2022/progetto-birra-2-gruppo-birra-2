@@ -22,7 +22,7 @@
 		<link href="${logoPNG}" rel="icon" />
 
 		<spring:url value="/resources/style.css" var="styleCSS" />
-		<spring:url value="/resources/components/headerPlus.js" var="headerJS" />
+		<spring:url value="/resources/components/header.js" var="headerJS" />
 		<spring:url value="/resources/login/header.css" var="headerloginCSS" />
 		<spring:url value="/resources/recipes/header.css" var="headerrecipesCSS" />
 		<spring:url value="/resources/recipes/recipes.css" var="recipesCSS" />
@@ -37,7 +37,7 @@
 	</head>
 	<body>
 
-		<header-plus logo="${logoPNG}" plus="${plusPNG}" add=""
+		<header-simple logo="${logoPNG}" plus="${plusPNG}" add=""
 		ingredients="location.href='editUserIng?nick=${autore}';" 
 		tools="location.href='editUserEquip?nick=${autore}';"></header-plus>
 

@@ -43,10 +43,6 @@ class Header extends HTMLElement {
                           </li>
                       </ul>
                       </div>
-  
-                      <form action="${this.getAttribute('add')}" method="GET">
-                            <input type="image" src="${this.getAttribute('plus')}" alt="+" id="PlusIcon" />
-                      </form>
                   </ul>
               </nav>
           </header>
@@ -54,5 +50,5 @@ class Header extends HTMLElement {
     }
   }
   
-  customElements.define('header-plus', Header);
+  customElements.define('header-simple', Header);
   

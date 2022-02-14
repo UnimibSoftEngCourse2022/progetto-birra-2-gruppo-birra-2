@@ -90,6 +90,10 @@ form.ricerca {
     margin-top: 19.5px;
 }
 
+header nav, .Pagine input, body {
+    background: #FAFAFA;
+}
+
 @media screen and (max-width: 1680px) {
     .Pagine {
         width: 505px;

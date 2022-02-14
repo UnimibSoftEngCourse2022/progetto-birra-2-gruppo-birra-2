@@ -5,9 +5,9 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>BrewDay!</title>
-        <meta charset="UTF-8">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>BrewDay!</title>
 
         <!-- Custom Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,12 +26,16 @@
         <spring:url value="/resources/login/header.css" var="headerloginCSS" />
         <spring:url value="/resources/recipes/header.css" var="headerrecipesCSS" />
         <spring:url value="/resources/recipes/recipes.css" var="recipesCSS" />
+        <spring:url value="/resources/components/recipeCard.js" var="recipeCardJS" />
+        <spring:url value="/resources/components/recipeCard.css" var="recipeCardCSS" />
 
         <link href="${styleCSS}" rel="stylesheet" />
         <script src="${headerrecipesJS}"></script>
         <link href="${headerloginCSS}" rel="stylesheet" />
         <link href="${headerrecipesCSS}" rel="stylesheet" />
         <link href="${recipesCSS}" rel="stylesheet" />
+        <script src="${recipeCardJS}"></script>
+        <link href="${recipeCardCSS}" rel="stylesheet" />
 
     </head>
     <body>
@@ -44,16 +48,21 @@
 
          <script>
 
-            var div = document.getElementById("lista");
+            var lista = document.getElementById("lista");
+
             var ricette = new Array();
             <c:forEach var="recipes" items="${listRicette}">
                 ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));
             </c:forEach>
+
             for (const val of ricette) {
-                var cont = document.createElement("div");
-                cont.innerHTML += "<h2>"+val[1]+"</h2><p>"+val[2]+"</p>";
-                cont.onclick = function() {location.href='editRecipe?id='+val[0]+'';};
-                div.appendChild(cont);
+                lista.innerHTML += `
+                    <recipe-card 
+                        title="`+val[1]+`" 
+                        description="`+val[2]+`" 
+                        elementClicked="`+val[0]+`">
+                    </recipe-card>
+            `;
             }
 
         </script>

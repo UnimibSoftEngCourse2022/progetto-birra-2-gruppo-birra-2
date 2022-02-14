@@ -1,3 +1,13 @@
 #ricette {
     color: black;
 }
+
+#lista {
+    display: grid;
+    grid-template-columns: 544px 544px 544px;
+    justify-content: space-between;
+    margin-inline: 55px;
+    margin-top: 70px;
+    row-gap: 25px;
+    margin-bottom: 100px;
+  }
