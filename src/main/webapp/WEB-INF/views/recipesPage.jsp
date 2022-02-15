@@ -20,6 +20,14 @@
         <spring:url value="/resources/assets/lente.png" var="lentePNG" />
         <spring:url value="/resources/assets/logo.png" var="logoPNG" />
         <spring:url value="/resources/assets/honey.png" var="honeyPNG" />
+        <spring:url value="/resources/assets/grain.png" var="grainPNG" />
+        <spring:url value="/resources/assets/hop.png" var="hopPNG" />
+        <spring:url value="/resources/assets/malt.png" var="maltPNG" />
+        <spring:url value="/resources/assets/water.png" var="waterPNG" />
+        <spring:url value="/resources/assets/honey.orange.png" var="honeyorangePNG" />
+        <spring:url value="/resources/assets/grain.grey.png" var="graingreyPNG" />
+        <spring:url value="/resources/assets/alcohol.png" var="alcoholPNG" />
+        <spring:url value="/resources/assets/water.pink.png" var="waterpinkPNG" />
         <link href="${logoPNG}" rel="icon" />
 
         <spring:url value="/resources/style.css" var="styleCSS" />
@@ -56,10 +64,26 @@
                 ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));
             </c:forEach>
 
+            var number = Math.floor(Math.random() * 5);
+            var img = "${honeyPNG}";
+
             for (const val of ricette) {
+                number = Math.floor(Math.random() * 8);
+                switch(number) {
+                    case 0: img = "${honeyPNG}"; break;
+                    case 1: img = "${hopPNG}"; break;
+                    case 2: img = "${grainPNG}"; break;
+                    case 3: img = "${maltPNG}"; break;
+                    case 4: img = "${waterPNG}"; break;
+                    case 5: img = "${honeyorangePNG}"; break;
+                    case 6: img = "${waterpinkPNG}"; break;
+                    case 7: img = "${graingreyPNG}"; break;
+                    default: img = "${honeyPNG}"; break;
+                }
+
                 lista.innerHTML += `
                     <recipe-card 
-                        image="${honeyPNG}"
+                        image="`+img+`"
                         title="`+val[1]+`" 
                         description="`+val[2]+`" 
                         elementClicked="`+val[0]+`">
