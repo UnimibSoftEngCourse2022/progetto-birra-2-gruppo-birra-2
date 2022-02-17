@@ -48,7 +48,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/progetto_brewday?useSSL=false");
 		dataSource.setUsername("root");
-		dataSource.setPassword("Digata5diga!");
+		dataSource.setPassword("admin");
 
 		return dataSource;
 	}
