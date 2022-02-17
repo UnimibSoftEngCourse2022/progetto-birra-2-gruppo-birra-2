@@ -4,6 +4,8 @@ import javax.sql.DataSource;
 
 import group.brewdaytwo.attrezzo.dao.AttrezzoDAO;
 import group.brewdaytwo.attrezzo.dao.AttrezzoDAOImpl;
+import group.brewdaytwo.dao.birra.BirraDAO;
+import group.brewdaytwo.dao.birra.BirraDAOImpl;
 import group.brewdaytwo.ingrediente.dao.IngredienteDAO;
 import group.brewdaytwo.ingrediente.dao.IngredienteDAOImpl;
 import group.brewdaytwo.ricetta.dao.RicettaDAO;
@@ -46,7 +48,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/progetto_brewday?useSSL=false");
 		dataSource.setUsername("root");
-		dataSource.setPassword("admin");
+		dataSource.setPassword("Digata5diga!");
 
 		return dataSource;
 	}
@@ -69,6 +71,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public AttrezzoDAO getAttrezzoDAO() {
 		return new AttrezzoDAOImpl(getDataSource());
+	}
+	
+	@Bean
+	public BirraDAO getBirraDAO() {
+		return new BirraDAOImpl(getDataSource()); 
 	}
 
 }

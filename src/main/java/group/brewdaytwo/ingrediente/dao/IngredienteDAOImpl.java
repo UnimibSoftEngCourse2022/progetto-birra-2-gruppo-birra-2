@@ -75,6 +75,12 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 		jdbcTemplate.update(sql, u);
 	}
 	
+	@Override
+	public void deleteOneUserIng(String u, String ing) {
+		String sql = "DELETE FROM progetto_brewday.warehouses WHERE birraio=? AND ingrediente=?";
+		jdbcTemplate.update(sql, u, ing);
+	}
+	
 	
 	
 	

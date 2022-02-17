@@ -73,10 +73,18 @@ public class ControllerHome {
 		return model;
 	}
 	
+	@GetMapping(value="/beer")
+	public ModelAndView loadBeerPage(HttpSession session,ModelAndView model) throws IOException{
+		model.setViewName("beerCreatePage");
+		return model;
+	}
+	
 	@GetMapping(value="/logout")
 	public ModelAndView loadFirstPage(HttpSession session,ModelAndView model) throws IOException{
 		session.invalidate();
 		model.setViewName("firstPage");
 		return model;
 	}
+	
+	
 }

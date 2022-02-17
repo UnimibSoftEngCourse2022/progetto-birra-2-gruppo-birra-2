@@ -42,5 +42,9 @@
 		</header-home>
 
 
+		<form action="beer" method="GET">
+ 			<input type="submit" value="Crea Birra"/>
+ 		</form>
+
 	</body>
 </html>
