@@ -106,7 +106,6 @@ public class BirraDAOImpl implements BirraDAO{
 		for(int i=0; i<am.size(); i++) {
 			System.out.println(!au.contains(am.get(i))); 
 			if(!au.contains(am.get(i))) {
-				System.out.println("Non devo stampareAttrezzi"); 
 				attrezziSpesa.add(am.get(i)); 
 			}
 		}
@@ -126,8 +125,19 @@ public class BirraDAOImpl implements BirraDAO{
 		//Inserisco solo il nome e la quantità che identifica gli ingredienti nell'arraylist.
 		for(int i =0; i< ingredienti.size(); i++) {
 			c.add(ingredienti.get(i).split(" - ")[0]); 
-			Double tmp = Double.parseDouble(ingredienti.get(i).split("-")[1]) * q;
-			quant.add(tmp);
+			
+			if(ingredienti.get(i).split(" - ")[0].equals("Acqua")) {
+				
+				Double tmp = Double.parseDouble(ingredienti.get(i).split("-")[1]) * q;
+				quant.add(tmp/100);
+ 
+			}else {
+				
+				Double tmp = Double.parseDouble(ingredienti.get(i).split("-")[1]) * q;
+				quant.add(tmp);
+			}
+			
+			
 		}
 		
 		
@@ -140,7 +150,6 @@ public class BirraDAOImpl implements BirraDAO{
 		//Controllo
 		for(int i=0; i<c.size(); i++) {
 			if(!h.contains(c.get(i))) {
-				System.out.println("Non devo stampare"); 
 				ingredientiMancanti.add(c.get(i)); 
 			}
 		}
@@ -150,7 +159,6 @@ public class BirraDAOImpl implements BirraDAO{
 			for(int i=0; i<c.size(); i++) {
 				for(int j=0; j<h.size(); j++) {
 					if(c.get(i).equals(h.get(j)) && quantMag.get(j)<quant.get(i)) {
-						System.out.println("NON DEVO STAMPARE"); 
 						ingInsuff.add(c.get(i));
 						ingInsuffQ.add(quant.get(i) - quantMag.get(j));
 					}
@@ -159,8 +167,6 @@ public class BirraDAOImpl implements BirraDAO{
 		}
 
 		if(attrezziSpesa.size()==0 && ingredientiMancanti.size()==0 && ingInsuff.size()==0) {
-			
-			System.out.println("TUTTO APPOSTO"); 
 			
 			for(int i=0; i<c.size(); i++) {
 				for(int j=0; j<h.size(); j++) {
@@ -177,6 +183,21 @@ public class BirraDAOImpl implements BirraDAO{
 			return true;
 			
 		}else {
+			
+			System.out.println("Lista della spesa: "); 
+			for(int i=0; i< attrezziSpesa.size(); i++) {
+				System.out.println(attrezziSpesa.get(i)); 
+			}
+			
+			for(int i=0; i< ingredientiMancanti.size(); i++) {
+				System.out.println(ingredientiMancanti.get(i)); 
+			}
+			
+			for(int i=0; i< ingInsuff.size(); i++) {
+				System.out.println(ingInsuff.get(i));
+				System.out.println(ingInsuffQ.get(i));
+			}
+			
 
 			return false; 
 		}
