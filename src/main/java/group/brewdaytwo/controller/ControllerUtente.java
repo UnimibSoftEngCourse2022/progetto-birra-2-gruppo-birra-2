@@ -87,21 +87,16 @@ public class ControllerUtente {
 		
 		boolean b = BirraDAO.controlloCreaBirra(IDRicetta, quantita, autore);
 		if(b) {
-			System.out.println("Birra Creata");
+			
+			
 			Birra bb = new Birra(0, note, quantita, autore, IDRicetta); 
 			BirraDAO.save(bb); 
 			
 			m = new ModelAndView("homePage"); 
 			
-			java.util.List<Birra> nn = BirraDAO.getBirre(autore); 
-			System.out.println(nn.get(0).toString());
 			
 		}else {
-			IngredienteDAO.deleteOneUserIng(autore, "Acqua");
-			java.util.List<String> ns = IngredienteDAO.getUserIngredients(autore);
-			System.out.println(ns.get(0).toString());
-			System.out.println(ns.get(1).toString());
-			System.out.println(ns.get(2).toString());
+			
 			m = new ModelAndView("beerCreatePage"); 
 		}
 		return m; 
