@@ -33,7 +33,6 @@ public class BirraDAOImpl implements BirraDAO{
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	
 	@Override
 	public void save(Birra b) {
 		String sql = "INSERT INTO progetto_brewday.brews (note, quantita_prodotta, birraio, ricetta)"
@@ -50,13 +49,13 @@ public class BirraDAOImpl implements BirraDAO{
 	
 	
 	@Override
-	public List<Birra> getBirre(String autore) {
-		String sql = "SELECT * FROM progetto_brewday.brews WHERE birraio=\"" + autore + "\"";
-		List<Birra> listBirre = jdbcTemplate.query(sql, new RowMapper<Birra>() {
+	public List<String> getBirre(String autore) {
+		String sql = "SELECT nome,quantita_prodotta as quantita,note FROM progetto_brewday.brews join recipes on ricetta=recipes.id WHERE birraio=\"" + autore + "\"";
+		List<String> listBirre = jdbcTemplate.query(sql, new RowMapper<String>() {
 
 			@Override
-			public Birra mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Birra b = new Birra(rs.getInt("ID"), rs.getString("note"), rs.getDouble("quantita_prodotta"), autore ,rs.getInt("ricetta"));
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String b = rs.getString("nome") + " - " + rs.getString("quantita") + " - " + rs.getString("note");
 				return b;
 			}
 		});
@@ -66,7 +65,7 @@ public class BirraDAOImpl implements BirraDAO{
 	
 	
 	@Override
-	public boolean controlloCreaBirra(int IDR, double q, String autore) {
+	public List<String> controlloCreaBirra(int IDR, double q, String autore) {
 		
 		List<String>ingredienti = RicettaDAO.getComponents(IDR); 
 		List<String>ingMagazzino = IngredienteDAO.getUserIngredients(autore);
@@ -79,50 +78,46 @@ public class BirraDAOImpl implements BirraDAO{
 		List<String>attrezziRicetta = RicettaDAO.getTools(IDR); 
 		List<String> au = new ArrayList<String>(); 
 		List<String> am = new ArrayList<String>();
-		List<Double> auQ = new ArrayList<Double>();
-		List<Double> amQ = new ArrayList<Double>();
+		List<Integer> auQ = new ArrayList<Integer>();
+		List<Integer> amQ = new ArrayList<Integer>();
 		
-		//Lista della spesa
 		List<String> attrezziSpesa = new ArrayList<String>();
+		List<Integer> num = new ArrayList<Integer>();
 		List<String> ingredientiMancanti = new ArrayList<String>();
 		List<String> ingInsuff = new ArrayList<String>();
 		List<Double> ingInsuffQ = new ArrayList<Double>();
 		
 		
-		//GESTIONE ATTREZZI 
 		for(int i=0; i<attrezziUtente.size(); i++) {
 			au.add(attrezziUtente.get(i).split(" - ")[1]);
-			auQ.add(Double.parseDouble(attrezziUtente.get(i).split("-")[2])); 
+			auQ.add(Integer.parseInt(attrezziUtente.get(i).split(" - ")[2])); 
 		}
 	
 		for(int i=0; i<attrezziRicetta.size(); i++) {
 			am.add(attrezziRicetta.get(i).split(" - ")[1]);
-			double tmp = Double.parseDouble(attrezziRicetta.get(i).split("-")[2]) * q; 
+			int tmp = Integer.parseInt(attrezziRicetta.get(i).split(" - ")[2]); 
 			amQ.add(tmp); 
 		}
 		
 		
-		//controllo
 		for(int i=0; i<am.size(); i++) {
-			System.out.println(!au.contains(am.get(i))); 
 			if(!au.contains(am.get(i))) {
 				attrezziSpesa.add(am.get(i)); 
 			}
 		}
-		
 		
 		if(attrezziSpesa.size()==0) {
 			for(int i=0; i<am.size(); i++) {
 				for(int j=0; j<au.size(); j++) {
 					if(am.get(i).equals(au.get(j)) && auQ.get(j)<amQ.get(i)) {
 						attrezziSpesa.add(am.get(i));
+						num.add(amQ.get(i) - auQ.get(j));
 					}
 				}
 			}
 		}
-	
-		//GESTIONE INGREDIENTI
-		//Inserisco solo il nome e la quantità che identifica gli ingredienti nell'arraylist.
+		
+		
 		for(int i =0; i< ingredienti.size(); i++) {
 			c.add(ingredienti.get(i).split(" - ")[0]); 
 			
@@ -136,18 +131,15 @@ public class BirraDAOImpl implements BirraDAO{
 				Double tmp = Double.parseDouble(ingredienti.get(i).split("-")[1]) * q;
 				quant.add(tmp);
 			}
-			
-			
-		}
+			}
 		
 		
-		//Inserisco Nome e Quantità dell'ingredienti in possesso dall'utente. 
 		for(int j=0; j< ingMagazzino.size(); j++) {
 			h.add(ingMagazzino.get(j).split(" - ")[0]); 
 			quantMag.add(Double.parseDouble(ingMagazzino.get(j).split("-")[1]));
 		}
 
-		//Controllo
+		
 		for(int i=0; i<c.size(); i++) {
 			if(!h.contains(c.get(i))) {
 				ingredientiMancanti.add(c.get(i)); 
@@ -166,6 +158,8 @@ public class BirraDAOImpl implements BirraDAO{
 			}
 		}
 
+		List<String> spesa = new ArrayList<String>();
+		
 		if(attrezziSpesa.size()==0 && ingredientiMancanti.size()==0 && ingInsuff.size()==0) {
 			
 			for(int i=0; i<c.size(); i++) {
@@ -180,32 +174,37 @@ public class BirraDAOImpl implements BirraDAO{
 				}
 			}
 			
-			return true;
-			
 		}else {
 			
-			System.out.println("Lista della spesa: "); 
+			boolean flagIng = true;
 			for(int i=0; i< attrezziSpesa.size(); i++) {
-				System.out.println(attrezziSpesa.get(i)); 
+				if(i == 0)
+					spesa.add("Attrezzatura");
+				spesa.add(num.get(i) + " " + attrezziSpesa.get(i) + " che supporti almeno " + q + "l"); 
+				
 			}
 			
 			for(int i=0; i< ingredientiMancanti.size(); i++) {
-				System.out.println(ingredientiMancanti.get(i)); 
+				if(i == 0)
+					{spesa.add("Ingredienti");
+					flagIng=false;
+					}
+				if(ingredientiMancanti.get(i).contains("Acqua"))
+					spesa.add(ingredientiMancanti.get(i) + " di almeno " + q + "l");
+				else
+					spesa.add(ingredientiMancanti.get(i) + " di almeno " + q + "g"); 
 			}
 			
 			for(int i=0; i< ingInsuff.size(); i++) {
-				System.out.println(ingInsuff.get(i));
-				System.out.println(ingInsuffQ.get(i));
+				if(i == 0 && flagIng)
+					spesa.add("Ingredienti");
+				if(ingInsuff.get(i).contains("Acqua"))
+					spesa.add(ingInsuff.get(i) + " di almeno " + ingInsuffQ.get(i) + "l");
+				else
+					spesa.add(ingInsuff.get(i) + " di almeno " + ingInsuffQ.get(i) + "g"); 
 			}
-			
-
-			return false; 
 		}
-		
+		return spesa;
 
 	}
-
-	
-	
-	
 }

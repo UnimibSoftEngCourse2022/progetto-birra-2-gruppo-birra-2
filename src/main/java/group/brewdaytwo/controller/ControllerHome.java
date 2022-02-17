@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import group.brewdaytwo.attrezzo.dao.AttrezzoDAO;
 import group.brewdaytwo.attrezzo.model.Attrezzo;
+import group.brewdaytwo.dao.birra.BirraDAO;
 import group.brewdaytwo.ingrediente.dao.IngredienteDAO;
 import group.brewdaytwo.ingrediente.model.Ingrediente;
 
@@ -25,9 +26,21 @@ public class ControllerHome {
 	@Autowired
 	private AttrezzoDAO AttrezzoDAO;
 	
+	@Autowired
+	private BirraDAO BirraDAO;
+	
 	@GetMapping(value="/recipes")
 	public ModelAndView loadRecipesPage(ModelAndView model) throws IOException{
 		model.setViewName("recipesPage");
+		return model;
+	}
+	
+	@GetMapping(value="/brews")
+	public ModelAndView loadBrewsPage(HttpSession session,ModelAndView model) throws IOException{
+		model.setViewName("brewsPage");
+		String autore = (String)session.getAttribute("autore");
+		List<String> listBirre = BirraDAO.getBirre(autore);
+		model.addObject("listBirre", listBirre);
 		return model;
 	}
 	
@@ -70,12 +83,6 @@ public class ControllerHome {
 		model.addObject("listAttrezzi", listAttrezzi);
 		
 		
-		return model;
-	}
-	
-	@GetMapping(value="/beer")
-	public ModelAndView loadBeerPage(HttpSession session,ModelAndView model) throws IOException{
-		model.setViewName("beerCreatePage");
 		return model;
 	}
 	

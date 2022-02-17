@@ -18,7 +18,6 @@
 	  			oninput="this.setCustomValidity('')"/>
 	  		<input type="hidden" id="autore" name="autore" value="${autore}"/>
 	  		&nbsp;&nbsp;
-	  	
  			<input type="submit" value="Cerca Ricetta"/>
  	</form>
  	
@@ -36,7 +35,7 @@
 		var div = document.getElementById("lista");
 		var ricette = new Array();
 		<c:forEach var="recipes" items="${listRicette}">
-			ricette.push(new Array('${recipes.ID}','${recipes.nome}','${recipes.descrizione}'));                              
+			ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));                              
 		</c:forEach>
 		for (const val of ricette)
 		   {

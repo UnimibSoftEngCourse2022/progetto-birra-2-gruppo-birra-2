@@ -10,8 +10,8 @@ public interface BirraDAO {
 	
 	public void delete(int IDBirra);
 	
-	public List<Birra> getBirre(String autore);
+	public List<String> getBirre(String autore);
 	
-	public boolean controlloCreaBirra(int IDRicetta, double quantità, String autore);
+	public List<String> controlloCreaBirra(int IDRicetta, double quantità, String autore);
 	
 }

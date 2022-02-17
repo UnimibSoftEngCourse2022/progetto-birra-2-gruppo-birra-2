@@ -38,13 +38,12 @@
 
 
 	<form action="makebeer" method="POST">
-			<input type="number" min=0 id="quantita" name="quantita" value="" 
+			<input type="number" min=0 max=50 id="quantita" name="quantita" value="" 
 				placeholder="Quantità" required />
 	  		<input type="hidden" id="autore" name="autore" value="${autore}"/>
 	  		<input type="hidden" id="idricetta" name="idricetta" value="${IDRicetta}"/>
 	  		&nbsp;&nbsp;
-	  		<input type="textarea" id="note" name="note" ></input>
-	  		
+	  		<textarea id="note" name="note"></textarea>
 	  		
  			<input type="submit" value="Crea birra"/>
  	</form>

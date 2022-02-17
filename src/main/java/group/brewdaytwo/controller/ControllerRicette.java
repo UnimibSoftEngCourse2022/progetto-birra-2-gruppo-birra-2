@@ -185,7 +185,7 @@ public class ControllerRicette {
 	
 	@PostMapping(value="/showrecipesMake")
 	public ModelAndView showRecipesMake(@RequestBody String request) throws IOException{
-		ModelAndView model = new ModelAndView("beerCreatePage");
+		ModelAndView model = new ModelAndView("showRecBeerPage");
 		request = decodeRicerca(request);
 		String[] values = request.split("&");
 		String nome = values[0].split("=")[1].replace("%26","&");

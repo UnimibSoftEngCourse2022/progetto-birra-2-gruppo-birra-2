@@ -1,6 +1,7 @@
 package group.brewdaytwo.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -71,35 +72,26 @@ public class ControllerUtente {
 	
 	@PostMapping(value="/makebeer")
 	public ModelAndView makeBeer(@RequestBody String request) throws IOException{
-		//ModelAndView model = new ModelAndView("beerCreatePage");
-		ModelAndView m; 
+		ModelAndView model = new ModelAndView("brewsPage"); 
 		String[] values = request.split("&");
 		
 		double quantita = Double.parseDouble(values[0].split("=")[1]);
 		String autore = values[1].split("=")[1];
-		int IDRicetta = Integer.parseInt(values[2].split("=")[1]); 		
-		String note = values[3].split("=")[1];
+		int IDRicetta = Integer.parseInt(values[2].split("=")[1]);
+		String note = "";
+		if(values[3].length() > 5)
+			note = values[3].split("=")[1];
 		
-		System.out.println(values[0]);
-		System.out.println(values[1]);
-		System.out.println(values[2]);
-		System.out.println(values[3]);
-		
-		boolean b = BirraDAO.controlloCreaBirra(IDRicetta, quantita, autore);
-		if(b) {
-			
-			
-			Birra bb = new Birra(0, note, quantita, autore, IDRicetta); 
-			BirraDAO.save(bb); 
-			
-			m = new ModelAndView("homePage"); 
-			
-			
+		List<String> spesa = BirraDAO.controlloCreaBirra(IDRicetta, quantita, autore);
+		if(spesa.size() == 0) {
+			Birra birra = new Birra(0, note, quantita, autore, IDRicetta); 
+			BirraDAO.save(birra); 
 		}else {
-			
-			m = new ModelAndView("beerCreatePage"); 
+			model.addObject("spesa", spesa);
 		}
-		return m; 
+		List<String> listBirre = BirraDAO.getBirre(autore);
+		model.addObject("listBirre", listBirre);
+		return model; 
 	}
 	
 
@@ -108,8 +100,18 @@ public class ControllerUtente {
 		int recipeID = Integer.parseInt(request.getParameter("id"));
 		session.setAttribute("IDRicetta", recipeID);
 		Ricetta r = RicettaDAO.get(recipeID);
+		List<String> listRecComponents = RicettaDAO.getComponents(recipeID);
+		List<String> listRecTools = RicettaDAO.getTools(recipeID);
 		ModelAndView model = new ModelAndView("makeBeerPage");
 		model.addObject("Ricetta", r);
+		model.addObject("listRecComponents", listRecComponents);
+		model.addObject("listRecTools", listRecTools);
+		return model;
+	}
+	
+	@GetMapping(value="/createBeer")
+	public ModelAndView loadBeerPage(ModelAndView model) throws IOException{
+		model.setViewName("showRecBeerPage");
 		return model;
 	}
 

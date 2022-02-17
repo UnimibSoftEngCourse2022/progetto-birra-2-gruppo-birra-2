@@ -31,7 +31,6 @@ public class UtenteDAOImpl implements UtenteDAO {
 		String sql = "UPDATE progetto_brewday.users SET email=?, password=?, "
 					+ "WHERE nickname=?";
 		jdbcTemplate.update(sql, u.getEmail().toLowerCase(), u.getPassword(), u.getNickname());
-
 	}
 
 	@Override
