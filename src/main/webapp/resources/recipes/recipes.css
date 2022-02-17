@@ -8,7 +8,6 @@
     color: black;
 }
 
-
 #lista {
   display: grid;
   grid-template-columns: repeat(4, 454px);

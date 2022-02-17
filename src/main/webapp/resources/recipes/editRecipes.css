@@ -1,0 +1,109 @@
+
+  h1 {
+      letter-spacing: -0.02em;
+    }
+
+  #ricette {
+    color: black;
+  }
+  
+  /* BOTTONI */
+  
+  input.Delete, input.Edit {
+    appearance: none;
+    padding: 12px 15px;
+    font-size: 17px;
+    font-weight: 800;
+    border-radius: 11px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    transition: background 250ms ease-in-out, 
+    transform 150ms ease;
+    margin: 0;
+  }
+  
+  input.Edit {
+    background: #F0F0F1;
+    color: black;
+  }
+  
+  input.Edit:hover {
+    background: black;
+    color: white;
+  }
+  
+  input.Delete {
+    background: #FF3B30;
+    color: white;
+    margin-right: -12px;
+  }
+  
+  input.Delete:hover {
+    background: #FF928C;
+  }
+  
+  /* CONTAINER */
+  
+  div.RecipeContainer {
+    padding: 69px 77px;
+    background: white;
+    border-radius: 50px;
+    border: solid 2px #F0F0F1;
+    width: 1070px;
+    margin: 50px auto;
+    box-shadow: rgba(149, 157, 165, 0.05) 0px 4px 12px;
+  }
+  
+  .ButtonContainer, .TitleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+  }
+  
+  .VStack {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  div.ButtonContainer {
+    height: 44px;
+  }
+  
+  div.TitleContainer {
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  
+  /* SEZIONI */
+  
+  .RecipeContainer section {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    margin-top: 33px;
+  }
+  
+  .RecipeContainer section h3 {
+    font-weight: 700;
+    font-size: 22px;
+  }
+  
+  .RecipeContainer section h6 {
+    font-weight: 500;
+    font-size: 17px;
+    padding: 4px 12px;
+    border-radius: 12.5px;
+    background: #F0F0F1;
+    width: max-content;
+    margin-top: 20px;
+  }
+  
+  .RecipeContainer section p {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 25px;
+  }
+  

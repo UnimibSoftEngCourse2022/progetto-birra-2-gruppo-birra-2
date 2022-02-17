@@ -27,12 +27,14 @@
 	<spring:url value="/resources/login/header.css" var="headerloginCSS" />
 	<spring:url value="/resources/recipes/header.css" var="headerrecipesCSS" />
 	<spring:url value="/resources/recipes/recipes.css" var="recipesCSS" />
+	<spring:url value="/resources/recipes/editRecipes.css" var="editRecipesCSS" />
 
 	<link href="${styleCSS}" rel="stylesheet" />
 	<script src="${headerJS}"></script>
 	<link href="${headerloginCSS}" rel="stylesheet" />
 	<link href="${headerrecipesCSS}" rel="stylesheet" />
 	<link href="${recipesCSS}" rel="stylesheet" />
+	<link href="${editRecipesCSS}" rel="stylesheet" />
 	
 	</head>
 	<body>
@@ -40,38 +42,75 @@
 		<header-simple logo="${logoPNG}" plus="${plusPNG}" add=""
 		ingredients="location.href='editUserIng?nick=${autore}';" 
 		tools="location.href='editUserEquip?nick=${autore}';"></header-plus>
+		
+		<div class="RecipeContainer">
+			<div class="VStack" id="RecipeContainer">
+				
+				<div class="TitleContainer">
+					<h1>${Ricetta.nome}</h1>
+					
+					<div class="ButtonContainer">
+						<input class="Edit" type="button" 
+							onclick="location.href='modifyRecipe?id=${Ricetta.ID}';" 
+							value="Modifica" />
+							&nbsp;&nbsp;&nbsp;
+						
+						<input class="Delete" type="button" 
+							onclick="location.href='deleteRecipe?id=${Ricetta.ID}';" 
+							value="Elimina" />
+							&nbsp;&nbsp;&nbsp;
+					</div>
+				</div>
 
-		<form action="recipes" method="GET">
-			<input type="submit" value="Indietro" />
-		</form>
-		
-		<input type="button" 
-			onclick="location.href='modifyRecipe?id=${Ricetta.ID}';" 
-			value="Modifica" />
-		&nbsp;&nbsp;&nbsp;
-		
-		<input type="button" 
-			onclick="location.href='deleteRecipe?id=${Ricetta.ID}';" 
-			value="Elimina" />
-		&nbsp;&nbsp;&nbsp;
-		
-		<h2>${Ricetta.nome}</h2>
-		
-		<p>${Ricetta.descrizione}<p>
-		
-		<p>${Ricetta.procedimento}<p>
-		
-		<h4>INGREDIENTI</h4>
-		
-		<c:forEach var="component" items="${listRecComponents}" varStatus="status">
-			<p>${component}<p>
-		</c:forEach>
+				<section>
+					<h3>Descrizione</h3>
+					<p>${Ricetta.descrizione}<p>
+				</section>
 
-		<h4>ATTREZZATURA</h4>
+				<section>
+					<h3>Procedimento</h3>
+					<p>${Ricetta.procedimento}<p>
+				</section>
+				
+				<section>
+					<h3>Ingredienti</h3>
+					<div id="lista-ingredienti">
+				</section>
+
+				<section>
+					<h3>Attrezzatura</h3>
+					<div id="lista-attrezzi"></div>
+				</section>
+
+			</div>
+		</div>
+		<script>
+
+			let listaIngredienti = document.getElementById('lista-ingredienti');
+			let listaAttrezzi = document.getElementById('lista-attrezzi');
+
+			var ingredienti = new Array();
+			<c:forEach var="component" items="${listRecComponents}" varStatus="status">
+				ingredienti.push(new Array("${component}"));
+			</c:forEach>
+
+			for (const val of ingredienti) {
+				listaIngredienti.innerHTML += `<h6>` 
+				+ val[0].split(" - ")[0] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] + ` g/L` +
+				`</h6>`;
+			}
+
+			var attrezzi = new Array();
+			<c:forEach var="tool" items="${listRecTools}" varStatus="status">
+				attrezzi.push(new Array("${tool}"));
+			</c:forEach>
+
+			for (const val of attrezzi) {
+				listaAttrezzi.innerHTML += `<h6>` 
+				+ val[0].split(" - ")[2] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] +
+				`</h6>`;
+			}
 		
-		<c:forEach var="tool" items="${listRecTools}" varStatus="status">
-			<p>${tool}<p>
-		</c:forEach>
-		
+		</script>
 	</body>
 </html>

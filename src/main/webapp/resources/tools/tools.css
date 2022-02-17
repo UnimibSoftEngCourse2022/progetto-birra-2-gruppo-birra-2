@@ -40,7 +40,7 @@ body div.ContainerForm {
   padding-left: 13px;
   border-radius: 12.5px;
   cursor: pointer;
-  transition: background 250ms ease-in-out, 
+  transition: background 250ms ease-in-out,
   transform 150ms ease;
   margin-top: 15px;
 }
@@ -78,7 +78,7 @@ body div.ContainerForm {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  transition: background 250ms ease-in-out, 
+  transition: background 250ms ease-in-out,
   transform 150ms ease;
   cursor: pointer;
   margin-top: 33px;
@@ -125,7 +125,7 @@ h1 {
   padding-left: 18px;
   padding-right: 10px;
   border: 2px solid #fafafa;
-  transition: border 250ms ease-in-out, 
+  transition: border 250ms ease-in-out,
   transform 150ms ease;
   outline: none;
   cursor: pointer;
@@ -174,7 +174,7 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
-  
+
   height: 44px;
   width: 420px;
   background: #F0F0F1;
@@ -184,7 +184,7 @@ select {
   border-radius: 12px;
   padding-inline: 18px;
   border: 2px solid white;
-  transition: border 250ms ease-in-out, 
+  transition: border 250ms ease-in-out,
   transform 150ms ease;
   margin-top: 5px;
   cursor: pointer;
@@ -208,14 +208,13 @@ select {
 
 #Invia {
   appearance: none;
-  height: 44px;
-  width: 75px;
+  padding: 12px 15px;
   background: black;
   color: white;
   font-size: 17px;
   font-weight: 800;
-  border-radius: 12px;
-  transition: background 250ms ease-in-out, 
+  border-radius: 11px;
+  transition: background 250ms ease-in-out,
   transform 150ms ease;
   outline: none;
   cursor: pointer;
@@ -224,7 +223,7 @@ select {
 }
 
 #Invia:hover {
-  background: #37383F;
+  background: #4E4F59;
 }
 
 .ContainerForm .buttonContainer {
