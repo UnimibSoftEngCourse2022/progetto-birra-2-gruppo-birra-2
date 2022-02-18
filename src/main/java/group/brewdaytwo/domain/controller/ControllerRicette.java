@@ -184,6 +184,18 @@ public class ControllerRicette {
 		return model;
 	}
 	
+	@PostMapping(value="/showrecipesMake")
+	public ModelAndView showRecipesMake(@RequestBody String request) throws IOException{
+		ModelAndView model = new ModelAndView("showRecBeerPage");
+		request = decodeRicerca(request);
+		String[] values = request.split("&");
+		String nome = values[0].split("=")[1].replace("%26","&");
+		String autore = values[1].split("=")[1];
+		List<Ricetta> listRicette = RicettaDAO.list(nome,autore);
+		model.addObject("listRicette", listRicette);
+		return model;
+	}
+	
 	@PostMapping(value="/Addrecipes")
 	public ModelAndView saveRicetta(HttpSession session,@ModelAttribute Ricetta r) {
 		

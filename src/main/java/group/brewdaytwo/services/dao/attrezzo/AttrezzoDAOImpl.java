@@ -95,5 +95,20 @@ private JdbcTemplate jdbcTemplate;
 		
 		return tools;
 	}
+	
+	@Override
+	public int getNumAtt(String attrezzo, double q) {
+		String sql = "SELECT SUM(quantita) FROM tools JOIN brewers_equipments ON strumento=tools.id  WHERE nome= \""+attrezzo+"\" AND capacita_max >= \""+ q+ "\""; 
+		
+		int n; 
+		
+		if(jdbcTemplate.queryForObject(sql, Integer.class) == null) {
+			n=0; 
+		}else {
+			n = jdbcTemplate.queryForObject(sql, Integer.class);
+		}
+			//int n = jdbcTemplate.queryForObject(sql, Integer.class); 
+			return n; 
+	}
 
 }
