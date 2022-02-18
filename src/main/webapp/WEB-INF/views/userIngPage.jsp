@@ -40,7 +40,7 @@
 
 		<header-simple logo="${logoPNG}" plus="${plusPNG}" add=""
         ingredients="location.href='editUserIng?nick=${autore}';" 
-		tools="location.href='editUserEquip?nick=${autore}';"></header-plus>
+		tools="location.href='editUserEquip?nick=${autore}';"></header-simple>
 
 
 		<label>Indicare il tipo di ingrediente da aggiungere e poi premere +</label>

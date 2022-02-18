@@ -1,0 +1,19 @@
+body div.ContainerForm {
+    padding: 30px 30px;
+    width: max-content;
+    height: max-content;
+    margin: 30px auto;
+  }
+  
+  textarea#procedimento {
+    height: 200px;
+  }
+  
+  .HStack {
+    justify-content: flex-end;
+    margin-top: 25px;
+  }
+  
+  input.send {
+    margin: auto 0;
+  }

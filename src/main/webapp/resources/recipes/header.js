@@ -52,7 +52,7 @@ class Header extends HTMLElement {
                                 </form>
                             </li>
                             <li>
-                                <form class="ricerca" action="${this.getAttribute('search')}" method="POST" onsubmit="return showError(event)">
+                                <form class="ricerca" action="${this.getAttribute('search')}" method="POST" onsubmit="return blockSearch(event)">
                                     <input type="text" id="ricerca" name="ricerca" value="" placeholder="Cerca"/>
 
                                     <input type="hidden" id="autore" name="autore" value="${this.getAttribute('author')}"/>
@@ -73,7 +73,7 @@ class Header extends HTMLElement {
 customElements.define('header-sito', Header);
 
 
-function showError(e) {
+function blockSearch(e) {
     ricercaRE = /^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$/;
     var ricerca = document.getElementById('ricerca');
 

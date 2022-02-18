@@ -1,0 +1,101 @@
+/* STILE NORMALE PER L'INSERIMENTO */
+
+input.insert {
+    appearance: none;
+    height: 44px;
+    width: 420px;
+    background: #F0F0F1;
+    color: #8E8E93;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 12px;
+    padding-inline: 18px;
+    border: 2px solid #fafafa;
+    transition: border 250ms ease-in-out,
+    transform 150ms ease;
+    outline: none;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+  
+  input.insert:focus, input.insert:hover {
+    border-color: black;
+    color: black;
+  }
+
+/* PULSANTI PER AVANTI, INVIA, MODIFICA, CANCELLA*/
+input.send {
+    appearance: none;
+    padding: 12px 15px;
+    background: black;
+    color: white;
+    font-size: 17px;
+    font-weight: 800;
+    border-radius: 11px;
+    transition: background 250ms ease-in-out,
+    transform 150ms ease;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    max-width: max-content;
+  }
+  
+  input.send:hover {
+    background: #4E4F59;
+  }
+
+  label.insert {
+    font-family: 'Inter', sans-serif;
+    color: #67686D;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 25px;
+  }
+
+  .VStack {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .HStack {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+  }
+
+  textarea {
+    appearance: none;
+    height: 89px;
+    width: 420px;
+    background: #F0F0F1;
+    color: #8E8E93;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 12px;
+    padding-inline: 18px;
+    border: 2px solid #fafafa;
+    transition: border 250ms ease-in-out,
+    transform 150ms ease;
+    outline: none;
+    cursor: pointer;
+    margin-top: 5px;
+    resize: none;
+    padding-top: 17px;
+    padding-bottom: 17px;
+  }
+  
+  textarea:focus, textarea:hover {
+    border-color: black;
+    color: black;
+  }
+
+  /* COSE DA MODIFICARE O TOGLIERE
+  
+  h1          margin-top: 5px
+  label       margin-top: 25px
+  input       margin-top: 5px   border-color: #fafafa
+  textarea    margin-top: 5px   border-color: #fafafa
+  input.send  color             background
+
+  */

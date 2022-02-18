@@ -18,7 +18,7 @@ h1 {
     width: inherit;
 }
 
-.ContainerForm input:not(.SigninLogin) {
+.ContainerForm input:not(.SigninLogin):not(.send) {
     height: 44px;
     appearance: none;
     border: none;
@@ -34,7 +34,7 @@ h1 {
     transform 150ms ease;
 }
 
-.ContainerForm input:focus:not(.SigninLogin), .ContainerForm input:hover:not(.SigninLogin) {
+.ContainerForm input:focus:not(.SigninLogin):not(.send), .ContainerForm input:hover:not(.SigninLogin):not(.send) {
     outline: none;
     border: solid 2px black;
 }

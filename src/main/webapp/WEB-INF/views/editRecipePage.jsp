@@ -96,7 +96,7 @@
 
 			for (const val of ingredienti) {
 				listaIngredienti.innerHTML += `<h6>` 
-				+ val[0].split(" - ")[0] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] + ` g/L` +
+				+ val[0].split(" - ")[0] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] + `%` +
 				`</h6>`;
 			}
 
