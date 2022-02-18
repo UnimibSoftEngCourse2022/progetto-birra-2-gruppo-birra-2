@@ -17,4 +17,6 @@ public interface AttrezzoDAO {
 	public void saveUserTool(String u, String id, int q);
 	
 	public void deleteUserTool(String u);
+	
+	public int getNumCap(String attrezzo); 
 }

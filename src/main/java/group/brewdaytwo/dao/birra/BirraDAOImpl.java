@@ -80,7 +80,7 @@ public class BirraDAOImpl implements BirraDAO{
 		List<String> am = new ArrayList<String>();
 		List<Integer> auQ = new ArrayList<Integer>();
 		List<Integer> amQ = new ArrayList<Integer>();
-		
+		List<Integer> amC = new ArrayList<Integer>();	
 		List<String> attrezziSpesa = new ArrayList<String>();
 		List<Integer> num = new ArrayList<Integer>();
 		List<String> ingredientiMancanti = new ArrayList<String>();
@@ -88,30 +88,35 @@ public class BirraDAOImpl implements BirraDAO{
 		List<Double> ingInsuffQ = new ArrayList<Double>();
 		
 		
+		 
 		for(int i=0; i<attrezziUtente.size(); i++) {
 			au.add(attrezziUtente.get(i).split(" - ")[1]);
-			auQ.add(Integer.parseInt(attrezziUtente.get(i).split(" - ")[2])); 
+			auQ.add(Integer.parseInt(attrezziUtente.get(i).split(" - ")[2]));
 		}
-	
+		
+		
 		for(int i=0; i<attrezziRicetta.size(); i++) {
 			am.add(attrezziRicetta.get(i).split(" - ")[1]);
 			int tmp = Integer.parseInt(attrezziRicetta.get(i).split(" - ")[2]); 
 			amQ.add(tmp); 
+			amC.add(AttrezzoDAO.getNumCap(am.get(i))); 
+			
 		}
 		
 		
 		for(int i=0; i<am.size(); i++) {
 			if(!au.contains(am.get(i))) {
 				attrezziSpesa.add(am.get(i)); 
+				num.add(0);
 			}
 		}
 		
 		if(attrezziSpesa.size()==0) {
 			for(int i=0; i<am.size(); i++) {
 				for(int j=0; j<au.size(); j++) {
-					if(am.get(i).equals(au.get(j)) && auQ.get(j)<amQ.get(i)) {
+					if(am.get(i).equals(au.get(j)) && amC.get(i)*amQ.get(i) < q) {
 						attrezziSpesa.add(am.get(i));
-						num.add(amQ.get(i) - auQ.get(j));
+						num.add(amC.get(i)*auQ.get(j));
 					}
 				}
 			}
@@ -157,6 +162,14 @@ public class BirraDAOImpl implements BirraDAO{
 				}
 			}
 		}
+		
+		
+		
+		
+		
+		
+		
+		
 
 		List<String> spesa = new ArrayList<String>();
 		
@@ -175,6 +188,27 @@ public class BirraDAOImpl implements BirraDAO{
 			}
 			
 		}else {
+			
+			
+			//CONTROLLO NUOVO
+			System.out.println("Controllo quantità di attrezzi da comprare");
+			for(int i=0; i<attrezziSpesa.size(); i++) {
+				int numC = 0; 
+				int tmp = num.get(i); 
+				for(int j=0; j<am.size(); j++) {
+					if(attrezziSpesa.get(i).equals(am.get(j)) ) {
+						while(tmp < q) {
+							numC++;
+							tmp += amC.get(j); 
+						}
+					}
+				}
+				System.out.println("Devi ancora comprare " + numC + " " + attrezziSpesa.get(i) );
+				
+			}
+			
+			
+			
 			
 			boolean flagIng = true;
 			for(int i=0; i< attrezziSpesa.size(); i++) {

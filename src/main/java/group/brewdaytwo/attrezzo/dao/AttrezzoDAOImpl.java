@@ -64,6 +64,12 @@ private JdbcTemplate jdbcTemplate;
 		return tools;
 	}
 	
+	public int getNumCap(String attrezzo) {
+	String sql = "SELECT capacita_max FROM tools WHERE nome= \""+attrezzo+"\""; 
+		int n = jdbcTemplate.queryForObject(sql, Integer.class); 
+		return n; 
+	}
+	
 	@Override
 	public void saveUserTool(String u, String id, int q) {
 		String sql = "INSERT INTO progetto_brewday.brewers_equipments (birraio, strumento, quantita)"
