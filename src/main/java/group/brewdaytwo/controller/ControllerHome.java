@@ -63,7 +63,7 @@ public class ControllerHome {
 		
 		String autore = request.getParameter("nick");
 		
-		List<Attrezzo> listAttrezzi = AttrezzoDAO.list();
+		List<Attrezzo> listAttrezzi = AttrezzoDAO.list(false);
 		List<String> listUserTools = AttrezzoDAO.getUserTools(autore);
 		
 		model.addObject("listUserTools", listUserTools);

@@ -132,6 +132,7 @@ public class ControllerRicette {
 	
 	@PostMapping(value="/modifyCompRecipe")
 	public ModelAndView modifyCompRecipe(@RequestBody String request) {
+		request = request.replace("+", " ");
 		String[] values = request.split("&");
 		String ricetta = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
 		String comp="";
@@ -145,7 +146,7 @@ public class ControllerRicette {
 		  }
 		ModelAndView model = new ModelAndView("modifyToolsRecipePage");
 		
-		List<Attrezzo> listAttrezzi = AttrezzoDAO.list();
+		List<Attrezzo> listAttrezzi = AttrezzoDAO.list(true);
 		List<String> listRecTools = RicettaDAO.getTools(Integer.parseInt(ricetta));
 		
 		model.addObject("listRecTools", listRecTools);
@@ -210,6 +211,7 @@ public class ControllerRicette {
 	
 	@PostMapping(value="/addcomponents")
 	public ModelAndView saveComponents(@RequestBody String request) {
+		request = request.replace("+", " ");
 		String[] values = request.split("&");
 		String ricetta = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
 		String comp="";
@@ -221,7 +223,7 @@ public class ControllerRicette {
 		    	IngredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("recipesAddEquipments");
-		List<Attrezzo> listAttrezzi = AttrezzoDAO.list();
+		List<Attrezzo> listAttrezzi = AttrezzoDAO.list(true);
 		model.addObject("listAttrezzi", listAttrezzi);
 		return model;
 	}

@@ -18,6 +18,34 @@ USE `progetto_brewday`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `brewers_equipments`
+--
+
+DROP TABLE IF EXISTS `brewers_equipments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `brewers_equipments` (
+  `birraio` varchar(255) NOT NULL,
+  `strumento` int NOT NULL,
+  `quantita` int NOT NULL,
+  PRIMARY KEY (`birraio`,`strumento`),
+  KEY `birraio` (`birraio`),
+  KEY `strumento` (`strumento`),
+  CONSTRAINT `brewers_equipments_ibfk_1` FOREIGN KEY (`birraio`) REFERENCES `users` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `brewers_equipments_ibfk_2` FOREIGN KEY (`strumento`) REFERENCES `tools` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `brewers_equipments`
+--
+
+LOCK TABLES `brewers_equipments` WRITE;
+/*!40000 ALTER TABLE `brewers_equipments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `brewers_equipments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `brews`
 --
 
@@ -45,34 +73,6 @@ CREATE TABLE `brews` (
 LOCK TABLES `brews` WRITE;
 /*!40000 ALTER TABLE `brews` DISABLE KEYS */;
 /*!40000 ALTER TABLE `brews` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `brews_equipments`
---
-
-DROP TABLE IF EXISTS `brews_equipments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `brews_equipments` (
-  `birraio` varchar(255) NOT NULL,
-  `strumento` int NOT NULL,
-  `quantita` int NOT NULL,
-  PRIMARY KEY (`birraio`,`strumento`),
-  KEY `birraio` (`birraio`),
-  KEY `strumento` (`strumento`),
-  CONSTRAINT `brews_equipments_ibfk_1` FOREIGN KEY (`birraio`) REFERENCES `users` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `brews_equipments_ibfk_2` FOREIGN KEY (`strumento`) REFERENCES `tools` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `brews_equipments`
---
-
-LOCK TABLES `brews_equipments` WRITE;
-/*!40000 ALTER TABLE `brews_equipments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `brews_equipments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -122,6 +122,7 @@ CREATE TABLE `ingredients` (
 
 LOCK TABLES `ingredients` WRITE;
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
+INSERT INTO `ingredients` VALUES ('A velo','Zucchero'),('Acido Lattico','Additivo'),('Acqua','Acqua'),('Ahtanum','Luppolo'),('Amarillo','Luppolo'),('Anidride Solforica','Additivo'),('Aurora','Luppolo'),('Brewers Gold','Luppolo'),('Calypso','Luppolo'),('Caramello','Additivo'),('Centennial','Luppolo'),('Challenger','Luppolo'),('Chinook','Luppolo'),('Citra','Luppolo'),('Cocciniglia','Additivo'),('Colla di pesce','Additivo'),('Columbus','Luppolo'),('Demerara','Zucchero'),('Di canna','Zucchero'),('El Dorado','Luppolo'),('Fuggle','Luppolo'),('Galaxy','Luppolo'),('Hallertau','Luppolo'),('Kohatu','Luppolo'),('Mandarina Bavaria','Luppolo'),('Monaco','Malto'),('Mosaic','Luppolo'),('Nelson Sauvin','Luppolo'),('Northdown','Luppolo'),('Pacific Jade','Luppolo'),('Pale ale','Malto'),('Panela','Zucchero'),('Pilsner','Malto'),('Saaz','Luppolo'),('Saccharomyces cerevisiae','Lievito'),('Saccharomyces uvarum','Lievito'),('Semolato','Zucchero'),('Sorachi Ace','Luppolo'),('Southern Cross','Luppolo'),('Strisselspalt','Luppolo'),('Summit','Luppolo'),('Tettnang Tettnanger','Luppolo'),('Vienna','Malto'),('Warrior','Luppolo'),('Weizen','Malto');
 /*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +142,7 @@ CREATE TABLE `recipes` (
   PRIMARY KEY (`ID`),
   KEY `autore` (`autore`),
   CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`autore`) REFERENCES `users` (`nickname`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +194,7 @@ CREATE TABLE `tools` (
   `nome` varchar(255) NOT NULL,
   `capacita_max` float NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,6 +203,7 @@ CREATE TABLE `tools` (
 
 LOCK TABLES `tools` WRITE;
 /*!40000 ALTER TABLE `tools` DISABLE KEYS */;
+INSERT INTO `tools` VALUES (17,'Pentola',0),(18,'Pentola',1),(19,'Pentola',3),(20,'Pentola',5),(21,'Pentola',10),(22,'Pentola',20),(23,'Pentola',30),(24,'Pentola',40),(25,'Pentola',50),(26,'Bollitore',0),(27,'Bollitore',1),(28,'Bollitore',3),(29,'Bollitore',5),(30,'Bollitore',10),(31,'Bollitore',20),(32,'Bollitore',30),(33,'Bollitore',40),(34,'Bollitore',50),(35,'Tubo',0),(36,'Tubo',1),(37,'Tubo',3),(38,'Tubo',5),(39,'Tubo',10),(40,'Tubo',20),(41,'Tubo',30),(42,'Tubo',40),(43,'Tubo',50),(44,'Fermentatore',0),(45,'Fermentatore',1),(46,'Fermentatore',3),(47,'Fermentatore',5),(48,'Fermentatore',10),(49,'Fermentatore',20),(50,'Fermentatore',30),(51,'Fermentatore',40),(52,'Fermentatore',50),(53,'Filtro',0),(54,'Filtro',1),(55,'Filtro',3),(56,'Filtro',5),(57,'Filtro',10),(58,'Filtro',20),(59,'Filtro',30),(60,'Filtro',40),(61,'Filtro',50);
 /*!40000 ALTER TABLE `tools` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,4 +268,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-27 18:33:18
+-- Dump completed on 2022-02-17 13:16:50

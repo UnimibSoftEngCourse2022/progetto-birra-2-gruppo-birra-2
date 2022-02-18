@@ -71,31 +71,31 @@
 			break;
 		case "Malto":
 			<c:forEach var="ingredient" items="${listMalto}">
-				if(!(document.querySelector('[id^=${ingredient.nome}]') !== null))        
+				if(!(document.querySelector("[id^='${ingredient.nome}']") !== null))        
 					components.push('${ingredient.nome}');
 			</c:forEach>
 			break;
 		case "Zucchero":
 			<c:forEach var="ingredient" items="${listZucchero}">
-				if(!(document.querySelector('[id^=${ingredient.nome}]') !== null))
+				if(!(document.querySelector("[id^='${ingredient.nome}']") !== null))
 		    		components.push('${ingredient.nome}');                              
 			</c:forEach>
 			break;
 		case "Additivo":
 			<c:forEach var="ingredient" items="${listAdditivo}">
-				if(!(document.querySelector('[id^=${ingredient.nome}]') !== null))
+				if(!(document.querySelector("[id^='${ingredient.nome}']") !== null))
 		    		components.push('${ingredient.nome}');                              
 			</c:forEach>
 			break;
 		case "Luppolo":
 			<c:forEach var="ingredient" items="${listLuppolo}">
-				if(!(document.querySelector('[id^=${ingredient.nome}]') !== null))
+				if(!(document.querySelector("[id^='${ingredient.nome}']") !== null))
 			    	components.push('${ingredient.nome}');                              
 			</c:forEach>
 			break;
 		case "Lievito":
 			<c:forEach var="ingredient" items="${listLievito}">
-				if(!(document.querySelector('[id^=${ingredient.nome}]') !== null))
+				if(!(document.querySelector("[id^='${ingredient.nome}']") !== null))
 			    	components.push('${ingredient.nome}');                              
 			</c:forEach>
 		}
@@ -108,7 +108,7 @@
 			var select = document.createElement("select");
 		    select.name = "comp" + nmIng + "!" + type;
 		    select.onchange=function() {	var v = this.value;
-		    								var el = document.querySelector('[id^='+v+']');
+		    								var el = document.querySelector("[id^='"+v+"']");
 		    								if(el !== null)	
 		    									{	var pel = el.parentNode.parentNode;
 		    										pel.parentNode.removeChild(pel);

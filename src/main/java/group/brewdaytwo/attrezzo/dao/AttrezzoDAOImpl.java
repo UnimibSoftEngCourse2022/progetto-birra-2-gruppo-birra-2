@@ -20,8 +20,12 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<Attrezzo> list() {
-		String sql = "SELECT * FROM tools";
+	public List<Attrezzo> list(boolean b) {
+		String sql = "";
+		if(b)
+			sql = "SELECT * FROM tools where capacita_max = 0";
+		else 
+			sql = "SELECT * FROM tools where capacita_max > 0";
 		List<Attrezzo> listAttrezzo = jdbcTemplate.query(sql, new RowMapper<Attrezzo>() {
 
 			@Override
@@ -51,12 +55,12 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public List<String> getUserTools(String utente)
 	{
-		String sql = "SELECT tools.ID,tools.nome,quantita FROM brewers_equipments join tools on strumento=tools.ID where birraio = \"" + utente + "\"";
+		String sql = "SELECT tools.ID,tools.nome,quantita,capacita_max as capMax FROM brewers_equipments join tools on strumento=tools.ID where birraio = \"" + utente + "\"";
 		List<String> tools = jdbcTemplate.query(sql, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String t = rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita");
+				String t = rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita") + " - " + rs.getDouble("capMax");
 				return t;
 			}
 		});

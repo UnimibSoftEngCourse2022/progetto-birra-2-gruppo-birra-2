@@ -105,7 +105,7 @@
 				<c:forEach var="equip" items="${listAttrezzi}">
 					var valore = ${equip.ID};
 					if(!(document.querySelector('[id^=' + CSS.escape(valore) + ']') !== null))    
-						equipments.push(new Array('${equip.ID}','${equip.nome}'));
+						equipments.push(new Array('${equip.ID}','${equip.nome}', '${equip.capacitaMax}'));
 				</c:forEach>
 				
 				// se c'è più di un attrezzo nel database (quelli possibili)
@@ -146,7 +146,7 @@
 					for (const val of equipments) {
 						var option = document.createElement("option");
 						option.value = val[0];
-						option.text = val[1].charAt(0).toUpperCase() + val[1].slice(1);
+						option.text = val[1].charAt(0).toUpperCase() + val[1].slice(1) + " da " + val[2] + " L";
 						select.appendChild(option);
 					}
 					
@@ -277,7 +277,7 @@
 			
 			var option = document.createElement("option");
 			option.value = existingTools[i][0];
-			option.text = existingTools[i][1].charAt(0).toUpperCase() + existingTools[i][1].slice(1);
+			option.text = existingTools[i][1].charAt(0).toUpperCase() + existingTools[i][1].slice(1) + " da " + existingTools[i][3] + " L";
 			option.selected = true;
 			select.appendChild(option);
 			
@@ -288,14 +288,14 @@
 			<c:forEach var="equip" items="${listAttrezzi}">
 				var valore = ${equip.ID};
 				if(!(document.querySelector('[id^=' + CSS.escape(valore) + ']') !== null))    
-					tol.push(new Array('${equip.ID}','${equip.nome}'));
+					tol.push(new Array('${equip.ID}','${equip.nome}', '${equip.capacitaMax}'));
 			</c:forEach>
 			
 			for(const val of tol) {
 				if(val[0] != existingTools[i][0])
 					{var option = document.createElement("option");
 					option.value = val[0];
-					option.text = val[1].charAt(0).toUpperCase() + val[1].slice(1);
+					option.text = val[1].charAt(0).toUpperCase() + val[1].slice(1) + " da " + val[2] + " L";
 					select.appendChild(option);}
 			}
 

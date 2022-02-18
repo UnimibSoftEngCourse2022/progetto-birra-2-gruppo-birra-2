@@ -20,6 +20,7 @@ public class ControllerUtente {
 	
 	@PostMapping(value="/editUserIng")
 	public ModelAndView editUserIng(@RequestBody String request) {
+		request = request.replace("+", " ");
 		String[] values = request.split("&");
 		String autore = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
 		String comp="";
