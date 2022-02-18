@@ -1,11 +1,15 @@
 package group.brewdaytwo.domain.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
+import group.brewdaytwo.domain.model.ricetta.Ricetta;
 import group.brewdaytwo.domain.model.utente.Utente;
+import group.brewdaytwo.services.dao.ricetta.RicettaDAO;
 import group.brewdaytwo.services.dao.utente.UtenteDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,9 @@ public class ControllerAccessoSito {
 
 	@Autowired
 	private UtenteDAO utenteDAO;
+	
+	@Autowired
+	private RicettaDAO RicettaDAO;
 	
 	public String decode(String input) 
 		{
@@ -64,8 +71,14 @@ public class ControllerAccessoSito {
 	}
 	
 	@GetMapping(value="/homePage")
-	public ModelAndView loadHomePage(ModelAndView model) throws IOException{
+	public ModelAndView loadHomePage(HttpSession session,ModelAndView model) throws IOException{
+		String nick = (String)session.getAttribute("autore");
+		Ricetta ricetta = RicettaDAO.getCDPO(nick);
+		List<Ricetta> listRicetta = new ArrayList<Ricetta>();
+		if(!(ricetta == null))
+			listRicetta.add(ricetta);
 		model.setViewName("homePage");
+		model.addObject("listRicetta", listRicetta);
 		return model;
 	}
 	

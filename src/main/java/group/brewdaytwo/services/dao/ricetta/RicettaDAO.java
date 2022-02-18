@@ -15,5 +15,7 @@ public interface RicettaDAO {
 	public Ricetta get(int ricettaID);
 	
 	public List<Ricetta> list(String nome,String autore);
+	
+	public Ricetta getCDPO(String autore);
 
 }

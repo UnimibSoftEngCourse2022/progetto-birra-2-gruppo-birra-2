@@ -41,6 +41,31 @@
 		tools="location.href='editUserEquip?nick=${autore}';">
 		</header-home>
 
+	<div id="lista">
+ 		<h3>Cosa dovrei preparare oggi?</h3>
+ 	</div>
+ 	
+ 	<script>
+		var div = document.getElementById("lista");
+		var ricette = new Array();
+		<c:forEach var="recipes" items="${listRicetta}">
+			ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));                              
+		</c:forEach>
+		
+		if(ricette.length == 0)
+		{
+			var vuoto = document.createElement("p");
+			vuoto.innerText = "Purtroppo nulla :(";
+			div.appendChild(vuoto);
+		}
+		else {for (const val of ricette)
+	   	{
+			var cont = document.createElement("div");
+			cont.innerHTML += "<h2>"+val[1]+"</h2><p>"+val[2]+"</p>";
+			cont.onclick = function() {location.href='makeBeerPage?id='+val[0]+'';};
+			div.appendChild(cont);
+	   	}}	
+	</script>
 
 	</body>
 </html>
