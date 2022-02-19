@@ -39,13 +39,6 @@ public class BirraDAOImpl implements BirraDAO{
 				+ " VALUES (?, ?, ?,?)";
 		jdbcTemplate.update(sql, b.getNote(), b.getQuantita(), b.getAutore(), b.getIDRicetta());
 	}
-
-	
-	@Override
-	public void delete(int IDBirra) {
-		String sql = "DELETE FROM progetto_brewday.brews WHERE ID=?";
-		jdbcTemplate.update(sql, IDBirra);
-	}
 	
 	
 	@Override
@@ -128,8 +121,6 @@ public class BirraDAOImpl implements BirraDAO{
 			}
 		}
 		
-		
-		if(ingredientiMancanti.size()==0) {
 			for(int i=0; i<c.size(); i++) {
 				for(int j=0; j<h.size(); j++) {
 					if(c.get(i).equals(h.get(j)) && quantMag.get(j)<quant.get(i)) {
@@ -138,10 +129,7 @@ public class BirraDAOImpl implements BirraDAO{
 					}
 				}
 			}
-		}
-		
-		System.out.print(attrezziSpesa.get(0) + "          " +  attrezziSpesaQ.get(0));
-
+			
 		List<String> spesa = new ArrayList<String>();
 		
 		if(attrezziSpesa.size()==0 && ingredientiMancanti.size()==0 && ingInsuff.size()==0) {
@@ -165,28 +153,29 @@ public class BirraDAOImpl implements BirraDAO{
 			for(int i=0; i< attrezziSpesa.size(); i++) {
 				if(i == 0)
 					spesa.add("Attrezzatura");
-				spesa.add( attrezziSpesaQ.get(i)+ " " + attrezziSpesa.get(i) + " che supporti almeno " + q + "l"); 
+				spesa.add("Nome attrezzo mancante: " + attrezziSpesa.get(i) + " Numero minimo richiesto: " + attrezziSpesaQ.get(i)+ " Capacità minima richiesta:  " + q + "l"); 
 				
 			}
 			
 			for(int i=0; i< ingredientiMancanti.size(); i++) {
 				if(i == 0)
-					{spesa.add("Ingredienti");
+					{
+					spesa.add("Ingredienti");
 					flagIng=false;
 					}
 				if(ingredientiMancanti.get(i).contains("Acqua"))
-					spesa.add(ingredientiMancanti.get(i) + " di almeno " + ingredientiMancantiQ.get(i) + "l");
+					spesa.add("Nome ingrediente mancante: " + ingredientiMancanti.get(i) + " Quantità minima richiesta: " + ingredientiMancantiQ.get(i) + " l");
 				else
-					spesa.add(ingredientiMancanti.get(i) + " di almeno " + ingredientiMancantiQ.get(i) + "g"); 
+					spesa.add("Nome ingrediente mancante: " + ingredientiMancanti.get(i) + " Quantità minima richiesta: " + ingredientiMancantiQ.get(i) + " g"); 
 			}
 			
 			for(int i=0; i< ingInsuff.size(); i++) {
 				if(i == 0 && flagIng)
 					spesa.add("Ingredienti");
 				if(ingInsuff.get(i).contains("Acqua"))
-					spesa.add(ingInsuff.get(i) + " di almeno " + ingInsuffQ.get(i) + "l");
+					spesa.add("Nome ingrediente mancante: " + ingInsuff.get(i) + " Quantità minima richiesta: " + ingInsuffQ.get(i) + " l");
 				else
-					spesa.add(ingInsuff.get(i) + " di almeno " + ingInsuffQ.get(i) + "g"); 
+					spesa.add("Nome ingrediente mancante: " + ingInsuff.get(i) + " Quantità minima richiesta: " + ingInsuffQ.get(i) + " g"); 
 			}
 		}
 		return spesa;

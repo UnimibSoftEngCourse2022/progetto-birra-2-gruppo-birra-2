@@ -74,7 +74,7 @@ public class ControllerUtente {
 	
 	@PostMapping(value="/makebeer")
 	public ModelAndView makeBeer(@RequestBody String request) throws IOException{
-		ModelAndView model = new ModelAndView("showRecBeerPage"); 
+		ModelAndView model = new ModelAndView("brewsPage"); 
 		String[] values = request.split("&");
 		
 		double quantita = Double.parseDouble(values[0].split("=")[1]);

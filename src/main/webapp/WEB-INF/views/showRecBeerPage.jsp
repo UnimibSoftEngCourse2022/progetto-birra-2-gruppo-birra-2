@@ -21,7 +21,7 @@
  			<input type="submit" value="Cerca Ricetta"/>
  	</form>
  	
- 	<form action="homePage" method="GET">
+ 	<form action="brews" method="GET">
 	 		<input type="submit" value="Torna indietro"/>
 	 	</form>
 	 	

@@ -32,7 +32,7 @@
 <br>
 <br>				
 
-<form action="recipes" method="GET">
+<form action="createBeer" method="GET">
     <input type="submit" value="Torna indietro" />
 </form>
 

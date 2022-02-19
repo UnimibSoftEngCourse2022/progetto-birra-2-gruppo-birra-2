@@ -8,8 +8,6 @@ public interface BirraDAO {
 	
 	public void save(Birra b);
 	
-	public void delete(int IDBirra);
-	
 	public List<String> getBirre(String autore);
 	
 	public List<String> controlloCreaBirra(int IDRicetta, double quantità, String autore);

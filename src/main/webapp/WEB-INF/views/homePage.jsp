@@ -42,7 +42,7 @@
 		</header-home>
 
 
-		<form action="createBeer" method="GET">
+		<form action="brews" method="GET">
  			<input type="submit" value="Birre"/>
  		</form>
 
