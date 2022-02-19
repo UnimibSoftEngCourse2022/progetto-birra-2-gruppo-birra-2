@@ -4,6 +4,8 @@ import javax.sql.DataSource;
 
 import group.brewdaytwo.services.dao.attrezzo.AttrezzoDAO;
 import group.brewdaytwo.services.dao.attrezzo.AttrezzoDAOImpl;
+import group.brewdaytwo.services.dao.birra.BirraDAO;
+import group.brewdaytwo.services.dao.birra.BirraDAOImpl;
 import group.brewdaytwo.services.dao.ingrediente.IngredienteDAO;
 import group.brewdaytwo.services.dao.ingrediente.IngredienteDAOImpl;
 import group.brewdaytwo.services.dao.ricetta.RicettaDAO;
@@ -69,6 +71,11 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public AttrezzoDAO getAttrezzoDAO() {
 		return new AttrezzoDAOImpl(getDataSource());
+	}
+	
+	@Bean
+	public BirraDAO getBirraDAO() {
+		return new BirraDAOImpl(getDataSource());
 	}
 
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import group.brewdaytwo.domain.model.attrezzo.Attrezzo;
 import group.brewdaytwo.domain.model.ingrediente.Ingrediente;
 import group.brewdaytwo.services.dao.attrezzo.AttrezzoDAO;
+import group.brewdaytwo.services.dao.birra.BirraDAO;
 import group.brewdaytwo.services.dao.ingrediente.IngredienteDAO;
 
 @Controller
@@ -25,9 +26,21 @@ public class ControllerHome {
 	@Autowired
 	private AttrezzoDAO AttrezzoDAO;
 	
+	@Autowired 
+	private BirraDAO BirraDAO;
+	
 	@GetMapping(value="/recipes")
 	public ModelAndView loadRecipesPage(ModelAndView model) throws IOException{
 		model.setViewName("recipesPage");
+		return model;
+	}
+	
+	@GetMapping(value="/brews")
+	public ModelAndView loadBrewsPage(HttpSession session,ModelAndView model) throws IOException{
+		model.setViewName("brewsPage");
+		String autore = (String)session.getAttribute("autore");
+		List<String> listBirre = BirraDAO.getBirre(autore);
+		model.addObject("listBirre", listBirre);
 		return model;
 	}
 	

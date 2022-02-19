@@ -73,5 +73,10 @@
 	   	}}	
 	</script>
 
+		<form action="brews" method="GET">
+ 			<input type="submit" value="Birre"/>
+ 		</form>
+
+
 	</body>
 </html>

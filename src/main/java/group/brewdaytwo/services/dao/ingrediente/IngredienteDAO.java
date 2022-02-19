@@ -19,5 +19,7 @@ public interface IngredienteDAO {
 	public void saveUserIng(String u, String i, double q);
 	
 	public void deleteUserIng(String u);
+	
+	public void deleteOneUserIng(String u, String ing);
 
 }
