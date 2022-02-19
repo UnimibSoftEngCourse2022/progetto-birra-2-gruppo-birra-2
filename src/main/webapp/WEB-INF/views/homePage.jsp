@@ -48,8 +48,14 @@
  	<script>
 		var div = document.getElementById("lista");
 		var ricette = new Array();
+		var quantita = "";
 		<c:forEach var="recipes" items="${listRicetta}">
 			ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));                              
+		</c:forEach>
+		
+		<c:forEach var="qtn" items="${listQuantita}">
+			var text = "${qtn}";
+			quantita += text;                              
 		</c:forEach>
 		
 		if(ricette.length == 0)
@@ -61,7 +67,7 @@
 		else {for (const val of ricette)
 	   	{
 			var cont = document.createElement("div");
-			cont.innerHTML += "<h2>"+val[1]+"</h2><p>"+val[2]+"</p>";
+			cont.innerHTML += "<h2>"+val[1]+"</h2><p>"+val[2]+" <br>Quantità massima producibile (consigliata): "+quantita+" L</p>";
 			cont.onclick = function() {location.href='makeBeerPage?id='+val[0]+'';};
 			div.appendChild(cont);
 	   	}}	

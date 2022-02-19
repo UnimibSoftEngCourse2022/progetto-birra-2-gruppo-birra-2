@@ -75,10 +75,15 @@ public class ControllerAccessoSito {
 		String nick = (String)session.getAttribute("autore");
 		Ricetta ricetta = RicettaDAO.getCDPO(nick);
 		List<Ricetta> listRicetta = new ArrayList<Ricetta>();
+		List<String> listQuantita = new ArrayList<String>();
 		if(!(ricetta == null))
-			listRicetta.add(ricetta);
+			{
+				listRicetta.add(ricetta);
+				listQuantita.add(RicettaDAO.getQuantita(nick,ricetta.getID()));
+			}
 		model.setViewName("homePage");
 		model.addObject("listRicetta", listRicetta);
+		model.addObject("listQuantita", listQuantita);
 		return model;
 	}
 	

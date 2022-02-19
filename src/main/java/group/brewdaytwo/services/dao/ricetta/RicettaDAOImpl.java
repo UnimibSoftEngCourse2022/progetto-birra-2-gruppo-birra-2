@@ -2,6 +2,7 @@ package group.brewdaytwo.services.dao.ricetta;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -144,6 +145,127 @@ public class RicettaDAOImpl implements RicettaDAO {
 		
 		return get(idricetta);
 		
+	}
+	
+	@Override
+	public String getQuantita(String autore, int ricettaID) 
+	{
+		String sql ="select min(t1.v1/t2.v2) as min"
+				+ " from"
+				+ " (select ingrediente,quantita as v2 "
+				+ " from components "
+				+ " where ricetta =\""+ricettaID+"\" and ingrediente <> \"Acqua\") as t2"
+				+ " join"
+				+ " (select ingrediente,quantita as v1"
+				+ " from warehouses"
+				+ " where birraio =\""+autore+"\" and ingrediente <> \"Acqua\") as t1"
+				+ " on t1.ingrediente = t2.ingrediente;";
+		
+		double qtnNoAcqua = jdbcTemplate.query(sql, new ResultSetExtractor<Double>() {
+
+			@Override
+			public Double extractData(ResultSet rs) throws SQLException,
+					DataAccessException {
+				if (rs.next()) {
+					double r = rs.getDouble("min");
+					if(r == 0.0)
+						r = 100.0;
+					return r;
+				}
+				return 100.0;
+			}
+			
+		});
+		
+		sql = "select min(t1.v1/(t2.v2/100)) as min"
+				+ " from "
+				+ " (select ingrediente,quantita as v2 "
+				+ " from components "
+				+ " where ricetta =\""+ricettaID+"\" and ingrediente = \"Acqua\") as t2"
+				+ " join"
+				+ " (select ingrediente,quantita as v1 "
+				+ " from warehouses "
+				+ " where birraio =\""+autore+"\" and ingrediente = \"Acqua\") as t1"
+				+ " on t1.ingrediente = t2.ingrediente;";
+		
+		double qtnAcqua = jdbcTemplate.query(sql, new ResultSetExtractor<Double>() {
+
+			@Override
+			public Double extractData(ResultSet rs) throws SQLException,
+					DataAccessException {
+				if (rs.next()) {
+					double r = rs.getDouble("min");
+					if(r == 0.0)
+						r = 100.0;
+					return r;
+				}
+				return 100.0;
+			}
+			
+		});
+		
+		System.out.println(qtnAcqua);
+		
+		double qtn = Math.min(qtnNoAcqua, qtnAcqua);
+		
+		sql ="select t2.nome as nome, t2.capacita_max as capMax, t2.quantita as qtn"
+				+ " from"
+				+ " (select * from tools "
+				+ " join recipes_equipments as RE on tools.id = RE.strumento where ricetta = \""+ricettaID+"\") as t1"
+				+ " join "
+				+ " (select * from tools "
+				+ " join brewers_equipments as BE on tools.id = BE.strumento where birraio = \""+autore+"\") as t2"
+				+ " on t1.nome = t2.nome"
+				+ " order by nome desc,capMax desc;";
+		
+		List<String> UserTools = jdbcTemplate.query(sql, new RowMapper<String>() {
+			
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String i = rs.getString("nome") + " - " + rs.getDouble("capMax") + " - " + rs.getString("qtn");
+				return i;
+			}
+		});
+		
+		sql ="select nome, quantita from tools"
+				+ " join recipes_equipments as RE on tools.id = RE.strumento where ricetta = \""+ricettaID+"\""
+				+ " order by nome desc;";
+		
+		List<String> RecTools = jdbcTemplate.query(sql, new RowMapper<String>() {
+			
+			@Override
+			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+				String i = rs.getString("nome") + " - " + rs.getString("quantita");
+				return i;
+			}
+		});
+		
+		double mincap= 50.0;
+		
+		for(int i=0; i<RecTools.size();i++)
+		{
+			boolean flag = true;
+			String nomeRt= RecTools.get(i).split(" - ")[0];
+			int qtnAttRt = Integer.parseInt(RecTools.get(i).split(" - ")[1]);
+			for(int j=0; j<UserTools.size() && flag; j++)
+			{
+				String nomeUt = UserTools.get(j).split(" - ")[0];
+				double capMax = Double.parseDouble(UserTools.get(j).split(" - ")[1]);
+				int qtnattUt = Integer.parseInt(UserTools.get(j).split(" - ")[2]);
+				if(nomeRt.equals(nomeUt))
+					qtnAttRt -= qtnattUt;
+				if(qtnAttRt <= 0)
+					{
+					flag = false;
+					mincap = Math.min(capMax, mincap);
+					}	
+			}
+		}
+		
+		DecimalFormat df = new DecimalFormat("0.00");
+		
+		
+		return df.format(Math.min(mincap, qtn));
 	}
 
 }
