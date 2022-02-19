@@ -32,7 +32,7 @@ alert(x);
 var lista = document.getElementById("lista");
 var birre = new Array();
 <c:forEach var="birre" items="${listBirre}">
-	var text = '${birre}';
+	var text = "${birre}";
 	birre.push(text.split(" - "));
 </c:forEach>
 for(val of birre)

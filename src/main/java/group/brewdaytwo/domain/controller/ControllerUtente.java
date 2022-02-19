@@ -75,6 +75,8 @@ public class ControllerUtente {
 	@PostMapping(value="/makebeer")
 	public ModelAndView makeBeer(@RequestBody String request) throws IOException{
 		ModelAndView model = new ModelAndView("brewsPage"); 
+		request = request.replace("+", " ");
+		request = ControllerRicette.decodeRicerca(request);
 		String[] values = request.split("&");
 		
 		double quantita = Double.parseDouble(values[0].split("=")[1]);
@@ -83,6 +85,9 @@ public class ControllerUtente {
 		String note = "";
 		if(values[3].length() > 5)
 			note = values[3].split("=")[1];
+		note = note.replace("%26", "&");
+		note = note.replace("%25", "%");
+		note = note.replace("%3D", "=");
 		
 		List<String> spesa = BirraDAO.controlloCreaBirra(IDRicetta, quantita, autore);
 		if(spesa.size() == 0) {

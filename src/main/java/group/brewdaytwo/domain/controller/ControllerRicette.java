@@ -33,7 +33,7 @@ public class ControllerRicette {
 	@Autowired
 	private AttrezzoDAO AttrezzoDAO;
 	
-	public String decodeRicerca(String input) 
+	static public String decodeRicerca(String input) 
 	{
 		input = input.replace("%27", "'");
 		input = input.replace("%21", "!");
@@ -49,6 +49,25 @@ public class ControllerRicette {
 		input = input.replace("%3A", ":");
 		input = input.replace("%2C", ",");
 		input = input.replace("%3B", ";");
+		
+		input = input.replace("%5C", "\\");
+		input = input.replace("%7C", "|");
+		input = input.replace("%2F", "/");
+		input = input.replace("%24", "$");
+		input = input.replace("%C3%82%C2%A3", "£");
+		input = input.replace("%5E", "^");
+		input = input.replace("%5B", "[");
+		input = input.replace("%5D", "]");
+		input = input.replace("%2B", "+");
+		input = input.replace("%3C", "<");
+		input = input.replace("%3E", ">");
+		input = input.replace("%C3%83%C2%A7", "ç");
+		input = input.replace("%40", "@");
+		input = input.replace("%C3%82%C2%B0", "°");
+		input = input.replace("%23", "#");
+		input = input.replace("%C3%82%C2%A7", "§");
+		
+		input = input.replace("%22", "");
 		return input;
 	}
 	
@@ -60,6 +79,11 @@ public class ControllerRicette {
 		input = input.replace("Ã¹", "ù");
 		input = input.replace("Ã ", "à");
 		input = input.replace("Ã²", "ò");
+		input = input.replace("Â£", "£");
+		input = input.replace("Ã§", "ç");
+		input = input.replace("Â°", "°");
+		input = input.replace("Â§", "§");
+		input = input.replace("\"", "");
 		return input;
 	}
 
@@ -175,6 +199,7 @@ public class ControllerRicette {
 	@PostMapping(value="/showrecipes")
 	public ModelAndView showRecipes(@RequestBody String request) throws IOException{
 		ModelAndView model = new ModelAndView("recipesPage");
+		request = request.replace("+", " ");
 		request = decodeRicerca(request);
 		String[] values = request.split("&");
 		String nome = values[0].split("=")[1].replace("%26","&");
@@ -187,6 +212,7 @@ public class ControllerRicette {
 	@PostMapping(value="/showrecipesMake")
 	public ModelAndView showRecipesMake(@RequestBody String request) throws IOException{
 		ModelAndView model = new ModelAndView("showRecBeerPage");
+		request = request.replace("+", " ");
 		request = decodeRicerca(request);
 		String[] values = request.split("&");
 		String nome = values[0].split("=")[1].replace("%26","&");
