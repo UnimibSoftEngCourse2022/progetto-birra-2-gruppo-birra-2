@@ -204,8 +204,6 @@ public class RicettaDAOImpl implements RicettaDAO {
 			
 		});
 		
-		System.out.println(qtnAcqua);
-		
 		double qtn = Math.min(qtnNoAcqua, qtnAcqua);
 		
 		sql ="select t2.nome as nome, t2.capacita_max as capMax, t2.quantita as qtn"
