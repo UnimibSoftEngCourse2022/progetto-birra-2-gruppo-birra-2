@@ -55,8 +55,9 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public List<String> getUserTools(String utente)
 	{
-		String sql = "SELECT tools.ID,tools.nome,quantita,capacita_max as capMax FROM brewers_equipments join tools on strumento=tools.ID where birraio = \"" + utente + "\"";
-		List<String> tools = jdbcTemplate.query(sql, new RowMapper<String>() {
+		String[] args = {utente};
+		String sql = "SELECT tools.ID,tools.nome,quantita,capacita_max as capMax FROM brewers_equipments join tools on strumento=tools.ID where birraio = ?";
+		List<String> tools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
