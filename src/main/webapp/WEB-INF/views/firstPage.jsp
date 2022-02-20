@@ -1,5 +1,8 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,34 +16,42 @@
         <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
         <!-- External Files -->
-        <spring:url value="/resources/assets/+.png" var="plusPNG" />
-        <spring:url value="/resources/assets/lente.png" var="lentePNG" />
         <spring:url value="/resources/assets/logo.png" var="logoPNG" />
-		<link href="${logoPNG}" rel="icon" />
+		<spring:url value="/resources/assets/BrewDesign.png" var="brewDesignPNG" />
+        <link href="${logoPNG}" rel="icon" />
+
+        <spring:url value="/resources/style.css" var="styleCSS" />
+		<spring:url value="/resources/firstPage/header.css" var="headerCSS" />
+        <spring:url value="/resources/firstPage/logo.js" var="logoJS" />
+		<spring:url value="/resources/firstPage/buttons.js" var="buttonsJS" />
+		<spring:url value="/resources/firstPage/presentation.js" var="presentationJS" />
+        
+        <link href="${styleCSS}" rel="stylesheet" />
+		<link href="${headerCSS}" rel="stylesheet" />
+        <script src="${logoJS}"></script>
+		<script src="${buttonsJS}"></script>
+		<script src="${presentationJS}"></script>
 
 	</head>
 	<body>
-		<h3>Logo BrewDay!</h3>
 		
-		<div style="text-align: center">
-  			Benvenuto in BrewDay!
-  		</div>
-		
-		<div style="position: absolute; top: 0; right: 0;  width: 100px; text-align:right;">
-			<form action="login" method="GET">
-				<input type="submit" id="login" value="Log in"/>
-		 	</form>
-		 	
-		 	<form action="signin" method="GET">
-				<input type="submit" id="signin" value="Sign in"/>
-		 	</form>
-  		</div>
-  		
-  		<br>
-  		<br>
-  		
-  		<div style="text-align: center">
-  			Presentazione sito bla bla bla
-  		</div>
+		<header>
+            <header-logo 
+                logo="${logoPNG}">
+            </header-logo>
+            <header-buttons 
+                submitTo1="signin" 
+                value1="Registrati" 
+                submitTo2="login" 
+                value2="Accedi">
+            </header-buttons>
+        </header>
+
+        <main-presentation 
+            submitTo="login" 
+            value="Inizia Ora!!" 
+            image="${brewDesignPNG}">
+        </main-presentation>
+
 	</body>
 </html>

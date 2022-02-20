@@ -23,7 +23,7 @@ class Header extends HTMLElement {
                             </form>
                         </li>
                         <li>
-                            <form action="birrePage" method="GET">
+                            <form action="brews" method="GET">
                                 <input id="birre" type="submit" value="Birre"/>
                             </form>
                         </li>

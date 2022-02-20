@@ -95,8 +95,14 @@
 			</c:forEach>
 
 			for (const val of ingredienti) {
+				var unità = `g/L`;
+
+				if (val[0].split(" - ")[0].toLowerCase() == 'acqua') {
+					unità = `%`;
+				}
+
 				listaIngredienti.innerHTML += `<h6>` 
-				+ val[0].split(" - ")[0] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] + `%` +
+				+ val[0].split(" - ")[0] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] + unità +
 				`</h6>`;
 			}
 

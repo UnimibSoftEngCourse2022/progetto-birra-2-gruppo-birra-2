@@ -1,0 +1,10 @@
+header {
+    height: 140px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin: 0 55px;
+    background: transparent;
+  }
