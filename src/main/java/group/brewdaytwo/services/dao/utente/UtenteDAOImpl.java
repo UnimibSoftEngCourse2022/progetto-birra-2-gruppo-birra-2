@@ -43,8 +43,9 @@ public class UtenteDAOImpl implements UtenteDAO {
 
 	@Override
 	public Utente check(String utenteNick,String utentePwd) {
-		String sql = "SELECT * FROM progetto_brewday.users WHERE nickname=\"" + utenteNick + "\" AND password=\"" + utentePwd + "\"";
-		return jdbcTemplate.query(sql, new ResultSetExtractor<Utente>() {
+		String[] args = {utenteNick, utentePwd};
+		String sql = "SELECT * FROM progetto_brewday.users WHERE nickname=? AND password=?";
+		return jdbcTemplate.query(sql,args, new ResultSetExtractor<Utente>() {
 
 			@Override
 			public Utente extractData(ResultSet rs) throws SQLException,

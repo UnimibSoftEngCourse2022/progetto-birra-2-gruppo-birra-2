@@ -21,8 +21,9 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 
 	@Override
 	public List<Ingrediente> list(String tipo) {
-		String sql = "SELECT * FROM ingredients where tipo=\""+tipo+"\"";
-		List<Ingrediente> listIngrediente = jdbcTemplate.query(sql, new RowMapper<Ingrediente>() {
+		String[] args = {tipo};
+		String sql = "SELECT * FROM ingredients where tipo=?";
+		List<Ingrediente> listIngrediente = jdbcTemplate.query(sql,args, new RowMapper<Ingrediente>() {
 
 			@Override
 			public Ingrediente mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -48,8 +49,10 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 	
 	@Override
 	public List<String> getUserIngredients(String utente)
-		{	String sql = "SELECT ingrediente,quantita,tipo FROM warehouses join ingredients on ingrediente=nome where birraio = \"" + utente + "\"";
-			List<String> ingredients = jdbcTemplate.query(sql, new RowMapper<String>() {
+		{	
+			String[] args = {utente};
+			String sql = "SELECT ingrediente,quantita,tipo FROM warehouses join ingredients on ingrediente=nome where birraio = ?";
+			List<String> ingredients = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 	
 				@Override
 				public String mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -77,8 +80,9 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 	
 	@Override
 	public List<String> getComponents(int ricettaID) {
-		String sql = "SELECT ingrediente,quantita,tipo FROM components join ingredients on ingrediente=nome where ricetta = \"" + ricettaID + "\"";
-		List<String> components = jdbcTemplate.query(sql, new RowMapper<String>() {
+		String[] args = {ricettaID+""};
+		String sql = "SELECT ingrediente,quantita,tipo FROM components join ingredients on ingrediente=nome where ricetta = ?";
+		List<String> components = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
