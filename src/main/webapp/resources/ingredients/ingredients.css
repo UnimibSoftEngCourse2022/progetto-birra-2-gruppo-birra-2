@@ -9,3 +9,244 @@
 #ricette:hover {
     color: black;
 }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+body div.ContainerForm {
+  height: 284px;
+  width: 381px;
+  margin: 100px auto;
+  margin-bottom: 130px;
+}
+
+.ContainerForm form {
+  display: grid;
+  grid-template-columns: 1fr;
+  place-content: center;
+  width: inherit;
+}
+
+.ContainerForm form {
+  width: 100%;
+}
+
+.HStack {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+#addContainer.HStack {
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.ContainerForm div#add_comp.HStack {
+  width: 25px;
+  height: 25px;
+  background: #8E8E93;
+  border-radius: 12.5px;
+  cursor: pointer;
+  transition: background 250ms ease-in-out,
+  transform 150ms ease;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.ContainerForm #add_comp.HStack img {
+  height: 11.5px;
+  width: 11.5px;
+}
+
+.ContainerForm div#add_comp.HStack:hover {
+  background: black;
+}
+
+.ContainerForm img#rimuovi {
+  height: 2.5px;
+  width: 11.5px;
+}
+
+.ContainerForm .-button:hover {
+  background: black;
+}
+
+.-button {
+  background: #FF3B30;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  transition: background 250ms ease-in-out,
+  transform 150ms ease;
+  cursor: pointer;
+  margin-top: 33px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+h1 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  font-size: 29px;
+}
+
+.ContainerForm label {
+  font-family: 'Inter', sans-serif;
+  color: #67686D;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ContainerForm h1 {
+  margin-bottom: 5px;
+}
+
+.ContainerForm #quantità input:hover, .ContainerForm #quantità input:focus {
+  border-color: black;
+  color: black;
+}
+
+.ContainerForm #quantità input {
+  appearance: none;
+  height: 44px;
+  width: 43px;
+  background: #F0F0F1;
+  color: #8E8E93;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 12px;
+  padding-inline: 18px;
+  border: 2px solid #fafafa;
+  transition: border 250ms ease-in-out,
+  transform 150ms ease;
+  outline: none;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.ContainerForm #container .HStack:not(#add_comp) {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 66px;
+  margin-top: 25px;
+}
+
+.ContainerForm #add_comp.HStack {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+.ContainerForm #container .VStack {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
+}
+
+.VStack#ingrediente {
+  height: inherit;
+  width: 260px;
+}
+
+.VStack#quantità {
+  height: inherit;
+  width: 75px;
+}
+
+.VStack#rimuovi {
+  align-items: center;
+}
+
+select {
+  appearance: none;
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  cursor: pointer;
+}
+
+#ingrediente select {
+  height: 44px;
+  width: 420px;
+  background: #F0F0F1;
+  color: #8E8E93;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 12px;
+  padding-inline: 18px;
+  border: 2px solid white;
+  transition: border 250ms ease-in-out,
+  transform 150ms ease;
+  margin-top: 5px;
+}
+
+#addContainer select {
+  font-family: 'Inter', sans-serif;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+  height: 25px;
+  background: #8E8E93;
+  max-width: max-content;
+  padding-left: 5px;
+  transition: background 250ms ease-in-out,
+  transform 150ms ease;
+  border-radius: 12.5px;
+  padding-inline: 18px;
+}
+
+#addContainer select:hover {
+  background: black;
+}
+
+#ingrediente select:hover {
+  border-color: black;
+  color: black;
+}
+
+#ingrediente select {
+  border-color: #fafafa;
+  width: inherit;
+}
+
+#Invia {
+  appearance: none;
+  padding: 12px 15px;
+  background: black;
+  color: white;
+  font-size: 17px;
+  font-weight: 800;
+  border-radius: 11px;
+  transition: background 250ms ease-in-out,
+  transform 150ms ease;
+  outline: none;
+  cursor: pointer;
+  margin-top: 70px;
+  border: none;
+}
+
+#Invia:hover {
+  background: #4E4F59;
+}
+
+.ContainerForm .buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
