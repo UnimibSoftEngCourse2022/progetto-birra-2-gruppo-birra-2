@@ -36,16 +36,9 @@
     <input type="submit" value="Torna indietro" />
 </form>
 
-
-	<form action="makebeer" method="POST">
-			<input type="number" min=0 max=50 id="quantita" name="quantita" value="" 
-				placeholder="Quantità" required />
-	  		<input type="hidden" id="autore" name="autore" value="${autore}"/>
-	  		<input type="hidden" id="idricetta" name="idricetta" value="${IDRicetta}"/>
-	  		&nbsp;&nbsp;
-	  		<textarea id="note" name="note"></textarea>
-	  		
- 			<input type="submit" value="Crea birra"/>
- 	</form>
+<form action="infoCreateBeer" method="GET">
+    <input type="submit" value="Specifica dati birra" />
+</form>
+	
 </body>
 </html>

@@ -75,7 +75,7 @@
 				birre.push(text.split(" - "));
 			</c:forEach>
 			for(val of birre)
-				lista.innerHTML += "<p>Nome ricetta: "+val[0] +" Quantit√† creata: " +val[1] +"l  Note: " + val[2]+"</p><br>";
+				lista.innerHTML += "<p>Nome ricetta: "+val[0] +" Quantit‡† creata: " +val[1] +"l  Note: " + val[2]+"</p><br>";
 		</script>
 
 		</body>

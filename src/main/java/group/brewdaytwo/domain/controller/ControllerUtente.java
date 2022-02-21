@@ -122,7 +122,14 @@ public class ControllerUtente {
 		return model;
 	}
 	
-	
+	@GetMapping(value="/infoCreateBeer")
+	public ModelAndView loadInfoCreateBeerPage(HttpSession session,ModelAndView model) throws IOException{
+		int idRic = (int)session.getAttribute("IDRicetta");
+		Ricetta r = RicettaDAO.get(idRic);
+		model.setViewName("infoCreateBeerPage");
+		model.addObject("Ricetta", r);
+		return model;
+	}
 	
 	
 
