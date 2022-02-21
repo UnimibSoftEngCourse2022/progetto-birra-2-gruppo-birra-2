@@ -90,52 +90,45 @@ public class RicettaDAOImpl implements RicettaDAO {
 	
 	@Override
 	public Ricetta getCDPO(String autore) {
-		String sql = "select ricetta "
-				+ "from components as c1 "
-				+ "join recipes on recipes.id = c1.ricetta "
-				+ "join "
-				+ "(select distinct ricetta as r "
-				+ "from components as c3 "
-				+ "join "
-				+ "(SELECT ID FROM recipes "
-				+ "WHERE autore = \""+ autore +"\""
-						+ " AND"
-						+ " ID NOT IN"
-						+ " (SELECT DISTINCT ricetta FROM components WHERE ingrediente NOT IN"
-						+ " (SELECT ingrediente FROM warehouses WHERE birraio = \""+ autore +"\"))"
-								+ " AND"
-								+ " ID NOT IN"
-								+ " (SELECT DISTINCT ricetta "
-								+ " FROM recipes_equipments as RE "
-								+ " join tools as t1 on t1.id = RE.strumento"
-								+ " WHERE t1.nome NOT IN"
-								+ " (SELECT t2.nome FROM "
-								+ " (Select max(e.qnt) as num"
-								+ " from "
-								+ " (select sum(quantita) as qnt"
-								+ " from brewers_equipments as bes"
-								+ " join tools on tools.id = bes.strumento"
-								+ " where tools.nome = t1.nome and birraio = \""+ autore +"\""
-										+ " group by tools.nome) as e) as c,"
-										+ " brewers_equipments as BE join tools as t2 on t2.id = BE.strumento "
-										+ " WHERE birraio = \""+ autore +"\" AND RE.quantita <= c.num))) as recok on recok.ID = c3.ricetta"
-												+ " having (select count(*) as num"
-												+ " from components "
-												+ " where ricetta=r) in (select max(num) as max"
-												+ " from (select count(*) as num"
-												+ " from components "
-												+ " group by ricetta) as tmax)) as c2 on c1.ricetta = c2.r"
-												+ " where autore=\""+ autore+"\""
-														+ " group by ricetta"
-														+ " order by sum(quantita) desc"
-														+ " limit 1;";
-		int idricetta = jdbcTemplate.query(sql, new ResultSetExtractor<Integer>() {
+		String args[] = {autore,autore,autore,autore};
+		String sql = "select distinct r1.r"
+				+ " from"
+				+ " (select distinct ricetta as r"
+				+ " from components"
+				+ " group by r"
+				+ " order by count(ingrediente) desc, sum(quantita) desc) as r1"
+				+ " join"
+				+ " (SELECT ID FROM recipes"
+				+ " WHERE autore = ?"
+				+ " AND"
+				+ " ID NOT IN"
+				+ " (SELECT DISTINCT ricetta FROM components WHERE ingrediente NOT IN"
+				+ " (SELECT ingrediente FROM warehouses WHERE birraio = ?))"
+				+ " AND"
+				+ " ID NOT IN"
+				+ " (SELECT DISTINCT ricetta"
+				+ " FROM recipes_equipments as RE"
+				+ " join tools as t1 on t1.id = RE.strumento"
+				+ " WHERE t1.nome NOT IN"
+				+ " (SELECT t2.nome FROM"
+				+ " (Select max(e.qnt) as num"
+				+ " from"
+				+ " (select sum(quantita) as qnt"
+				+ " from brewers_equipments as bes"
+				+ " join tools on tools.id = bes.strumento"
+				+ " where tools.nome = t1.nome and birraio = ?"
+				+ " group by tools.nome) as e) as c,"
+				+ " brewers_equipments as BE join tools as t2 on t2.id = BE.strumento"
+				+ " WHERE birraio = ? AND RE.quantita <= c.num))) as r2"
+				+ " on r1.r=r2.ID"
+				+ " limit 1;";
+		int idricetta = jdbcTemplate.query(sql,args, new ResultSetExtractor<Integer>() {
 
 			@Override
 			public Integer extractData(ResultSet rs) throws SQLException,
 					DataAccessException {
 				if (rs.next()) {
-					int r = rs.getInt("ricetta");
+					int r = rs.getInt("r");
 					return r;
 				}
 				return 0;

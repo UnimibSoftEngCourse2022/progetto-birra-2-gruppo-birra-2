@@ -13,15 +13,11 @@ import org.springframework.jdbc.core.RowMapper;
 
 import group.brewdaytwo.domain.model.birra.Birra; 
 import group.brewdaytwo.services.dao.ingrediente.IngredienteDAO;
-import group.brewdaytwo.services.dao.ricetta.RicettaDAO;
 import group.brewdaytwo.services.dao.attrezzo.AttrezzoDAO;
 
 public class BirraDAOImpl implements BirraDAO{
 	
-	private JdbcTemplate jdbcTemplate;
-	
-	@Autowired
-	private RicettaDAO RicettaDAO; 
+	private JdbcTemplate jdbcTemplate; 
 	
 	@Autowired
 	private IngredienteDAO IngredienteDAO; 
