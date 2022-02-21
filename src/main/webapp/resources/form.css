@@ -65,6 +65,7 @@ input.send {
   }
 
   textarea {
+    font-family: 'Inter';
     appearance: none;
     height: 89px;
     width: 420px;

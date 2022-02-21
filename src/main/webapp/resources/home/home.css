@@ -1,4 +1,32 @@
 #home {
-    color: black;
+  color: black;
 }
 
+#attrezzatura {
+  color: #8E8E93;
+}
+
+#attrezzatura:hover {
+  color: black;
+}
+
+body div.ContainerForm {
+  height: 284px;
+  width: 454px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#lista p {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.Card {
+  margin-top: 70px;
+}

@@ -29,7 +29,6 @@
 		<spring:url value="/resources/recipes/recipes.css" var="recipesCSS" />
 		<spring:url value="/resources/form.css" var="formCSS" />
 		<spring:url value="/resources/recipes/addRecipes.css" var="addRecipesCSS" />
-		<spring:url value="/resources/recipes/addFormRecipe.js" var="addFormRecipeJS" />
 
 		<link href="${styleCSS}" rel="stylesheet" />
 		<script src="${headerJS}"></script>
@@ -38,7 +37,6 @@
 		<link href="${recipesCSS}" rel="stylesheet" />
 		<link href="${formCSS}" rel="stylesheet" />
 		<link href="${addRecipesCSS}" rel="stylesheet" />
-		<script src="${addFormRecipeJS}"></script>
 	
 	</head>
 	<body>

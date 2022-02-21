@@ -84,7 +84,7 @@ class Presentation extends HTMLElement {
             }
         }
 
-        @media screen and (max-width: 1575px) {
+        @media screen and (max-width: 1050px) {
             .Presentation img {
                 display: none;
             }
@@ -103,7 +103,7 @@ class Presentation extends HTMLElement {
             }
         }
 
-        @media screen and (max-width: 727px) {
+        @media screen and (max-width: 1575px) {
             .Presentation h1 {
                 font-size: 50px;
                 width: 480px;
@@ -124,7 +124,30 @@ class Presentation extends HTMLElement {
             .Presentation section {
                 margin-top: 15px;
             }
+
+            .Presentation img {
+                height: 450px;
+                width: 408.18px;
+            }
+
+            .Presentation {
+                gap: 140px;
+                margin: 65px 240px;
+            }
         }
+
+        @media screen and (max-width: 1150px) {
+            .Presentation img {
+                height: 400px;
+                width: 362.83px;
+            }
+
+            .Presentation {
+                gap: 100px;
+                margin: 55px 240px;
+            }
+        }
+        
 
         </style>
             

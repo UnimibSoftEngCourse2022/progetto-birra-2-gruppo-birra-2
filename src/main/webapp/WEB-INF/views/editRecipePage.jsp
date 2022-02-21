@@ -96,13 +96,16 @@
 
 			for (const val of ingredienti) {
 				var unità = `g/L`;
+				var tipo = "";
 
 				if (val[0].split(" - ")[0].toLowerCase() == 'acqua') {
 					unità = `%`;
+				} else {
+					tipo = val[0].split(" - ")[2] + " ";
 				}
 
 				listaIngredienti.innerHTML += `<h6>` 
-				+ val[0].split(" - ")[0] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] + unità +
+				+ tipo + val[0].split(" - ")[0] + `\xa0\xa0\xa0` + val[0].split(" - ")[1] + unità +
 				`</h6>`;
 			}
 

@@ -5,7 +5,7 @@ class Card extends HTMLElement {
   
     connectedCallback() {
       this.innerHTML = `
-        <div class="Card" onclick="location.href='editRecipe?id='+${this.getAttribute('elementClicked')}+'';">
+        <div class="Card" onclick="${this.getAttribute('elementClicked')}">
             <div class="HStack">
               <img src="${this.getAttribute('image')}" alt="card image"></img>
               <div class="Text">

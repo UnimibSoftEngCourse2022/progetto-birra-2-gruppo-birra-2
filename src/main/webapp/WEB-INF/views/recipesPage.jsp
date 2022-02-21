@@ -86,7 +86,7 @@
                         image="`+img+`"
                         title="`+val[1]+`" 
                         description="`+val[2]+`" 
-                        elementClicked="`+val[0]+`">
+                        elementClicked="location.href='editRecipe?id='+`+val[0]+`+'';">
                     </recipe-card>
             `;
             }

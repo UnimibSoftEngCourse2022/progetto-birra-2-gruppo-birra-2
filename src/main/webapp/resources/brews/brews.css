@@ -1,0 +1,17 @@
+#birre {
+    color: black;
+}
+
+#ricette {
+    color: #8E8E93;
+}
+
+#ricette:hover {
+    color: black;
+}
+
+.AddSearch {
+    display: flex;
+    justify-content: end;
+    justify-items: flex-end;
+}
