@@ -207,6 +207,12 @@
 		    qa.name="quantita"+ nmIng;
 		    qa.id="quantita"+ nmIng;
 			qa.classList = "quantità";
+
+			if(type == 'Acqua') {
+				qa.placeholder = "10%";
+			} else {
+				qa.placeholder = "2g/L";
+			}
 		    
 		    if(type == "Acqua")
 		    	qa.setAttribute("max", "100");

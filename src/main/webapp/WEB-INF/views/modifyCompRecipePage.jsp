@@ -212,6 +212,13 @@
 		    qa.name="quantita"+ nmIng;
 		    qa.id="quantita"+ nmIng;
 		    qa.classList = "quantità";
+
+			if(type == 'Acqua') {
+				qa.placeholder = "10%";
+			} else {
+				qa.placeholder = "2g/L";
+			}
+
 		    if(type == "Acqua")
 		    	qa.setAttribute("max", "100");
 		    
@@ -271,7 +278,7 @@
 
 			// creo le 2 label (una per l'attrezzo e una per la quantità)
 			var labelIng = document.createElement("label");
-			labelIng.innerHTML = ``+type+``;
+			labelIng.innerHTML = type;
 			labelIng.htmlFor = "attrezzo";
 
 			var labelQuantity = document.createElement("label");
@@ -360,6 +367,13 @@
 		    	qa.setAttribute("max", "100");
 		    qa.value = Number(existingComponents[i][1]);
 			qa.classList = "quantità";
+
+			if(tipo == 'Acqua') {
+				qa.placeholder = "10%";
+			} else {
+				qa.placeholder = "2g/L";
+			}
+
 		    qa.setAttribute("min", "0.01");
 		    qa.setAttribute("type", "number");
 		    qa.setAttribute("step", ".01");

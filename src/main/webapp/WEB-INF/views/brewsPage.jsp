@@ -49,6 +49,16 @@
 
     </head>
     <body>
+        <style>
+            .Card {
+                cursor: default;
+            }
+
+            .Card:hover {
+                background: white;
+                border-color: #F0F0F1;
+            }
+        </style>
 		
         <header-brews logo="${logoPNG}" plus="${plusPNG}"
         add="createBeer"
@@ -74,9 +84,34 @@
 				var text = "${birre}";
 				birre.push(text.split(" - "));
 			</c:forEach>
-			for(val of birre)
-				lista.innerHTML += "<p>Nome ricetta: "+val[0] +" Quantità creata: " +val[1] +"l  Note: " + val[2]+"</p><br>";
-		</script>
+            
+            var number = Math.floor(Math.random() * 5);
+            var img = "${honeyPNG}";
+
+            for (const val of birre) {
+                number = Math.floor(Math.random() * 8);
+                switch(number) {
+                    case 0: img = "${honeyPNG}"; break;
+                    case 1: img = "${hopPNG}"; break;
+                    case 2: img = "${grainPNG}"; break;
+                    case 3: img = "${maltPNG}"; break;
+                    case 4: img = "${waterPNG}"; break;
+                    case 5: img = "${honeyorangePNG}"; break;
+                    case 6: img = "${waterpinkPNG}"; break;
+                    case 7: img = "${graingreyPNG}"; break;
+                    default: img = "${honeyPNG}"; break;
+                }
+
+                lista.innerHTML += `
+                    <recipe-card 
+                        image="`+img+`"
+                        title="`+val[0]+` (`+val[1]+` L)"  
+                        description="`+val[2]+`">
+                    </recipe-card>
+            `;
+            }
+        
+        </script>
 
 		</body>
 </html>
