@@ -6,7 +6,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import group.brewdaytwo.domain.model.ingrediente.Ingrediente;
@@ -96,6 +98,23 @@ public class IngredienteDAOImpl implements IngredienteDAO {
 		jdbcTemplate.update(sql, u, ing);
 	}
 	
+	@Override
+	public String getTipo(String nome) {
+		String[] args = {nome};
+		String sql ="select tipo from ingredients where nome=?";
+		return jdbcTemplate.query(sql,args, new ResultSetExtractor<String>() {
+
+			@Override
+			public String extractData(ResultSet rs) throws SQLException,
+					DataAccessException {
+				if (rs.next()) {
+					String t = rs.getString("tipo");
+					return t;
+				}
+				return "";
+			}
+		});
+	}
 	
 	
 }

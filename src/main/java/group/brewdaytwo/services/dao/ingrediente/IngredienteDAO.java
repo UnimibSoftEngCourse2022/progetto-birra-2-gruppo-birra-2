@@ -21,5 +21,7 @@ public interface IngredienteDAO {
 	public void deleteUserIng(String u);
 	
 	public void deleteOneUserIng(String u, String ing);
+	
+	public String getTipo(String nome);
 
 }

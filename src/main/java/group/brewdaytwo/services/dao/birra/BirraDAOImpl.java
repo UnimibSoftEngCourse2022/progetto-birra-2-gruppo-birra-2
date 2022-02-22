@@ -144,34 +144,22 @@ public class BirraDAOImpl implements BirraDAO{
 			
 		}else {
 		
-			
-			boolean flagIng = true;
 			for(int i=0; i< attrezziSpesa.size(); i++) {
-				if(i == 0)
-					spesa.add("Attrezzatura");
-				spesa.add("Nome attrezzo mancante: " + attrezziSpesa.get(i) + " Numero minimo richiesto: " + attrezziSpesaQ.get(i)+ " Capacità minima richiesta:  " + q + "l"); 
-				
+				spesa.add(attrezziSpesaQ.get(i)+ " " + attrezziSpesa.get(i)+ " da almeno " + q + "L"); 
 			}
 			
 			for(int i=0; i< ingredientiMancanti.size(); i++) {
-				if(i == 0)
-					{
-					spesa.add("Ingredienti");
-					flagIng=false;
-					}
 				if(ingredientiMancanti.get(i).contains("Acqua"))
-					spesa.add("Nome ingrediente mancante: " + ingredientiMancanti.get(i) + " Quantità minima richiesta: " + ingredientiMancantiQ.get(i) + " l");
+					spesa.add(ingredientiMancantiQ.get(i) + "L di " + ingredientiMancanti.get(i));
 				else
-					spesa.add("Nome ingrediente mancante: " + ingredientiMancanti.get(i) + " Quantità minima richiesta: " + ingredientiMancantiQ.get(i) + " g"); 
+					spesa.add(ingredientiMancantiQ.get(i) + "g di "+ IngredienteDAO.getTipo(ingredientiMancanti.get(i)) + " " + ingredientiMancanti.get(i)); 
 			}
 			
 			for(int i=0; i< ingInsuff.size(); i++) {
-				if(i == 0 && flagIng)
-					spesa.add("Ingredienti");
 				if(ingInsuff.get(i).contains("Acqua"))
-					spesa.add("Nome ingrediente mancante: " + ingInsuff.get(i) + " Quantità minima richiesta: " + ingInsuffQ.get(i) + " l");
+					spesa.add(ingInsuffQ.get(i) + "L di " + ingInsuff.get(i));
 				else
-					spesa.add("Nome ingrediente mancante: " + ingInsuff.get(i) + " Quantità minima richiesta: " + ingInsuffQ.get(i) + " g"); 
+					spesa.add(ingInsuffQ.get(i) + "g di " + IngredienteDAO.getTipo(ingInsuff.get(i)) + " " + ingInsuff.get(i)); 
 			}
 		}
 		return spesa;
