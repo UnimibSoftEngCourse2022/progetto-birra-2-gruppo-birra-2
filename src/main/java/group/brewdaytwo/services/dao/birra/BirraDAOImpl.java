@@ -39,8 +39,9 @@ public class BirraDAOImpl implements BirraDAO{
 	
 	@Override
 	public List<String> getBirre(String autore) {
-		String sql = "SELECT nome,quantita_prodotta as quantita,note FROM progetto_brewday.brews join recipes on ricetta=recipes.id WHERE birraio=\"" + autore + "\"";
-		List<String> listBirre = jdbcTemplate.query(sql, new RowMapper<String>() {
+		String[] args = {autore};
+		String sql = "SELECT nome,quantita_prodotta as quantita,note FROM progetto_brewday.brews join recipes on ricetta=recipes.id WHERE birraio=?";
+		List<String> listBirre = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {

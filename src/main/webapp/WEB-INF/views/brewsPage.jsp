@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>BrewDay!</title>
@@ -69,7 +69,7 @@
                 <div class="HStackBetween">
                     <h3>Lista della Spesa</h3>
                     <div class="CloseButton">
-                        <img src="${xPNG}" id="x"></img>
+                        <img src="${xPNG}" id="x" alt="xPng"></img>
                     </div>
                 </div>
                 <hr>

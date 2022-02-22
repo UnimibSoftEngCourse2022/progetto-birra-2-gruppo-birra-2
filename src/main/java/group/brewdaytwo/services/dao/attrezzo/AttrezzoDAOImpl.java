@@ -55,8 +55,9 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public List<String> getUserTools(String utente)
 	{
-		String sql = "SELECT tools.ID,tools.nome,quantita,capacita_max as capMax FROM brewers_equipments join tools on strumento=tools.ID where birraio = \"" + utente + "\"";
-		List<String> tools = jdbcTemplate.query(sql, new RowMapper<String>() {
+		String[] args = {utente};
+		String sql = "SELECT tools.ID,tools.nome,quantita,capacita_max as capMax FROM brewers_equipments join tools on strumento=tools.ID where birraio = ?";
+		List<String> tools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -83,8 +84,9 @@ private JdbcTemplate jdbcTemplate;
 	
 	@Override
 	public List<String> getTools(int ricettaID) {
-		String sql = "SELECT tools.ID,tools.nome,quantita FROM recipes_equipments join tools on strumento=tools.ID where ricetta = \"" + ricettaID + "\"";
-		List<String> tools = jdbcTemplate.query(sql, new RowMapper<String>() {
+		Integer[] args= {ricettaID};
+		String sql = "SELECT tools.ID,tools.nome,quantita FROM recipes_equipments join tools on strumento=tools.ID where ricetta = ?";
+		List<String> tools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -98,14 +100,14 @@ private JdbcTemplate jdbcTemplate;
 	
 	@Override
 	public int getNumAtt(String attrezzo, double q) {
-		String sql = "SELECT SUM(quantita) FROM tools JOIN brewers_equipments ON strumento=tools.id  WHERE nome= \""+attrezzo+"\" AND capacita_max >= \""+ q+ "\""; 
-		
-		int n; 
-		
-		if(jdbcTemplate.queryForObject(sql, Integer.class) == null) {
+		String qstr = q +"";
+		String[] args = {attrezzo, qstr};
+		String sql = "SELECT SUM(quantita) FROM tools JOIN brewers_equipments ON strumento=tools.id  WHERE nome= ? AND capacita_max >= ?"; 
+		int n;
+		if(jdbcTemplate.queryForObject(sql, args, Integer.class) == null) {
 			n=0; 
 		}else {
-			n = jdbcTemplate.queryForObject(sql, Integer.class);
+			n = jdbcTemplate.queryForObject(sql,args, Integer.class);
 		}
 			return n; 
 	}

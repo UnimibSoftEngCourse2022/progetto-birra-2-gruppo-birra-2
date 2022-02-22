@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>BrewDay!</title>
@@ -64,7 +64,7 @@
 
 		  <div class="HStack" id="addContainer">
 			  <div class="HStack" id="add_comp" onclick="add_comp()">
-				  <img src="${plusPNG}"></img>
+				  <img src="${plusPNG}" alt="plusPNG"></img>
 			  </div>
 
 			  <select id="types">

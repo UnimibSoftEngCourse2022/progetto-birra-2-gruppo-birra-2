@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<head>
 	<meta charset="ISO-8859-1">
 	<title>BrewDay!</title>

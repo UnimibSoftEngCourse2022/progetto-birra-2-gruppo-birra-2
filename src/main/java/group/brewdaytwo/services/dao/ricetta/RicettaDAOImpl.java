@@ -57,8 +57,9 @@ public class RicettaDAOImpl implements RicettaDAO {
 
 	@Override
 	public Ricetta get(int ricettaID) {
-		String sql = "SELECT * FROM progetto_brewday.recipes WHERE ID=\"" + ricettaID + "\"";
-		return jdbcTemplate.query(sql, new ResultSetExtractor<Ricetta>() {
+		String[] args = {ricettaID+""};
+		String sql = "SELECT * FROM progetto_brewday.recipes WHERE ID=?";
+		return jdbcTemplate.query(sql,args, new ResultSetExtractor<Ricetta>() {
 
 			@Override
 			public Ricetta extractData(ResultSet rs) throws SQLException,
@@ -69,14 +70,14 @@ public class RicettaDAOImpl implements RicettaDAO {
 				}
 				return null;
 			}
-			
 		});
 	}
 	
 	@Override
 	public List<Ricetta> list(String nome,String autore) {
-		String sql = "SELECT * FROM recipes where nome LIKE \"%"+nome+"%\" AND autore = \"" + autore + "\"";
-		List<Ricetta> listRicette = jdbcTemplate.query(sql, new RowMapper<Ricetta>() {
+		String[] args = {nome,autore};
+		String sql = "SELECT * FROM recipes where nome LIKE \"%\"?\"%\" AND autore = ?";
+		List<Ricetta> listRicette = jdbcTemplate.query(sql,args, new RowMapper<Ricetta>() {
 
 			@Override
 			public Ricetta mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -84,7 +85,6 @@ public class RicettaDAOImpl implements RicettaDAO {
 				return ricetta;
 			}
 		});
-		
 		return listRicette;
 	}
 	
@@ -143,18 +143,19 @@ public class RicettaDAOImpl implements RicettaDAO {
 	@Override
 	public String getQuantita(String autore, int ricettaID) 
 	{
+		String[] args = {ricettaID+"",autore};
 		String sql ="select min(t1.v1/t2.v2) as min"
 				+ " from"
 				+ " (select ingrediente,quantita as v2 "
 				+ " from components "
-				+ " where ricetta =\""+ricettaID+"\" and ingrediente <> \"Acqua\") as t2"
+				+ " where ricetta =? and ingrediente <> \"Acqua\") as t2"
 				+ " join"
 				+ " (select ingrediente,quantita as v1"
 				+ " from warehouses"
-				+ " where birraio =\""+autore+"\" and ingrediente <> \"Acqua\") as t1"
+				+ " where birraio =? and ingrediente <> \"Acqua\") as t1"
 				+ " on t1.ingrediente = t2.ingrediente;";
 		
-		double qtnNoAcqua = jdbcTemplate.query(sql, new ResultSetExtractor<Double>() {
+		double qtnNoAcqua = jdbcTemplate.query(sql,args, new ResultSetExtractor<Double>() {
 
 			@Override
 			public Double extractData(ResultSet rs) throws SQLException,
@@ -167,21 +168,20 @@ public class RicettaDAOImpl implements RicettaDAO {
 				}
 				return 100.0;
 			}
-			
 		});
 		
 		sql = "select min(t1.v1/(t2.v2/100)) as min"
 				+ " from "
 				+ " (select ingrediente,quantita as v2 "
 				+ " from components "
-				+ " where ricetta =\""+ricettaID+"\" and ingrediente = \"Acqua\") as t2"
+				+ " where ricetta =? and ingrediente = \"Acqua\") as t2"
 				+ " join"
 				+ " (select ingrediente,quantita as v1 "
 				+ " from warehouses "
-				+ " where birraio =\""+autore+"\" and ingrediente = \"Acqua\") as t1"
+				+ " where birraio =? and ingrediente = \"Acqua\") as t1"
 				+ " on t1.ingrediente = t2.ingrediente;";
 		
-		double qtnAcqua = jdbcTemplate.query(sql, new ResultSetExtractor<Double>() {
+		double qtnAcqua = jdbcTemplate.query(sql,args, new ResultSetExtractor<Double>() {
 
 			@Override
 			public Double extractData(ResultSet rs) throws SQLException,
@@ -194,7 +194,6 @@ public class RicettaDAOImpl implements RicettaDAO {
 				}
 				return 100.0;
 			}
-			
 		});
 		
 		double qtn = Math.min(qtnNoAcqua, qtnAcqua);
@@ -202,14 +201,14 @@ public class RicettaDAOImpl implements RicettaDAO {
 		sql ="select t2.nome as nome, t2.capacita_max as capMax, t2.quantita as qtn"
 				+ " from"
 				+ " (select * from tools "
-				+ " join recipes_equipments as RE on tools.id = RE.strumento where ricetta = \""+ricettaID+"\") as t1"
+				+ " join recipes_equipments as RE on tools.id = RE.strumento where ricetta = ?) as t1"
 				+ " join "
 				+ " (select * from tools "
-				+ " join brewers_equipments as BE on tools.id = BE.strumento where birraio = \""+autore+"\") as t2"
+				+ " join brewers_equipments as BE on tools.id = BE.strumento where birraio = ?) as t2"
 				+ " on t1.nome = t2.nome"
 				+ " order by nome desc,capMax desc;";
 		
-		List<String> UserTools = jdbcTemplate.query(sql, new RowMapper<String>() {
+		List<String> UserTools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 			
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -218,11 +217,12 @@ public class RicettaDAOImpl implements RicettaDAO {
 			}
 		});
 		
+		String[] arg = {ricettaID+""};
 		sql ="select nome, quantita from tools"
-				+ " join recipes_equipments as RE on tools.id = RE.strumento where ricetta = \""+ricettaID+"\""
+				+ " join recipes_equipments as RE on tools.id = RE.strumento where ricetta = ?"
 				+ " order by nome desc;";
 		
-		List<String> RecTools = jdbcTemplate.query(sql, new RowMapper<String>() {
+		List<String> RecTools = jdbcTemplate.query(sql,arg, new RowMapper<String>() {
 			
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
