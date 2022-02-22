@@ -27,6 +27,8 @@
         <spring:url value="/resources/assets/grain.grey.png" var="graingreyPNG" />
         <spring:url value="/resources/assets/alcohol.png" var="alcoholPNG" />
         <spring:url value="/resources/assets/water.pink.png" var="waterpinkPNG" />
+        <spring:url value="/resources/assets/x.png" var="xPNG" />
+        <spring:url value="/resources/assets/circle.png" var="circlePNG" />
         <link href="${logoPNG}" rel="icon" />
 
         <spring:url value="/resources/style.css" var="styleCSS" />
@@ -37,6 +39,7 @@
 		<spring:url value="/resources/brews/brews.css" var="brewsCSS" />
         <spring:url value="/resources/components/recipeCard.js" var="recipeCardJS" />
         <spring:url value="/resources/components/recipeCard.css" var="recipeCardCSS" />
+        <spring:url value="/resources/components/modal.css" var="modalCSS" />
 
         <link href="${styleCSS}" rel="stylesheet" />
         <script src="${headerbrewsJS}"></script>
@@ -46,6 +49,7 @@
 		<link href="${brewsCSS}" rel="stylesheet" />
         <script src="${recipeCardJS}"></script>
         <link href="${recipeCardCSS}" rel="stylesheet" />
+        <link href="${modalCSS}" rel="stylesheet" />
 
     </head>
     <body>
@@ -59,6 +63,20 @@
                 border-color: #F0F0F1;
             }
         </style>
+
+        <div class="modal">
+            <div class="VStack" id="contentModal">
+                <div class="HStackBetween">
+                    <h3>Lista della Spesa</h3>
+                    <div class="CloseButton">
+                        <img src="${xPNG}" id="x"></img>
+                    </div>
+                </div>
+                <hr>
+                <p>Purtroppo non hai tutto il necessario per produrre la tua birra, ecco cosa devi comprare:</p>
+                <div id="contenuto"></div>
+            </div>
+        </div>
 		
         <header-brews logo="${logoPNG}" plus="${plusPNG}"
         add="createBeer"
@@ -68,13 +86,41 @@
 		<div id="lista"></div>
 
 		<script>
-			// script lista spesa
-			var x = "";
+            var modal = document.getElementsByClassName("modal")[0];
+            var closeBtn = document.getElementsByClassName("CloseButton")[0];
+            var contenuto = document.getElementById('contenuto');
+
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            var elementi = new Array();
 			<c:forEach var="item" items="${spesa}">
-					x += "${item}" + "\n";
+                elementi.push("${item}")
 			</c:forEach>
-			if(x.length > 0)
-			alert(x);
+			
+            if(elementi.length > 0) {
+
+                for(const val of elementi) {
+                    contenuto.innerHTML += `
+
+                    <div class="HStackStart">
+                        <img src="${circlePNG}" id="circle"></img>
+                        <h4>`+val+`</h4>
+                    </div>
+
+                    `;
+                }
+
+                modal.style.display = "block";
+            }
+			    
 		</script>
 
 		<script>
