@@ -1,6 +1,5 @@
 package group.brewdaytwo.domain.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,13 +29,13 @@ public class ControllerHome {
 	private BirraDAO birraDAO;
 	
 	@GetMapping(value="/recipes")
-	public ModelAndView loadRecipesPage(ModelAndView model) throws IOException{
+	public ModelAndView loadRecipesPage(ModelAndView model){
 		model.setViewName("recipesPage");
 		return model;
 	}
 	
 	@GetMapping(value="/brews")
-	public ModelAndView loadBrewsPage(HttpSession session,ModelAndView model) throws IOException{
+	public ModelAndView loadBrewsPage(HttpSession session,ModelAndView model){
 		model.setViewName("brewsPage");
 		String autore = (String)session.getAttribute("autore");
 		List<String> listBirre = birraDAO.getBirre(autore);
@@ -45,7 +44,7 @@ public class ControllerHome {
 	}
 	
 	@GetMapping(value="/editUserIng")
-	public ModelAndView loadUserIngPage(ModelAndView model,HttpServletRequest request) throws IOException{
+	public ModelAndView loadUserIngPage(ModelAndView model,HttpServletRequest request){
 		model.setViewName("userIngPage");
 		
 		String autore = request.getParameter("nick");
@@ -71,7 +70,7 @@ public class ControllerHome {
 	}
 	
 	@GetMapping(value="/editUserEquip")
-	public ModelAndView loadUserEquipPage(ModelAndView model,HttpServletRequest request) throws IOException{
+	public ModelAndView loadUserEquipPage(ModelAndView model,HttpServletRequest request){
 		model.setViewName("userEquipPage");
 		
 		String autore = request.getParameter("nick");
@@ -87,7 +86,7 @@ public class ControllerHome {
 	}
 	
 	@GetMapping(value="/logout")
-	public ModelAndView loadFirstPage(HttpSession session,ModelAndView model) throws IOException{
+	public ModelAndView loadFirstPage(HttpSession session,ModelAndView model){
 		session.invalidate();
 		model.setViewName("firstPage");
 		return model;

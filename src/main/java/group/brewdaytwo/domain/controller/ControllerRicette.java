@@ -1,6 +1,5 @@
 package group.brewdaytwo.domain.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +32,7 @@ public class ControllerRicette {
 	@Autowired
 	private AttrezzoDAO attrezzoDAO;
 	
-	static public String decodeRicerca(String input) 
+	public static String decodeRicerca(String input) 
 	{
 		input = input.replace("%27", "'");
 		input = input.replace("%21", "!");
@@ -92,13 +91,13 @@ public class ControllerRicette {
 	}
 
 	@GetMapping(value="/Addrecipes")
-	public ModelAndView loadRecipesPage(ModelAndView model) throws IOException{
+	public ModelAndView loadRecipesPage(ModelAndView model){
 		model.setViewName("recipesAddPage");
 		return model;
 	}
 	
 	@GetMapping(value="/editRecipe")
-	public ModelAndView editRecipe(HttpServletRequest request) throws IOException{
+	public ModelAndView editRecipe(HttpServletRequest request){
 		int recipeID = Integer.parseInt(request.getParameter("id"));
 		Ricetta r = ricettaDAO.get(recipeID);
 		List<String> listRecComponents = ingredienteDAO.getComponents(recipeID);
@@ -111,15 +110,14 @@ public class ControllerRicette {
 	}
 	
 	@GetMapping(value="/deleteRecipe")
-	public ModelAndView deleteRecipe(HttpServletRequest request) throws IOException{
+	public ModelAndView deleteRecipe(HttpServletRequest request){
 		int recipeID = Integer.parseInt(request.getParameter("id"));
 		ricettaDAO.delete(recipeID);
-		ModelAndView model = new ModelAndView("recipesPage");
-		return model;
+		return new ModelAndView("recipesPage");
 	}
 	
 	@GetMapping(value="/modifyRecipe")
-	public ModelAndView modifyRecipe(HttpSession session,HttpServletRequest request) throws IOException{
+	public ModelAndView modifyRecipe(HttpSession session,HttpServletRequest request){
 		int recipeID = Integer.parseInt(request.getParameter("id"));
 		session.setAttribute("ricettaID", recipeID);
 		Ricetta r = ricettaDAO.get(recipeID);
@@ -196,12 +194,11 @@ public class ControllerRicette {
 		      else
 		    	attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
-		ModelAndView model = new ModelAndView("redirect:/recipes");
-		return model;
+		return new ModelAndView("redirect:/recipes");
 	}
 	
 	@PostMapping(value="/showrecipes")
-	public ModelAndView showRecipes(@RequestBody String request) throws IOException{
+	public ModelAndView showRecipes(@RequestBody String request){
 		ModelAndView model = new ModelAndView("recipesPage");
 		request = request.replace("+", " ");
 		request = decodeRicerca(request);
@@ -214,7 +211,7 @@ public class ControllerRicette {
 	}
 	
 	@PostMapping(value="/showrecipesMake")
-	public ModelAndView showRecipesMake(@RequestBody String request) throws IOException{
+	public ModelAndView showRecipesMake(@RequestBody String request){
 		ModelAndView model = new ModelAndView("showRecBeerPage");
 		request = request.replace("+", " ");
 		request = decodeRicerca(request);
@@ -282,8 +279,7 @@ public class ControllerRicette {
 		      else
 		    	attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
-		ModelAndView model = new ModelAndView("redirect:/recipes");
-		return model;
+		return new ModelAndView("redirect:/recipes");
 	}
 
 }

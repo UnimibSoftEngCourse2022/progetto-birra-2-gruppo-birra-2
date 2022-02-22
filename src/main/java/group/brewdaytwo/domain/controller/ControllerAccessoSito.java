@@ -1,6 +1,5 @@
 package group.brewdaytwo.domain.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,13 +49,13 @@ public class ControllerAccessoSito {
 		}
 	
 	@GetMapping(value="/")
-	public ModelAndView loadFirstPage(ModelAndView model) throws IOException{
+	public ModelAndView loadFirstPage(ModelAndView model){
 		model.setViewName("firstPage");
 		return model;
 	}
 	
 	@GetMapping(value="/signin")
-	public ModelAndView loadSigninPage(ModelAndView model) throws IOException{
+	public ModelAndView loadSigninPage(ModelAndView model){
 		model.setViewName("signinPage");
 		model.addObject("alertFlagNick", false);
 		model.addObject("alertFlagEmail", false);
@@ -64,19 +63,19 @@ public class ControllerAccessoSito {
 	}
 	
 	@GetMapping(value="/login")
-	public ModelAndView loadLoginPage(ModelAndView model) throws IOException{
+	public ModelAndView loadLoginPage(ModelAndView model){
 		model.setViewName("loginPage");
 		model.addObject("alertFlag", false);
 		return model;
 	}
 	
 	@GetMapping(value="/homePage")
-	public ModelAndView loadHomePage(HttpSession session,ModelAndView model) throws IOException{
+	public ModelAndView loadHomePage(HttpSession session,ModelAndView model){
 		String nick = (String)session.getAttribute("autore");
 		Ricetta ricetta = ricettaDAO.getCDPO(nick);
-		List<Ricetta> listRicetta = new ArrayList<Ricetta>();
-		List<String> listQuantita = new ArrayList<String>();
-		if(!(ricetta == null))
+		List<Ricetta> listRicetta = new ArrayList<>();
+		List<String> listQuantita = new ArrayList<>();
+		if(!Objects.isNull(ricetta))
 			{
 				listRicetta.add(ricetta);
 				listQuantita.add(ricettaDAO.getQuantita(nick,ricetta.getID()));
@@ -115,7 +114,7 @@ public class ControllerAccessoSito {
 	@PostMapping(value = "/login")
 	public ModelAndView checkUtente(HttpSession session,@RequestBody String request) {
 		request = decode(request);
-		String values[] = request.split("&");
+		String[] values = request.split("&");
 		
 		String nick = values[0].split("=")[1];
 		String pwd = values[1].split("=")[1].replace("%26", "&").replace("%3D", "=");

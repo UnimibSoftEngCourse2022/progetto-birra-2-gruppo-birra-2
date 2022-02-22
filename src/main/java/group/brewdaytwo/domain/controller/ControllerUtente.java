@@ -14,7 +14,6 @@ import group.brewdaytwo.services.dao.birra.BirraDAO;
 import group.brewdaytwo.services.dao.ingrediente.IngredienteDAO;
 import group.brewdaytwo.services.dao.ricetta.RicettaDAO;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,9 +48,7 @@ public class ControllerUtente {
 		      else
 		    	  ingredienteDAO.saveUserIng(autore,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
-		ModelAndView model = new ModelAndView("redirect:/homePage");
-		
-		return model;
+		return new ModelAndView("redirect:/homePage");
 	}
 	
 	@PostMapping(value="/editUserTools")
@@ -67,13 +64,12 @@ public class ControllerUtente {
 		      else
 		    	attrezzoDAO.saveUserTool(autore,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
-		ModelAndView model = new ModelAndView("redirect:/homePage");
-		return model;
+		return new ModelAndView("redirect:/homePage");
 	}
 	
 	
 	@PostMapping(value="/makebeer")
-	public ModelAndView makeBeer(@RequestBody String request) throws IOException{
+	public ModelAndView makeBeer(@RequestBody String request){
 		ModelAndView model = new ModelAndView("brewsPage"); 
 		request = request.replace("+", " ");
 		request = ControllerRicette.decodeRicerca(request);
@@ -81,7 +77,7 @@ public class ControllerUtente {
 		
 		double quantita = Double.parseDouble(values[0].split("=")[1]);
 		String autore = values[1].split("=")[1];
-		int IDRicetta = Integer.parseInt(values[2].split("=")[1]);
+		int iDRicetta = Integer.parseInt(values[2].split("=")[1]);
 		String note = "";
 		if(values[3].length() > 5)
 			note = values[3].split("=")[1];
@@ -89,9 +85,9 @@ public class ControllerUtente {
 		note = note.replace("%25", "%");
 		note = note.replace("%3D", "=");
 		
-		List<String> spesa = birraDAO.controlloCreaBirra(IDRicetta, quantita, autore);
-		if(spesa.size() == 0) {
-			Birra birra = new Birra(0, note, quantita, autore, IDRicetta); 
+		List<String> spesa = birraDAO.controlloCreaBirra(iDRicetta, quantita, autore);
+		if(spesa.isEmpty()) {
+			Birra birra = new Birra(0, note, quantita, autore, iDRicetta); 
 			birraDAO.save(birra); 
 		}else {
 			model.addObject("spesa", spesa);
@@ -103,7 +99,7 @@ public class ControllerUtente {
 	
 
 	@GetMapping(value="/makeBeerPage")
-	public ModelAndView makeBeerPage(HttpSession session,HttpServletRequest request) throws IOException{
+	public ModelAndView makeBeerPage(HttpSession session,HttpServletRequest request){
 		int recipeID = Integer.parseInt(request.getParameter("id"));
 		session.setAttribute("IDRicetta", recipeID);
 		Ricetta r = ricettaDAO.get(recipeID);
@@ -117,13 +113,13 @@ public class ControllerUtente {
 	}
 	
 	@GetMapping(value="/createBeer")
-	public ModelAndView loadBeerPage(ModelAndView model) throws IOException{
+	public ModelAndView loadBeerPage(ModelAndView model){
 		model.setViewName("showRecBeerPage");
 		return model;
 	}
 	
 	@GetMapping(value="/infoCreateBeer")
-	public ModelAndView loadInfoCreateBeerPage(HttpSession session,ModelAndView model) throws IOException{
+	public ModelAndView loadInfoCreateBeerPage(HttpSession session,ModelAndView model){
 		int idRic = (int)session.getAttribute("IDRicetta");
 		Ricetta r = ricettaDAO.get(idRic);
 		model.setViewName("infoCreateBeerPage");
