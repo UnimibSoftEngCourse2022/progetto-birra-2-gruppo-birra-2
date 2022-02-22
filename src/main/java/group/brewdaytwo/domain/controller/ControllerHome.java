@@ -21,13 +21,13 @@ import group.brewdaytwo.services.dao.ingrediente.IngredienteDAO;
 public class ControllerHome {
 	
 	@Autowired
-	private IngredienteDAO IngredienteDAO;
+	private IngredienteDAO ingredienteDAO;
 	
 	@Autowired
-	private AttrezzoDAO AttrezzoDAO;
+	private AttrezzoDAO attrezzoDAO;
 	
 	@Autowired 
-	private BirraDAO BirraDAO;
+	private BirraDAO birraDAO;
 	
 	@GetMapping(value="/recipes")
 	public ModelAndView loadRecipesPage(ModelAndView model) throws IOException{
@@ -39,7 +39,7 @@ public class ControllerHome {
 	public ModelAndView loadBrewsPage(HttpSession session,ModelAndView model) throws IOException{
 		model.setViewName("brewsPage");
 		String autore = (String)session.getAttribute("autore");
-		List<String> listBirre = BirraDAO.getBirre(autore);
+		List<String> listBirre = birraDAO.getBirre(autore);
 		model.addObject("listBirre", listBirre);
 		return model;
 	}
@@ -50,13 +50,13 @@ public class ControllerHome {
 		
 		String autore = request.getParameter("nick");
 		
-		List<Ingrediente> listMalto = IngredienteDAO.list("Malto");
-		List<Ingrediente> listZucchero = IngredienteDAO.list("Zucchero");
-		List<Ingrediente> listLuppolo = IngredienteDAO.list("Luppolo");
-		List<Ingrediente> listLievito = IngredienteDAO.list("Lievito");
-		List<Ingrediente> listAdditivo = IngredienteDAO.list("Additivo");
+		List<Ingrediente> listMalto = ingredienteDAO.list("Malto");
+		List<Ingrediente> listZucchero = ingredienteDAO.list("Zucchero");
+		List<Ingrediente> listLuppolo = ingredienteDAO.list("Luppolo");
+		List<Ingrediente> listLievito = ingredienteDAO.list("Lievito");
+		List<Ingrediente> listAdditivo = ingredienteDAO.list("Additivo");
 		
-		List<String> listUserIngredients = IngredienteDAO.getUserIngredients(autore);
+		List<String> listUserIngredients = ingredienteDAO.getUserIngredients(autore);
 		
 		model.addObject("listMalto", listMalto);
 		model.addObject("listZucchero", listZucchero);
@@ -76,8 +76,8 @@ public class ControllerHome {
 		
 		String autore = request.getParameter("nick");
 		
-		List<Attrezzo> listAttrezzi = AttrezzoDAO.list(false);
-		List<String> listUserTools = AttrezzoDAO.getUserTools(autore);
+		List<Attrezzo> listAttrezzi = attrezzoDAO.list(false);
+		List<String> listUserTools = attrezzoDAO.getUserTools(autore);
 		
 		model.addObject("listUserTools", listUserTools);
 		model.addObject("listAttrezzi", listAttrezzi);

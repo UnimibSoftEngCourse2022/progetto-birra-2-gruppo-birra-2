@@ -28,7 +28,7 @@ public class ControllerAccessoSito {
 	private UtenteDAO utenteDAO;
 	
 	@Autowired
-	private RicettaDAO RicettaDAO;
+	private RicettaDAO ricettaDAO;
 	
 	public String decode(String input) 
 		{
@@ -73,13 +73,13 @@ public class ControllerAccessoSito {
 	@GetMapping(value="/homePage")
 	public ModelAndView loadHomePage(HttpSession session,ModelAndView model) throws IOException{
 		String nick = (String)session.getAttribute("autore");
-		Ricetta ricetta = RicettaDAO.getCDPO(nick);
+		Ricetta ricetta = ricettaDAO.getCDPO(nick);
 		List<Ricetta> listRicetta = new ArrayList<Ricetta>();
 		List<String> listQuantita = new ArrayList<String>();
 		if(!(ricetta == null))
 			{
 				listRicetta.add(ricetta);
-				listQuantita.add(RicettaDAO.getQuantita(nick,ricetta.getID()));
+				listQuantita.add(ricettaDAO.getQuantita(nick,ricetta.getID()));
 			}
 		model.setViewName("homePage");
 		model.addObject("listRicetta", listRicetta);

@@ -107,7 +107,6 @@ private JdbcTemplate jdbcTemplate;
 		}else {
 			n = jdbcTemplate.queryForObject(sql, Integer.class);
 		}
-			//int n = jdbcTemplate.queryForObject(sql, Integer.class); 
 			return n; 
 	}
 

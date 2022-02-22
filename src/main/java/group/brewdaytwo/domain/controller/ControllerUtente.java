@@ -24,16 +24,16 @@ import javax.servlet.http.HttpSession;
 public class ControllerUtente {
 	
 	@Autowired
-	private IngredienteDAO IngredienteDAO;
+	private IngredienteDAO ingredienteDAO;
 	
 	@Autowired
-	private AttrezzoDAO AttrezzoDAO;
+	private AttrezzoDAO attrezzoDAO;
 	
 	@Autowired 
-	private BirraDAO BirraDAO; 
+	private BirraDAO birraDAO; 
 	
 	@Autowired
-	private RicettaDAO RicettaDAO;
+	private RicettaDAO ricettaDAO;
 	
 	@PostMapping(value="/editUserIng")
 	public ModelAndView editUserIng(@RequestBody String request) {
@@ -41,13 +41,13 @@ public class ControllerUtente {
 		String[] values = request.split("&");
 		String autore = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
 		String comp="";
-		IngredienteDAO.deleteUserIng(autore);
+		ingredienteDAO.deleteUserIng(autore);
 		for (int i = 0; i < values.length-1; ++i)
 		  {
 		      if(values[i].contains("comp"))
 		        comp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	  IngredienteDAO.saveUserIng(autore,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	  ingredienteDAO.saveUserIng(autore,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("redirect:/homePage");
 		
@@ -59,13 +59,13 @@ public class ControllerUtente {
 		String[] values = request.split("&");
 		String autore = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
 		String eqp="";
-		AttrezzoDAO.deleteUserTool(autore);
+		attrezzoDAO.deleteUserTool(autore);
 		for (int i = 0; i < values.length-1; ++i)
 		  {
 		      if(values[i].contains("eqp"))
 		        eqp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	AttrezzoDAO.saveUserTool(autore,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	attrezzoDAO.saveUserTool(autore,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("redirect:/homePage");
 		return model;
@@ -89,14 +89,14 @@ public class ControllerUtente {
 		note = note.replace("%25", "%");
 		note = note.replace("%3D", "=");
 		
-		List<String> spesa = BirraDAO.controlloCreaBirra(IDRicetta, quantita, autore);
+		List<String> spesa = birraDAO.controlloCreaBirra(IDRicetta, quantita, autore);
 		if(spesa.size() == 0) {
 			Birra birra = new Birra(0, note, quantita, autore, IDRicetta); 
-			BirraDAO.save(birra); 
+			birraDAO.save(birra); 
 		}else {
 			model.addObject("spesa", spesa);
 		}
-		List<String> listBirre = BirraDAO.getBirre(autore);
+		List<String> listBirre = birraDAO.getBirre(autore);
 		model.addObject("listBirre", listBirre);
 		return model; 
 	}
@@ -106,9 +106,9 @@ public class ControllerUtente {
 	public ModelAndView makeBeerPage(HttpSession session,HttpServletRequest request) throws IOException{
 		int recipeID = Integer.parseInt(request.getParameter("id"));
 		session.setAttribute("IDRicetta", recipeID);
-		Ricetta r = RicettaDAO.get(recipeID);
-		List<String> listRecComponents = IngredienteDAO.getComponents(recipeID);
-		List<String> listRecTools = AttrezzoDAO.getTools(recipeID);
+		Ricetta r = ricettaDAO.get(recipeID);
+		List<String> listRecComponents = ingredienteDAO.getComponents(recipeID);
+		List<String> listRecTools = attrezzoDAO.getTools(recipeID);
 		ModelAndView model = new ModelAndView("makeBeerPage");
 		model.addObject("Ricetta", r);
 		model.addObject("listRecComponents", listRecComponents);
@@ -125,7 +125,7 @@ public class ControllerUtente {
 	@GetMapping(value="/infoCreateBeer")
 	public ModelAndView loadInfoCreateBeerPage(HttpSession session,ModelAndView model) throws IOException{
 		int idRic = (int)session.getAttribute("IDRicetta");
-		Ricetta r = RicettaDAO.get(idRic);
+		Ricetta r = ricettaDAO.get(idRic);
 		model.setViewName("infoCreateBeerPage");
 		model.addObject("Ricetta", r);
 		return model;

@@ -25,13 +25,13 @@ import group.brewdaytwo.services.dao.ricetta.RicettaDAO;
 public class ControllerRicette {
 	
 	@Autowired
-	private RicettaDAO RicettaDAO;
+	private RicettaDAO ricettaDAO;
 	
 	@Autowired
-	private IngredienteDAO IngredienteDAO;
+	private IngredienteDAO ingredienteDAO;
 	
 	@Autowired
-	private AttrezzoDAO AttrezzoDAO;
+	private AttrezzoDAO attrezzoDAO;
 	
 	static public String decodeRicerca(String input) 
 	{
@@ -100,9 +100,9 @@ public class ControllerRicette {
 	@GetMapping(value="/editRecipe")
 	public ModelAndView editRecipe(HttpServletRequest request) throws IOException{
 		int recipeID = Integer.parseInt(request.getParameter("id"));
-		Ricetta r = RicettaDAO.get(recipeID);
-		List<String> listRecComponents = IngredienteDAO.getComponents(recipeID);
-		List<String> listRecTools = AttrezzoDAO.getTools(recipeID);
+		Ricetta r = ricettaDAO.get(recipeID);
+		List<String> listRecComponents = ingredienteDAO.getComponents(recipeID);
+		List<String> listRecTools = attrezzoDAO.getTools(recipeID);
 		ModelAndView model = new ModelAndView("editRecipePage");
 		model.addObject("Ricetta", r);
 		model.addObject("listRecComponents", listRecComponents);
@@ -113,7 +113,7 @@ public class ControllerRicette {
 	@GetMapping(value="/deleteRecipe")
 	public ModelAndView deleteRecipe(HttpServletRequest request) throws IOException{
 		int recipeID = Integer.parseInt(request.getParameter("id"));
-		RicettaDAO.delete(recipeID);
+		ricettaDAO.delete(recipeID);
 		ModelAndView model = new ModelAndView("recipesPage");
 		return model;
 	}
@@ -122,7 +122,7 @@ public class ControllerRicette {
 	public ModelAndView modifyRecipe(HttpSession session,HttpServletRequest request) throws IOException{
 		int recipeID = Integer.parseInt(request.getParameter("id"));
 		session.setAttribute("ricettaID", recipeID);
-		Ricetta r = RicettaDAO.get(recipeID);
+		Ricetta r = ricettaDAO.get(recipeID);
 		ModelAndView model = new ModelAndView("modifyInfoRecipePage");
 		model.addObject("Ricetta", r);
 		return model;
@@ -135,15 +135,15 @@ public class ControllerRicette {
 		r.setProcedimento(decodeInserimento(r.getProcedimento()));
 		r.setDescrizione(decodeInserimento(r.getDescrizione()));
 		
-		RicettaDAO.update(r);
+		ricettaDAO.update(r);
 		
-		List<Ingrediente> listMalto = IngredienteDAO.list("Malto");
-		List<Ingrediente> listZucchero = IngredienteDAO.list("Zucchero");
-		List<Ingrediente> listLuppolo = IngredienteDAO.list("Luppolo");
-		List<Ingrediente> listLievito = IngredienteDAO.list("Lievito");
-		List<Ingrediente> listAdditivo = IngredienteDAO.list("Additivo");
+		List<Ingrediente> listMalto = ingredienteDAO.list("Malto");
+		List<Ingrediente> listZucchero = ingredienteDAO.list("Zucchero");
+		List<Ingrediente> listLuppolo = ingredienteDAO.list("Luppolo");
+		List<Ingrediente> listLievito = ingredienteDAO.list("Lievito");
+		List<Ingrediente> listAdditivo = ingredienteDAO.list("Additivo");
 		
-		List<String> listRecComponents = IngredienteDAO.getComponents(r.getID());
+		List<String> listRecComponents = ingredienteDAO.getComponents(r.getID());
 		
 		ModelAndView model = new ModelAndView("modifyCompRecipePage");
 		
@@ -164,18 +164,18 @@ public class ControllerRicette {
 		String[] values = request.split("&");
 		String ricetta = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
 		String comp="";
-		IngredienteDAO.deleteComponent(ricetta);
+		ingredienteDAO.deleteComponent(ricetta);
 		for (int i = 0; i < values.length-1; ++i)
 		  {
 		      if(values[i].contains("comp"))
 		        comp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	  IngredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	  ingredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("modifyToolsRecipePage");
 		
-		List<Attrezzo> listAttrezzi = AttrezzoDAO.list(true);
-		List<String> listRecTools = AttrezzoDAO.getTools(Integer.parseInt(ricetta));
+		List<Attrezzo> listAttrezzi = attrezzoDAO.list(true);
+		List<String> listRecTools = attrezzoDAO.getTools(Integer.parseInt(ricetta));
 		
 		model.addObject("listRecTools", listRecTools);
 		model.addObject("listAttrezzi", listAttrezzi);
@@ -188,13 +188,13 @@ public class ControllerRicette {
 		String[] values = request.split("&");
 		String ricetta = values[values.length-1].substring(values[values.length-1].lastIndexOf("=") + 1);
 		String eqp="";
-		AttrezzoDAO.deleteRecTool(ricetta);
+		attrezzoDAO.deleteRecTool(ricetta);
 		for (int i = 0; i < values.length-1; ++i)
 		  {
 		      if(values[i].contains("eqp"))
 		        eqp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	AttrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("redirect:/recipes");
 		return model;
@@ -208,7 +208,7 @@ public class ControllerRicette {
 		String[] values = request.split("&");
 		String nome = values[0].split("=")[1].replace("%26","&");
 		String autore = values[1].split("=")[1];
-		List<Ricetta> listRicette = RicettaDAO.list(nome,autore);
+		List<Ricetta> listRicette = ricettaDAO.list(nome,autore);
 		model.addObject("listRicette", listRicette);
 		return model;
 	}
@@ -221,7 +221,7 @@ public class ControllerRicette {
 		String[] values = request.split("&");
 		String nome = values[0].split("=")[1].replace("%26","&");
 		String autore = values[1].split("=")[1];
-		List<Ricetta> listRicette = RicettaDAO.list(nome,autore);
+		List<Ricetta> listRicette = ricettaDAO.list(nome,autore);
 		model.addObject("listRicette", listRicette);
 		return model;
 	}
@@ -233,13 +233,13 @@ public class ControllerRicette {
 		r.setProcedimento(decodeInserimento(r.getProcedimento()));
 		r.setDescrizione(decodeInserimento(r.getDescrizione()));
 		
-		int ricettaID = RicettaDAO.save(r);
+		int ricettaID = ricettaDAO.save(r);
 		
-		List<Ingrediente> listMalto = IngredienteDAO.list("Malto");
-		List<Ingrediente> listZucchero = IngredienteDAO.list("Zucchero");
-		List<Ingrediente> listLuppolo = IngredienteDAO.list("Luppolo");
-		List<Ingrediente> listLievito = IngredienteDAO.list("Lievito");
-		List<Ingrediente> listAdditivo = IngredienteDAO.list("Additivo");
+		List<Ingrediente> listMalto = ingredienteDAO.list("Malto");
+		List<Ingrediente> listZucchero = ingredienteDAO.list("Zucchero");
+		List<Ingrediente> listLuppolo = ingredienteDAO.list("Luppolo");
+		List<Ingrediente> listLievito = ingredienteDAO.list("Lievito");
+		List<Ingrediente> listAdditivo = ingredienteDAO.list("Additivo");
 		
 		ModelAndView model = new ModelAndView("recipesAddComponents");
 		model.addObject("listMalto", listMalto);
@@ -262,10 +262,10 @@ public class ControllerRicette {
 		      if(values[i].contains("comp"))
 		        comp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	IngredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	ingredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("recipesAddEquipments");
-		List<Attrezzo> listAttrezzi = AttrezzoDAO.list(true);
+		List<Attrezzo> listAttrezzi = attrezzoDAO.list(true);
 		model.addObject("listAttrezzi", listAttrezzi);
 		return model;
 	}
@@ -280,7 +280,7 @@ public class ControllerRicette {
 		      if(values[i].contains("eqp"))
 		        eqp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	AttrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("redirect:/recipes");
 		return model;
