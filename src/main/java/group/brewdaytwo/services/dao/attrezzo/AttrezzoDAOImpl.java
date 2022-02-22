@@ -26,16 +26,13 @@ private JdbcTemplate jdbcTemplate;
 			sql = "SELECT * FROM tools where capacita_max = 0";
 		else 
 			sql = "SELECT * FROM tools where capacita_max > 0";
-		List<Attrezzo> listAttrezzo = jdbcTemplate.query(sql, new RowMapper<Attrezzo>() {
+		return jdbcTemplate.query(sql, new RowMapper<Attrezzo>() {
 
 			@Override
 			public Attrezzo mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Attrezzo attrezzo = new Attrezzo(rs.getInt("ID"), rs.getString("nome"),rs.getDouble("capacita_max"));
-				return attrezzo;
+				return new Attrezzo(rs.getInt("ID"), rs.getString("nome"),rs.getDouble("capacita_max"));
 			}
 		});
-		
-		return listAttrezzo;
 	}
 
 	@Override
@@ -57,16 +54,13 @@ private JdbcTemplate jdbcTemplate;
 	{
 		String[] args = {utente};
 		String sql = "SELECT tools.ID,tools.nome,quantita,capacita_max as capMax FROM brewers_equipments join tools on strumento=tools.ID where birraio = ?";
-		List<String> tools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
+		return jdbcTemplate.query(sql,args, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String t = rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita") + " - " + rs.getDouble("capMax");
-				return t;
+				return rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita") + " - " + rs.getDouble("capMax");
 			}
 		});
-		
-		return tools;
 	}
 	
 	@Override
@@ -86,16 +80,13 @@ private JdbcTemplate jdbcTemplate;
 	public List<String> getTools(int ricettaID) {
 		Integer[] args= {ricettaID};
 		String sql = "SELECT tools.ID,tools.nome,quantita FROM recipes_equipments join tools on strumento=tools.ID where ricetta = ?";
-		List<String> tools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
+		return jdbcTemplate.query(sql,args, new RowMapper<String>() {
 
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String t = rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita");
-				return t;
+				return rs.getInt("ID") + " - " + rs.getString("nome") + " - " + rs.getInt("quantita");
 			}
 		});
-		
-		return tools;
 	}
 	
 	@Override

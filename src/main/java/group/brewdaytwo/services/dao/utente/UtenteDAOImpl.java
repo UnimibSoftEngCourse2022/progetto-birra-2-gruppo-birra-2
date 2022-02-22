@@ -51,8 +51,7 @@ public class UtenteDAOImpl implements UtenteDAO {
 			public Utente extractData(ResultSet rs) throws SQLException,
 					DataAccessException {
 				if (rs.next()) {
-					Utente utente = new Utente(rs.getString("nickname"),rs.getString("email"),rs.getString("password"));
-					return utente;
+					return new Utente(rs.getString("nickname"),rs.getString("email"),rs.getString("password"));
 				}
 				return null;
 			}

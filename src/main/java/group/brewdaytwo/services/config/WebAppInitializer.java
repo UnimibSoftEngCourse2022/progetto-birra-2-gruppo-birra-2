@@ -8,8 +8,6 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-//import group.brewdaytwo.config.MvcConfig;
-
 public class WebAppInitializer implements WebApplicationInitializer {
 
 	@Override

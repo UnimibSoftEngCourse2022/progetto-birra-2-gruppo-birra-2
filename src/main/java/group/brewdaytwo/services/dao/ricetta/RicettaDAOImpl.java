@@ -65,8 +65,7 @@ public class RicettaDAOImpl implements RicettaDAO {
 			public Ricetta extractData(ResultSet rs) throws SQLException,
 					DataAccessException {
 				if (rs.next()) {
-					Ricetta ricetta = new Ricetta(rs.getInt("ID"),rs.getString("nome"),rs.getString("procedimento"), rs.getString("descrizione"), rs.getString("autore"));
-					return ricetta;
+					return new Ricetta(rs.getInt("ID"),rs.getString("nome"),rs.getString("procedimento"), rs.getString("descrizione"), rs.getString("autore"));
 				}
 				return null;
 			}
@@ -77,20 +76,18 @@ public class RicettaDAOImpl implements RicettaDAO {
 	public List<Ricetta> list(String nome,String autore) {
 		String[] args = {nome,autore};
 		String sql = "SELECT * FROM recipes where nome LIKE \"%\"?\"%\" AND autore = ?";
-		List<Ricetta> listRicette = jdbcTemplate.query(sql,args, new RowMapper<Ricetta>() {
+		return jdbcTemplate.query(sql,args, new RowMapper<Ricetta>() {
 
 			@Override
 			public Ricetta mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Ricetta ricetta = new Ricetta(rs.getInt("ID"), rs.getString("nome"), null, rs.getString("descrizione"),autore);
-				return ricetta;
+				return new Ricetta(rs.getInt("ID"), rs.getString("nome"), null, rs.getString("descrizione"),autore);
 			}
 		});
-		return listRicette;
 	}
 	
 	@Override
 	public Ricetta getCDPO(String autore) {
-		String args[] = {autore,autore,autore,autore};
+		String[] args = {autore,autore,autore,autore};
 		String sql = "select distinct r1.r"
 				+ " from"
 				+ " (select distinct ricetta as r"
@@ -128,8 +125,7 @@ public class RicettaDAOImpl implements RicettaDAO {
 			public Integer extractData(ResultSet rs) throws SQLException,
 					DataAccessException {
 				if (rs.next()) {
-					int r = rs.getInt("r");
-					return r;
+					return rs.getInt("r");
 				}
 				return 0;
 			}
@@ -208,12 +204,11 @@ public class RicettaDAOImpl implements RicettaDAO {
 				+ " on t1.nome = t2.nome"
 				+ " order by nome desc,capMax desc;";
 		
-		List<String> UserTools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
+		List<String> userTools = jdbcTemplate.query(sql,args, new RowMapper<String>() {
 			
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String i = rs.getString("nome") + " - " + rs.getDouble("capMax") + " - " + rs.getString("qtn");
-				return i;
+				return rs.getString("nome") + " - " + rs.getDouble("capMax") + " - " + rs.getString("qtn");
 			}
 		});
 		
@@ -222,27 +217,26 @@ public class RicettaDAOImpl implements RicettaDAO {
 				+ " join recipes_equipments as RE on tools.id = RE.strumento where ricetta = ?"
 				+ " order by nome desc;";
 		
-		List<String> RecTools = jdbcTemplate.query(sql,arg, new RowMapper<String>() {
+		List<String> recTools = jdbcTemplate.query(sql,arg, new RowMapper<String>() {
 			
 			@Override
 			public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-				String i = rs.getString("nome") + " - " + rs.getString("quantita");
-				return i;
+				return rs.getString("nome") + " - " + rs.getString("quantita");
 			}
 		});
 		
 		double mincap= 50.0;
 		
-		for(int i=0; i<RecTools.size();i++)
+		for(int i=0; i<recTools.size();i++)
 		{
 			boolean flag = true;
-			String nomeRt= RecTools.get(i).split(" - ")[0];
-			int qtnAttRt = Integer.parseInt(RecTools.get(i).split(" - ")[1]);
-			for(int j=0; j<UserTools.size() && flag; j++)
+			String nomeRt= recTools.get(i).split(" - ")[0];
+			int qtnAttRt = Integer.parseInt(recTools.get(i).split(" - ")[1]);
+			for(int j=0; j<userTools.size() && flag; j++)
 			{
-				String nomeUt = UserTools.get(j).split(" - ")[0];
-				double capMax = Double.parseDouble(UserTools.get(j).split(" - ")[1]);
-				int qtnattUt = Integer.parseInt(UserTools.get(j).split(" - ")[2]);
+				String nomeUt = userTools.get(j).split(" - ")[0];
+				double capMax = Double.parseDouble(userTools.get(j).split(" - ")[1]);
+				int qtnattUt = Integer.parseInt(userTools.get(j).split(" - ")[2]);
 				if(nomeRt.equals(nomeUt))
 					qtnAttRt -= qtnattUt;
 				if(qtnAttRt <= 0)

@@ -10,6 +10,6 @@ public interface BirraDAO {
 	
 	public List<String> getBirre(String autore);
 	
-	public List<String> controlloCreaBirra(int IDRicetta, double quantità, String autore);
+	public List<String> controlloCreaBirra(int iDRicetta, double quantita, String autore);
 	
 }
