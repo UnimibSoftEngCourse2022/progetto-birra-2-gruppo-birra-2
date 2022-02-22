@@ -4,21 +4,21 @@ import java.util.Objects;
 
 public class Attrezzo {
 
-	private int ID;
+	private int iD;
 	private String nome;
 	private double capacitaMax;
 	
 	public Attrezzo(int iD, String nome, double capacitaMax) {
 		super();
-		ID = iD;
+		this.iD = iD;
 		this.nome = nome;
 		this.capacitaMax = capacitaMax;
 	}
 	public int getID() {
-		return ID;
+		return iD;
 	}
 	public void setID(int iD) {
-		ID = iD;
+		this.iD = iD;
 	}
 	public String getNome() {
 		return nome;
@@ -35,7 +35,7 @@ public class Attrezzo {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID, capacitaMax, nome);
+		return Objects.hash(iD, capacitaMax, nome);
 	}
 	
 	@Override
@@ -47,7 +47,7 @@ public class Attrezzo {
 		if (getClass() != obj.getClass())
 			return false;
 		Attrezzo other = (Attrezzo) obj;
-		return ID == other.ID && Double.doubleToLongBits(capacitaMax) == Double.doubleToLongBits(other.capacitaMax)
+		return iD == other.iD && Double.doubleToLongBits(capacitaMax) == Double.doubleToLongBits(other.capacitaMax)
 				&& Objects.equals(nome, other.nome);
 	}
 	

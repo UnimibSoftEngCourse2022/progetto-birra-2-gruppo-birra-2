@@ -4,27 +4,27 @@ import java.util.Objects;
 
 public class Birra {
 	
-	private int ID; 
+	private int iD; 
 	private String note;  
 	private double quantita;
 	private String autore; 
-	private int IDRicetta; 
+	private int iDRicetta; 
 	
 	public Birra(int iD, String n, double q, String aut, int idr) {
-		this.ID = iD;
+		this.iD = iD;
 		this.note = n; 
 		this.quantita = q;
 		this.autore = aut; 
-		this.IDRicetta = idr; 
+		this.iDRicetta = idr; 
 	}
 	
 	
 	public int getID() {
-		return this.ID; 
+		return this.iD; 
 	}
 	
 	public int getIDRicetta() {
-		return this.IDRicetta; 
+		return this.iDRicetta; 
 	}
 	
 	public double getQuantita() {
@@ -41,11 +41,11 @@ public class Birra {
 	
 	
 	public void setID(int iD) {
-		this.ID = iD;
+		this.iD = iD;
 	}
 	
 	public void setIDRicetta(int r) {
-		this.IDRicetta = r; 
+		this.iDRicetta = r; 
 	}
 	
 	public void setQuantita(double q) {
@@ -65,7 +65,7 @@ public class Birra {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID, note, quantita, autore, IDRicetta);
+		return Objects.hash(iD, note, quantita, autore, iDRicetta);
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class Birra {
 		if (getClass() != obj.getClass())
 			return false;
 		Birra other = (Birra) obj;
-		return this.ID == other.ID && Objects.equals(this.IDRicetta, other.IDRicetta) && Objects.equals(this.quantita, other.quantita)
+		return this.iD == other.iD && Objects.equals(this.iDRicetta, other.iDRicetta) && Objects.equals(this.quantita, other.quantita)
 				&& Objects.equals(this.autore, other.autore) && Objects.equals(this.note, other.note); 
 	}
 

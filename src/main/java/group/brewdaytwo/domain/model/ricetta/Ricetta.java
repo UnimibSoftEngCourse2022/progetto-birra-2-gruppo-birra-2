@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Ricetta {
 	
-	private int ID;
+	private int iD;
 	private String nome;
 	private String procedimento;
 	private String descrizione;
@@ -12,7 +12,7 @@ public class Ricetta {
 	
 	public Ricetta(int iD, String nome, String procedimento, String descrizione, String autore) {
 		super();
-		ID = iD;
+		this.iD = iD;
 		this.nome = nome;
 		this.procedimento = procedimento;
 		this.descrizione = descrizione;
@@ -20,10 +20,10 @@ public class Ricetta {
 	}
 	
 	public int getID() {
-		return ID;
+		return iD;
 	}
 	public void setID(int iD) {
-		ID = iD;
+		this.iD = iD;
 	}
 	public String getNome() {
 		return nome;
@@ -52,7 +52,7 @@ public class Ricetta {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID, autore, descrizione, nome, procedimento);
+		return Objects.hash(iD, autore, descrizione, nome, procedimento);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class Ricetta {
 		if (getClass() != obj.getClass())
 			return false;
 		Ricetta other = (Ricetta) obj;
-		return ID == other.ID && Objects.equals(autore, other.autore) && Objects.equals(descrizione, other.descrizione)
+		return iD == other.iD && Objects.equals(autore, other.autore) && Objects.equals(descrizione, other.descrizione)
 				&& Objects.equals(nome, other.nome) && Objects.equals(procedimento, other.procedimento);
 	}
 
