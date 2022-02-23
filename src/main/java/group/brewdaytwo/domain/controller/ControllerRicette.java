@@ -69,8 +69,10 @@ public class ControllerRicette {
 		input = input.replace("%C3%82%C2%B0", "°");
 		input = input.replace("%23", "#");
 		input = input.replace("%C3%82%C2%A7", "§");
+		input = input.replace("%0D%0A", " ");
 		
 		input = input.replace("%22", "");
+		
 		return input;
 	}
 	
@@ -87,6 +89,7 @@ public class ControllerRicette {
 		input = input.replace("Â°", "°");
 		input = input.replace("Â§", "§");
 		input = input.replace("\"", "");
+		
 		return input;
 	}
 

@@ -88,14 +88,9 @@ public class RicettaDAOImpl implements RicettaDAO {
 	@Override
 	public Ricetta getCDPO(String autore) {
 		String[] args = {autore,autore,autore,autore};
-		String sql = "select distinct r1.r"
-				+ " from"
-				+ " (select distinct ricetta as r"
-				+ " from components"
-				+ " group by r"
-				+ " order by count(ingrediente) desc, sum(quantita) desc) as r1"
+		String sql = " (SELECT ID as r FROM recipes"
 				+ " join"
-				+ " (SELECT ID FROM recipes"
+				+ " components as c1 on recipes.ID = c1.ricetta"
 				+ " WHERE autore = ?"
 				+ " AND"
 				+ " ID NOT IN"
@@ -116,8 +111,9 @@ public class RicettaDAOImpl implements RicettaDAO {
 				+ " where tools.nome = t1.nome and birraio = ?"
 				+ " group by tools.nome) as e) as c,"
 				+ " brewers_equipments as BE join tools as t2 on t2.id = BE.strumento"
-				+ " WHERE birraio = ? AND RE.quantita <= c.num))) as r2"
-				+ " on r1.r=r2.ID"
+				+ " WHERE birraio = ? AND RE.quantita <= c.num))"
+				+ " group by ID"
+				+ " order by count(ingrediente) desc, sum(quantita) desc)"
 				+ " limit 1;";
 		int idricetta = jdbcTemplate.query(sql,args, new ResultSetExtractor<Integer>() {
 

@@ -67,7 +67,7 @@
 		var ricette = new Array();
 		var quantita = "";
 		<c:forEach var="recipes" items="${listRicetta}">
-			ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));                              
+			ricette.push(new Array("${recipes.ID}","${recipes.nome}",`${recipes.descrizione}`));                              
 		</c:forEach>
 		
 		<c:forEach var="qtn" items="${listQuantita}">

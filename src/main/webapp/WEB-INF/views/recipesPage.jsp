@@ -61,9 +61,9 @@
 
             var ricette = new Array();
             <c:forEach var="recipes" items="${listRicette}">
-                ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));
+                ricette.push(new Array("${recipes.ID}","${recipes.nome}",`${recipes.descrizione}`));
             </c:forEach>
-
+            
             var number = Math.floor(Math.random() * 5);
             var img = "${honeyPNG}";
 
@@ -85,7 +85,7 @@
                     <recipe-card 
                         image="`+img+`"
                         title="`+val[1]+`" 
-                        description="`+val[2]+`" 
+                        description="`+val[2]+`"
                         elementClicked="location.href='editRecipe?id='+`+val[0]+`+'';">
                     </recipe-card>
             `;

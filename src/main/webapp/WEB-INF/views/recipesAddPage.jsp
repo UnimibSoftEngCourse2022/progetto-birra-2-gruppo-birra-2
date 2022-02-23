@@ -55,7 +55,7 @@
 						<label class="insert" for="nome">Nome</label>
 						<input type="hidden" id="iD" name="iD" value="0"/>
 						<input class="insert" type="text" id="nome" name="nome" value="" 
-							pattern="^[^-\s][A-Za-z0-9!&()?'ìèé-ùàò_.:,;\s-]{3,}$"
+							pattern="^[^-\s][A-Za-z0-9!&()?ìèé-ùàò_.:,;\s-]{3,}$"
 							required 
 							oninvalid="this.setCustomValidity('Nome non consentito')"
 							oninput="this.setCustomValidity('')"/>

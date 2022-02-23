@@ -80,9 +80,9 @@
 			}
 
 			function showError(e) {
-				nicknameRE = /^[A-Za-z0-9'.!_#^~-]{3,}$/;
-				emailRE = /^[A-Za-z0-9.!#$%&'*+-/=?^_`{|}~]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-				passwordRE = /^[A-Za-z0-9.!#$%&'*+-/=?^_`{|}~]{4,20}$/;
+				nicknameRE = /^[A-Za-z0-9.!_#^~-]{3,}$/;
+				emailRE = /^[A-Za-z0-9.!#$%&*+-/=?^_`{|}~]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+				passwordRE = /^[A-Za-z0-9.!#$%&*+-/=?^_`{|}~]{4,20}$/;
 
 				var nickname = document.getElementById('nickname');
 				var password = document.getElementById('password');

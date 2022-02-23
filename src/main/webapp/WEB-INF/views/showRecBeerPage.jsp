@@ -81,7 +81,7 @@
 
 			var ricette = new Array();
 			<c:forEach var="recipes" items="${listRicette}">
-				ricette.push(new Array("${recipes.ID}","${recipes.nome}","${recipes.descrizione}"));
+				ricette.push(new Array("${recipes.ID}","${recipes.nome}",`${recipes.descrizione}`));
 			</c:forEach>
 
 			var number = Math.floor(Math.random() * 5);

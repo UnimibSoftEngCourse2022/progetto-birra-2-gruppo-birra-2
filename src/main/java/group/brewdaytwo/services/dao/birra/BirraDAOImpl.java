@@ -148,16 +148,16 @@ public class BirraDAOImpl implements BirraDAO{
 			
 			for(int i=0; i< ingredientiMancanti.size(); i++) {
 				if(ingredientiMancanti.get(i).contains("Acqua"))
-					spesa.add(ingredientiMancantiQ.get(i) + "L di " + ingredientiMancanti.get(i));
+					spesa.add(Math.round(ingredientiMancantiQ.get(i) * 100.0)/100.0 + "L di " + ingredientiMancanti.get(i));
 				else
-					spesa.add(ingredientiMancantiQ.get(i) + "g di "+ ingredienteDAO.getTipo(ingredientiMancanti.get(i)) + " " + ingredientiMancanti.get(i)); 
+					spesa.add(Math.round(ingredientiMancantiQ.get(i) * 100.0)/100.0 + "g di "+ ingredienteDAO.getTipo(ingredientiMancanti.get(i)) + " " + ingredientiMancanti.get(i)); 
 			}
 			
 			for(int i=0; i< ingInsuff.size(); i++) {
 				if(ingInsuff.get(i).contains("Acqua"))
-					spesa.add(ingInsuffQ.get(i) + "L di " + ingInsuff.get(i));
+					spesa.add(Math.round(ingInsuffQ.get(i) * 100.0)/100.0 + "L di " + ingInsuff.get(i));
 				else
-					spesa.add(ingInsuffQ.get(i) + "g di " + ingredienteDAO.getTipo(ingInsuff.get(i)) + " " + ingInsuff.get(i)); 
+					spesa.add(Math.round(ingInsuffQ.get(i) * 100.0)/100.0 + "g di " + ingredienteDAO.getTipo(ingInsuff.get(i)) + " " + ingInsuff.get(i)); 
 			}
 		}
 		return spesa;
