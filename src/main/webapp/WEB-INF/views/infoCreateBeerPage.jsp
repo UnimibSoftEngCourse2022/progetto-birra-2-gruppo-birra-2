@@ -74,8 +74,8 @@
 					<div class="VStack">
 
 						<label class="insert" for="nome">Quantità</label>
-						<input class="insert" type="number" 
-						min=0 max=50 id="quantita" name="quantita" value="" 
+						<input class="insert" type="number" step=".01"
+						min=0.01 max=50 id="quantita" name="quantita" value="" 
 						required />
 
 						<input type="hidden" id="autore" name="autore" value="${autore}"/>

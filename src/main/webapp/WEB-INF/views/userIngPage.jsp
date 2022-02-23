@@ -194,7 +194,7 @@
 				qa.classList = "quantità";
 
 				if(type == 'Acqua') {
-					qa.placeholder = "10%";
+					qa.placeholder = "10L";
 				} else {
 					qa.placeholder = "2g";
 				}
@@ -344,7 +344,7 @@
 				qa.classList = "quantità";
 
 				if(tipo == 'Acqua') {
-					qa.placeholder = "10%";
+					qa.placeholder = "10L";
 				} else {
 					qa.placeholder = "2g";
 				}

@@ -134,7 +134,7 @@ public class BirraDAOImpl implements BirraDAO{
 						ingredienteDAO.deleteOneUserIng(autore, h.get(i));
 						
 						if(quantMag.get(j) - quant.get(i) > 0) {
-							ingredienteDAO.saveUserIng(autore, c.get(i), quantMag.get(j) - quant.get(i));
+							ingredienteDAO.saveUserIng(autore, c.get(i), Math.round((quantMag.get(j) - quant.get(i)) * 100.0) / 100.0);
 						}
 					}
 				}
