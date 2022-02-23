@@ -2,7 +2,7 @@ body div.ContainerForm {
     padding: 30px 30px;
     width: max-content;
     height: max-content;
-    margin: 30px auto;
+    margin-inline: auto;
   }
   
   textarea#procedimento {
