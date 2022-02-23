@@ -86,7 +86,7 @@
 						<textarea id="note" name="note"></textarea>
 						
 						<div class="HStack">
-							<input class="send" type="submit" id="submit" value="Crea Birra"/>
+							<input class="send" type="submit" id="submit" value="Salva"/>
 						</div>
 
 					</div>
