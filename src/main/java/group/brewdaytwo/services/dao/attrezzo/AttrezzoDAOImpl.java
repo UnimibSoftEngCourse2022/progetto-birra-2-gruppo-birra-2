@@ -90,10 +90,10 @@ private JdbcTemplate jdbcTemplate;
 	}
 	
 	@Override
-	public int getNumAtt(String attrezzo, double q) {
+	public int getNumAtt(String attrezzo, double q, String autore) {
 		String qstr = q +"";
-		String[] args = {attrezzo, qstr};
-		String sql = "SELECT SUM(quantita) FROM tools JOIN brewers_equipments ON strumento=tools.id  WHERE nome= ? AND capacita_max >= ?"; 
+		String[] args = {attrezzo, autore, qstr};
+		String sql = "SELECT SUM(quantita) FROM tools JOIN brewers_equipments ON strumento=tools.id  WHERE nome= ? AND birraio=? AND capacita_max >= ?"; 
 		int n;
 		if(jdbcTemplate.queryForObject(sql, args, Integer.class) == null) {
 			n=0; 

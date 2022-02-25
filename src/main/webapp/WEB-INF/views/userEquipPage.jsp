@@ -19,7 +19,6 @@
 		<!-- External Files -->
 		<spring:url value="/resources/assets/+.png" var="plusPNG" />
 		<spring:url value="/resources/assets/-.png" var="minusPNG" />
-		<spring:url value="/resources/assets/lente.png" var="lentePNG" />
 		<spring:url value="/resources/assets/logo.png" var="logoPNG" />
 		<link href="${logoPNG}" rel="icon" />
 

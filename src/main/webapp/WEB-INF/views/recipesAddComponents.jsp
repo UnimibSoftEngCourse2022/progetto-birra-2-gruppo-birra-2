@@ -108,6 +108,7 @@
 	
 	function add_comp() 
 	{
+		document.getElementById("Invia").disabled = false;
 		var div = document.getElementById("container");
 		var divchild = div.lastElementChild;
 		var flag = true;

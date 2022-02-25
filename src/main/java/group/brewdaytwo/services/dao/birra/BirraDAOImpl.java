@@ -77,7 +77,7 @@ public class BirraDAOImpl implements BirraDAO{
 			am.add(attrezziRicetta.get(i).split(" - ")[1]);
 			int tmp = Integer.parseInt(attrezziRicetta.get(i).split(" - ")[2]); 
 			amQ.add(tmp); 
-			auQ.add(attrezzoDAO.getNumAtt(am.get(i), q));
+			auQ.add(attrezzoDAO.getNumAtt(am.get(i), q,autore));
 			if(amQ.get(i)> auQ.get(i) ) {
 				attrezziSpesa.add(am.get(i)); 
 				attrezziSpesaQ.add(amQ.get(i) - auQ.get(i)); 

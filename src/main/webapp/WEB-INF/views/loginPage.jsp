@@ -73,7 +73,7 @@
                 }
 
                 function showError(e) {
-                    nicknameRE = /^[A-Za-z0-9.!_#^~-]{3,}$/;
+                    nicknameRE = /^[A-Za-z0-9._-]{3,}$/;
                     passwordRE = /^[A-Za-z0-9.!#$%&*+-/=?^_`{|}~]{4,20}$/;
 
                     var nickname = document.getElementById('nickname');

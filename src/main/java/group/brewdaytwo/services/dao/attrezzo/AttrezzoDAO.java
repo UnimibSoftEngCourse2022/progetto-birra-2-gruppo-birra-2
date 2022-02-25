@@ -20,6 +20,6 @@ public interface AttrezzoDAO {
 	
 	public void deleteUserTool(String u);
 	
-	public int getNumAtt(String attrezzo, double q); 
+	public int getNumAtt(String attrezzo, double q, String autore);
 	
 }

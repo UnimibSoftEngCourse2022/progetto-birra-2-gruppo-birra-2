@@ -49,7 +49,7 @@ public class ControllerRicette {
 		input = input.replace("%2C", ",");
 		input = input.replace("%3B", ";");
 		
-		input = input.replace("%60", "`");
+		input = input.replace("%60", "");
 		input = input.replace("%7E", "~");
 		input = input.replace("%7D", "}");
 		input = input.replace("%7B", "{");
