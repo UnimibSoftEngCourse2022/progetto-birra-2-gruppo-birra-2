@@ -62,7 +62,7 @@ public class ControllerUtente {
 		      if(values[i].contains("eqp"))
 		        eqp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	attrezzoDAO.saveUserTool(autore,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	  attrezzoDAO.saveUserTool(autore,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		return new ModelAndView("redirect:/homePage");
 	}

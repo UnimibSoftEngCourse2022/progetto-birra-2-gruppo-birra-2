@@ -195,7 +195,7 @@ public class ControllerRicette {
 		      if(values[i].contains("eqp"))
 		        eqp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	  attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		return new ModelAndView("redirect:/recipes");
 	}
@@ -262,7 +262,7 @@ public class ControllerRicette {
 		      if(values[i].contains("comp"))
 		        comp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	ingredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	  ingredienteDAO.saveComponent(ricetta,comp, Double.parseDouble(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		ModelAndView model = new ModelAndView("recipesAddEquipments");
 		List<Attrezzo> listAttrezzi = attrezzoDAO.list(true);
@@ -280,7 +280,7 @@ public class ControllerRicette {
 		      if(values[i].contains("eqp"))
 		        eqp = values[i].substring(values[i].lastIndexOf("=") + 1);
 		      else
-		    	attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
+		    	  attrezzoDAO.saveRecEquipment(ricetta,eqp, Integer.parseInt(values[i].substring(values[i].lastIndexOf("=") + 1)));
 		  }
 		return new ModelAndView("redirect:/recipes");
 	}
